@@ -80,7 +80,7 @@ export default function Pricing() {
                 : 'text-blue-200 hover:text-white'
               }`}
             >
-              Step 1: Build ROI
+              Package Options
             </button>
             <button
               onClick={() => setPricingMode('support')}
@@ -90,7 +90,7 @@ export default function Pricing() {
                 : 'text-blue-200 hover:text-white'
               }`}
             >
-              Step 2: Maintain Value
+              Pay As You Go!
             </button>
           </div>
         </div>
@@ -102,13 +102,13 @@ export default function Pricing() {
                 key={i} 
                 className={`relative flex flex-col p-8 rounded-3xl border transition-all duration-500 ${
                   plan.featured 
-                  ? 'bg-white/10 backdrop-blur-xl border-accent/50 shadow-2xl z-10 scale-105' 
-                  : 'bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10'
+                  ? 'bg-white/10 backdrop-blur-xl border-accent/50 shadow-[0_0_30px_rgba(255,165,0,0.25)] z-20 scale-105' 
+                  : 'bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 z-10'
                 }`}
               >
                 {plan.featured && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-lg">
-                    Highest ROI
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg z-30 whitespace-nowrap">
+                    Recommended
                   </div>
                 )}
                 
