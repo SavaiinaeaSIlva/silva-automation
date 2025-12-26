@@ -5,7 +5,7 @@ import Button from './ui/Button';
 // Proper Vite import: This ensures the path is correct after deployment
 import logo from '../assets/images/logo.png'; 
 
-const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => {
+const Header = React.memo(({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -55,6 +55,6 @@ const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => 
       </div>
     </header>
   );
-};
+});
 
 export default Header;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionHeading } from '../components/ui';
+import { Reveal } from '../components';
 
 const steps = [
   { step: "01", title: "Assessment", desc: "We review your current tools and workflows to identify where automation makes sense." },
@@ -17,32 +18,36 @@ const HowItWorks = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <SectionHeading 
-          title="Clear Process. Defined Scope." 
-          subtitle="No black boxes. Just a straightforward path from chaos to clarity." 
-        />
+        <Reveal animation="fade-in" delay={0}>
+          <SectionHeading 
+            title="Clear Process. Defined Scope." 
+            subtitle="No black boxes. Just a straightforward path from chaos to clarity." 
+          />
+        </Reveal>
         
         <div className="grid md:grid-cols-4 gap-8 lg:gap-12 mt-16">
           {steps.map((item, i) => (
-            <div key={i} className="relative flex flex-col items-start group">
-              
-              {/* Connecting Line (Desktop Only) */}
-              {i !== steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-20 right-[-20%] h-[2px] bg-slate-200 group-hover:bg-blue-200 transition-colors" />
-              )}
-              
-              {/* Step Number */}
-              <div className="relative z-10 w-16 h-16 rounded-xl bg-white border-2 border-slate-100 flex items-center justify-center text-2xl font-black text-primary shadow-lg mb-6 group-hover:-translate-y-1 transition-transform duration-300">
-                {item.step}
-              </div>
+            <Reveal key={i} animation="scale-in" delay={i * 200}>
+              <div className="relative flex flex-col items-start group">
+                
+                  {/* Connecting Line (Desktop Only) */}
+                  {i !== steps.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-20 right-[-20%] h-[2px] bg-slate-200 group-hover:bg-blue-200 transition-colors" />
+                  )}
+                  
+                  {/* Step Number */}
+                  <div className="relative z-10 w-16 h-16 rounded-xl bg-white border-2 border-slate-100 flex items-center justify-center text-2xl font-black text-primary shadow-lg mb-6 group-hover:-translate-y-1 transition-transform duration-300">
+                    {item.step}
+                  </div>
 
-              <h3 className="text-xl font-bold mb-3 text-primary">
-                {item.title}
-              </h3>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                {item.desc}
-              </p>
-            </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed text-sm">
+                    {item.desc}
+                  </p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>

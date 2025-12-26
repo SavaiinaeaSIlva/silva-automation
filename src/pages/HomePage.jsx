@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Header, Footer, MobileMenu } from '../components';
-import BackToTop from '../components/BackToTop';
-import CookieBanner from '../components/CookieBanner';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Header, Footer, MobileMenu, BackToTop, CookieBanner } from '../components';
 import { 
   Hero, WhatIDo, UseCases, HowItWorks, ROICalculator, Pricing, About, Contact 
 } from '../sections';
@@ -25,13 +23,13 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = useCallback((id) => {
     setMobileMenuOpen(false);
     const element = document.querySelector(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white selection:bg-blue-100 selection:text-primary">

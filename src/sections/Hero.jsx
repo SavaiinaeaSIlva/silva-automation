@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../components/ui';
+import { Reveal } from '../components';
 
 const Hero = () => {
   return (
@@ -13,25 +14,31 @@ const Hero = () => {
 
       {/* Content */}
       <div className="container relative z-10 mx-auto max-w-5xl px-6 text-center">
-        <h1 className="animate-reveal-up mb-8 text-5xl font-extrabold tracking-tight text-white drop-shadow-lg md:text-7xl">
-          Stop Subscribing. <br />
-          <span className="bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
-            Start Owning.
-          </span>
-        </h1>
+        <Reveal animation="reveal-up" delay={0}>
+          <h1 className="mb-8 text-5xl font-extrabold tracking-tight text-white drop-shadow-lg md:text-7xl">
+            Stop Subscribing. <br />
+            <span className="bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
+              Start Owning.
+            </span>
+          </h1>
+        </Reveal>
         
-        <p className="animate-reveal-up animate-delay-200 mx-auto mb-12 max-w-3xl text-xl leading-relaxed text-blue-100 md:text-2xl">
-          We build custom cloud workflows that you own forever.
-        </p>
+        <Reveal animation="reveal-up" delay={200}>
+          <p className="mx-auto mb-12 max-w-3xl text-xl leading-relaxed text-blue-100 md:text-2xl">
+            We build custom cloud workflows that you own forever.
+          </p>
+        </Reveal>
 
-        <div className="animate-reveal-up animate-delay-400 flex flex-col justify-center gap-5 sm:flex-row">
-          <Button variant="white" href="https://calendly.com/silvaautomation/consultation" className="px-12 py-4 text-lg">
-            Free Consultation
-          </Button>
-          <Button variant="outline-white" href="#how-it-works" className="px-12 py-4 text-lg">
-            Our Process
-          </Button>
-        </div>
+        <Reveal animation="reveal-up" delay={400}>
+          <div className="flex flex-col justify-center gap-5 sm:flex-row">
+            <Button variant="white" href="https://calendly.com/silvaautomation/consultation" className="px-12 py-4 text-lg">
+              Free Consultation
+            </Button>
+            <Button variant="outline-white" href="#how-it-works" className="px-12 py-4 text-lg">
+              Our Process
+            </Button>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
