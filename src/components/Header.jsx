@@ -2,6 +2,9 @@ import React from 'react';
 import { Menu } from 'lucide-react';
 import Button from './ui/Button';
 
+// Proper Vite import: This ensures the path is correct after deployment
+import logo from '../assets/images/logo.png'; 
+
 const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => {
   return (
     <header 
@@ -15,15 +18,18 @@ const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => 
         
         {/* LOGO AREA */}
         <div 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="cursor-pointer flex items-center gap-2"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          className="cursor-pointer flex items-center gap-2 group"
         >
-            {/* Make sure your logo is in src/assets/images/logo.png */}
-            <img 
-                src="/src/assets/images/logo.png" 
-                alt="Silva Automation" 
-                className="h-10 w-auto object-contain" 
-            />
+          <img 
+            src={logo} 
+            alt="Silva Automation Logo" 
+            className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
+          />
+          {/* Optional: Add text if your logo is just an icon */}
+          <span className={`font-bold text-xl ${scrolled ? 'text-slate-900' : 'text-slate-800'}`}>
+            Silva Automation
+          </span>
         </div>
 
         {/* DESKTOP NAV */}
@@ -32,7 +38,7 @@ const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => 
             <button
               key={link.name}
               onClick={() => scrollToSection(link.href)}
-              className="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
             >
               {link.name}
             </button>
@@ -44,8 +50,9 @@ const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => 
 
         {/* MOBILE TOGGLE */}
         <button 
-          className="md:hidden p-2 text-slate-600 hover:text-primary"
+          className="md:hidden p-2 text-slate-600 hover:text-blue-600"
           onClick={() => setMobileMenuOpen(true)}
+          aria-label="Open Menu"
         >
           <Menu size={28} />
         </button>
