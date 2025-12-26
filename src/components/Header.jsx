@@ -26,10 +26,6 @@ const Header = ({ scrolled, setMobileMenuOpen, NAV_LINKS, scrollToSection }) => 
             alt="Silva Automation Logo" 
             className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" 
           />
-          {/* Optional: Add text if your logo is just an icon */}
-          <span className={`font-bold text-xl ${scrolled ? 'text-slate-900' : 'text-slate-800'}`}>
-            Silva Automation
-          </span>
         </div>
 
         {/* DESKTOP NAV */}
