@@ -2,6 +2,8 @@
 import { heroContent } from "../../data";
 import { Button, StatItem } from "../ui";
 import { useHeroAnimation } from "../../hooks";
+// 1. ADD THIS IMPORT
+import ScrollIndicator from "../ui/ScrollIndicator"; 
 
 function Hero() {
   const { sectionRef, logoRef, contentRef } = useHeroAnimation();
@@ -10,7 +12,8 @@ function Hero() {
     <section 
       id="hero" 
       ref={sectionRef}
-      className="hero-section"
+      // 2. ADD "relative" here so the absolute position of the indicator works
+      className="hero-section relative" 
     >
       {/* Animated Logo - Stroke Draw Effect */}
       <div className="hero-logo-container" ref={logoRef}>
@@ -77,6 +80,9 @@ function Hero() {
           </div>
         </div>
       </div>
+
+      {/* 3. ADD THIS COMPONENT HERE */}
+      <ScrollIndicator />
     </section>
   );
 }
