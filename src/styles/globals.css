@@ -1,0 +1,886 @@
+/* ==========================================================================
+   SILVA AUTOMATION - Global Design System
+   Enterprise Clean Aesthetic | Professional SaaS Styling
+   ========================================================================== */
+
+@import "tailwindcss";
+
+/* ==========================================================================
+   CUSTOM FONTS
+   Bank Gothic font family
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Bank Gothic';
+  src: url('/fonts/BankGothic%20Md%20BT.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bank Gothic';
+  src: url('/fonts/BankGothic%20Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Centralized system for colors, spacing, and typography
+   ========================================================================== */
+
+:root {
+  /* -------------------------------------------------------------------------
+     COLOR PALETTE
+     Professional, trustworthy color system
+     ------------------------------------------------------------------------- */
+  
+  /* Primary Colors - Deep Teal */
+  --color-navy: #134E4A;
+  --color-navy-light: #1F6E68;
+  --color-navy-dark: #0D3D38;
+  
+  /* Accent Colors - Orange (CTA buttons) */
+  --color-action: #FF6B35;
+  --color-action-hover: #E85A2A;
+  --color-action-light: #FF8C61;
+  
+  /* Accent Colors - Blue (decorative elements) */
+  --color-accent: #60A5FA;
+  --color-accent-light: #93C5FD;
+  --color-accent-dark: #3B82F6;
+  
+  /* Background Colors */
+  --color-white: #FFFFFF;
+  --color-slate-50: #F0FDF4;
+  --color-slate-100: #DCFCE7;
+  --color-slate-200: #D1FAE5;
+  
+  /* Gradient Background - Smooth dark blend */
+  --gradient-start: #0A0A0A;
+  --gradient-mid: #1C1C1C;
+  --gradient-end: #0F0F0F;
+  
+  /* Text Colors */
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #44403C;
+  --color-text-muted: #78716C;
+  --color-text-inverse: #FFFFFF;
+  
+  /* Semantic Colors */
+  --color-success: #60A5FA;
+  --color-warning: #FBBF24;
+  --color-error: #EF4444;
+
+  /* Border colors (used across components) */
+  --color-border: #C0C0C0;
+  --color-border-hover: #D4D4D4;
+  
+  /* -------------------------------------------------------------------------
+     TYPOGRAPHY
+     Two-font system: Bank Gothic (headings) + Inter (body)
+     ------------------------------------------------------------------------- */
+  
+  --font-heading: 'Bank Gothic', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  
+  /* Font Sizes - Fluid Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* -------------------------------------------------------------------------
+     SPACING
+     Consistent spacing scale
+     ------------------------------------------------------------------------- */
+  
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* -------------------------------------------------------------------------
+     LAYOUT
+     Container and section spacing
+     ------------------------------------------------------------------------- */
+  
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1400px;
+  
+  --section-padding-y: var(--space-24);
+  --section-padding-x: var(--space-6);
+  
+  /* -------------------------------------------------------------------------
+     BORDERS & EFFECTS
+     Subtle, professional styling
+     ------------------------------------------------------------------------- */
+  
+  /* Border Radius - Soft, modern corners */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Shadows - Very soft, SaaS-style */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.04);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+}
+
+/* ==========================================================================
+   BASE STYLES
+   Apply design tokens to standard HTML elements
+   ========================================================================== */
+
+@layer base {
+  /* Document */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+  }
+
+  #root {
+    height: 100%;
+  }
+  
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-primary);
+    background: linear-gradient(135deg, #000000 0%, #434343 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-navy);
+    margin-bottom: var(--space-4);
+  }
+  
+  h1 {
+    font-size: var(--text-5xl);
+    letter-spacing: -0.025em;
+  }
+  
+  h2 {
+    font-size: var(--text-4xl);
+    letter-spacing: -0.02em;
+  }
+  
+  h3 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+  }
+  
+  h4 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+  }
+  
+  /* Paragraphs */
+  p {
+    margin-bottom: var(--space-4);
+    color: #ffffff;
+  }
+
+  /* Links */
+  a {
+    color: var(--color-action);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  a:hover {
+    color: var(--color-action-hover);
+  }
+  
+  /* Lists */
+  ul, ol {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-6);
+  }
+  
+  li {
+    margin-bottom: var(--space-2);
+    color: var(--color-text-secondary);
+  }
+  
+  /* Strong/Bold */
+  strong, b {
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+  }
+}
+
+/* ==========================================================================
+   COMPONENT STYLES
+   Reusable component patterns
+   ========================================================================== */
+
+@layer components {
+  /* Full-viewport snap layout */
+  .page-shell {
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .snap-container {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .section-inner {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--section-padding-y) var(--section-padding-x);
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Layout Wrapper */
+  .layout-wrapper {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--section-padding-x);
+    padding-right: var(--section-padding-x);
+  }
+  
+  /* Section Wrapper */
+  .section-wrapper {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+  
+  .section-wrapper--white {
+    background-color: var(--color-white);
+  }
+  
+  .section-wrapper--slate {
+    background-color: var(--color-slate-50);
+  }
+  
+  /* Primary Button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-inverse);
+    background-color: var(--color-action);
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-action-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Secondary Button */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-action);
+    background-color: transparent;
+    border: 2px solid var(--color-action);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+  
+  .btn-secondary:hover {
+    color: var(--color-text-inverse);
+    background-color: var(--color-action);
+  }
+  
+  /* Card - Pure Transparent Glassmorphism */
+  .card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    padding: var(--space-6);
+    transition: all var(--transition-base);
+  }
+  
+  .card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Card on Slate Background */
+  .card--elevated {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  }
+  
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--space-16);
+  }
+  
+  .section-header h2 {
+    margin-bottom: var(--space-4);
+  }
+  
+  .section-header p {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+  }
+
+  /* ==========================================================================
+     CENTRALIZED COMPONENT STYLES
+     Reusable patterns extracted from components
+     ========================================================================== */
+
+  /* Container - max width with horizontal padding */
+  .container-main {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .container-main {
+      padding-left: var(--space-6);
+      padding-right: var(--space-6);
+    }
+  }
+
+  /* Glass Card - Glassmorphism card styling */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: none;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-8);
+  }
+
+  .glass-card--bordered {
+    border: 1px solid var(--color-border);
+  }
+
+  .glass-card--sm {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .glass-card--sm {
+      padding: var(--space-5);
+    }
+  }
+
+  .glass-card--hover:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+  }
+
+  .glass-card--bordered:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .glass-card--featured {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent), var(--shadow-xl);
+  }
+
+  /* Section Title - Main section headings */
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .section-title--lg {
+    font-size: var(--text-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .section-title--lg {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  /* Text styles */
+  .text-body {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+  }
+
+  .text-body--muted {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Legal page content - improved readability */
+  .text-body strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .text-body code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #fff;
+  }
+
+  .text-body ul,
+  .text-body ol {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .text-body li {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .text-body li strong {
+    color: #fff;
+  }
+
+  .text-body p {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* List item with icon */
+  .list-item-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Form input base styles */
+  .form-input {
+    width: 100%;
+    padding: var(--space-2) 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    color: var(--color-text-inverse);
+    font-size: var(--text-sm);
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-bottom-color: var(--color-action);
+  }
+
+  .form-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--space-1);
+  }
+
+  /* Submit button - Full width action button */
+  .btn-submit {
+    width: 100%;
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-action);
+    color: var(--color-text-inverse);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-submit:hover {
+    background-color: var(--color-action-hover);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Status message styles */
+  .status-message {
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+  }
+
+  .status-message--success {
+    background: rgba(34, 197, 94, 0.2);
+    color: rgb(134, 239, 172);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .status-message--error {
+    background: rgba(239, 68, 68, 0.2);
+    color: rgb(252, 165, 165);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  /* Accent border left */
+  .accent-border-left {
+    border-left: 4px solid var(--color-accent);
+    padding-left: var(--space-4);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+
+  /* FAQ toggle button */
+  .faq-toggle {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+  }
+
+  /* Calculator result cards */
+  .result-card {
+    text-align: center;
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
+    border-radius: var(--radius-lg);
+  }
+
+  .result-card--highlight {
+    background: rgba(96, 165, 250, 0.2);
+  }
+
+  /* Pricing badge */
+  .pricing-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--space-1) var(--space-4);
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Step number circle */
+  .step-circle {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+  }
+
+  /* Range input styling */
+  .range-input {
+    width: 100%;
+    height: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    appearance: none;
+    cursor: pointer;
+    accent-color: var(--color-accent);
+  }
+
+  /* Navbar island */
+  .nav-island {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   Additional helpers
+   ========================================================================== */
+
+@layer utilities {
+  /* Text Colors */
+  .text-navy { color: var(--color-navy); }
+  .text-action { color: var(--color-action); }
+  .text-primary { color: var(--color-text-primary); }
+  .text-secondary { color: var(--color-text-secondary); }
+  .text-muted { color: rgba(255, 255, 255, 0.7); }
+  .text-inverse { color: var(--color-text-inverse); }
+  
+  /* Background Colors */
+  .bg-white { background-color: var(--color-white); }
+  .bg-slate { background-color: var(--color-slate-50); }
+  .bg-navy { background-color: var(--color-navy); }
+  .bg-action { background-color: var(--color-action); }
+  
+  /* Font Families */
+  .font-heading { font-family: var(--font-heading); }
+  .font-body { font-family: var(--font-body); }
+  
+  /* Shadows */
+  .shadow-soft { box-shadow: var(--shadow-md); }
+  .shadow-lifted { box-shadow: var(--shadow-lg); }
+  
+  /* Border Radius */
+  .rounded-soft { border-radius: var(--radius-md); }
+  .rounded-card { border-radius: var(--radius-lg); }
+}
+
+/* ==========================================================================
+   HERO ANIMATION STYLES
+   GSAP ScrollTrigger stroke draw animation
+   ========================================================================== */
+
+.hero-section {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-logo-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-logo-svg {
+  width: min(80vw, 500px);
+  height: auto;
+  will-change: transform, opacity;
+}
+
+.hero-logo-svg text,
+.hero-logo-svg line {
+  will-change: stroke-dashoffset;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   RESPONSIVE TYPOGRAPHY
+   Scale down on smaller screens
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+  }
+  
+  h3 {
+    font-size: var(--text-xl);
+  }
+  
+  :root {
+    --section-padding-y: var(--space-16);
+    --section-padding-x: var(--space-4);
+  }
+  
+  .hero-logo-svg {
+    width: min(90vw, 320px);
+  }
+}
+
+/* ==========================================================================
+   HERO SVG LOGO STYLES
+   Stroke animation for hero section
+   ========================================================================== */
+
+.silva-logo {
+  font-family: "Bank Gothic", "BankGothic Md BT", "Arial Black", sans-serif;
+  font-weight: 400;
+  text-anchor: middle;
+}
+
+.silva-text {
+  font-size: 72px;
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.automation-text {
+  font-size: 22px;
+  fill: var(--color-text-inverse);
+  stroke: none;
+}
+
+.logo-line {
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+/* ==========================================================================
+   COMPONENT TEXT STYLES
+   Bank Gothic font for specific elements
+   ========================================================================== */
+
+.step-number {
+  font-family: var(--font-heading);
+}
+
+.faq-question {
+  font-family: var(--font-heading);
+}
+
+.nav-link {
+  font-family: var(--font-heading);
+}

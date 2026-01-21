@@ -1,67 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Header, Footer, MobileMenu, BackToTop, CookieBanner } from '../components';
-import { 
-  Hero, WhatIDo, UseCases, HowItWorks, ROICalculator, Pricing, About, Contact 
-} from '../sections';
+// HomePage - Main landing page
+import { Navbar, Footer } from "../components/layout";
+import {
+  Hero,
+  Problem,
+  Solution,
+  Pricing,
+  Calculator,
+  FAQ,
+} from "../components/sections";
 
-const NAV_LINKS = [
-  { name: 'What I Do', href: '#what-i-do' },
-  { name: 'Use Cases', href: '#use-cases' },
-  { name: 'How It Works', href: '#how-it-works' },
-  { name: 'ROI', href: '#roi-calculator' },
-  { name: 'Pricing', href: '#pricing' },
-  { name: 'About', href: '#about' },
-];
-
-export default function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = useCallback((id) => {
-    setMobileMenuOpen(false);
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
-
+function HomePage() {
   return (
-    <div className="min-h-screen bg-white selection:bg-blue-100 selection:text-primary">
-      <Header 
-        scrolled={scrolled} 
-        setMobileMenuOpen={setMobileMenuOpen} 
-        NAV_LINKS={NAV_LINKS} 
-        scrollToSection={scrollToSection} 
-      />
-
-      <MobileMenu 
-        isOpen={mobileMenuOpen} 
-        onClose={() => setMobileMenuOpen(false)} 
-        NAV_LINKS={NAV_LINKS} 
-        scrollToSection={scrollToSection} 
-      />
-
-      <main>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
         <Hero />
-        <WhatIDo />
-        <UseCases />
-        <HowItWorks />
-        <ROICalculator />
+        <Problem />
+        <Solution />
         <Pricing />
-        <About />
-        <Contact />
+        <Calculator />
+        <FAQ />
       </main>
-
       <Footer />
-      
-      <BackToTop />
-      <CookieBanner />
     </div>
   );
 }
+
+export default HomePage;

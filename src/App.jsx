@@ -1,35 +1,53 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-
-// --- IMPORT YOUR PAGES HERE ---
-import Home from './pages/HomePage'; // Example
-import Legal from './pages/Legal'; // <--- ADD THIS LINE
-import LegalLayout from './pages/legal/LegalLayout';
-import { FileText, Shield, DollarSign, Cookie } from 'lucide-react';
-import Terms from './pages/legal/Terms';
-import Privacy from './pages/legal/Privacy';
-import Refunds from './pages/legal/Refunds';
-import Cookies from './pages/legal/Cookies';
+// Main App component
+import { useState, useEffect } from "react";
+import {
+  HomePage,
+  TermsOfService,
+  PrivacyPolicy,
+  RefundCancellationPolicy,
+  CookiePolicy,
+} from "./pages";
 
 function App() {
-  return (
-    <div className="app-container">
-      <Routes>
-        {/* Your existing routes */}
-        <Route path="/" element={<Home />} />
-        
-        {/* --- ADD THIS LINE --- */}
-        <Route path="/legal" element={<Legal />} />
-        
-        {/* Individual legal policy pages */}
-        <Route path="/legal/terms" element={<LegalLayout title="Terms and Conditions" icon={FileText}><Terms /></LegalLayout>} />
-        <Route path="/legal/privacy" element={<LegalLayout title="Privacy Policy" icon={Shield}><Privacy /></LegalLayout>} />
-        <Route path="/legal/refunds" element={<LegalLayout title="Refund & Cancellation Policy" icon={DollarSign}><Refunds /></LegalLayout>} />
-        <Route path="/legal/cookies" element={<LegalLayout title="Cookie Policy" icon={Cookie}><Cookies /></LegalLayout>} />
-        
-      </Routes>
-    </div>
-  );
+  const [currentPage, setCurrentPage] = useState("home");
+
+  // Handle browser navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === "/terms") setCurrentPage("terms");
+      else if (path === "/privacy") setCurrentPage("privacy");
+      else if (path === "/refund") setCurrentPage("refund");
+      else if (path === "/cookies") setCurrentPage("cookies");
+      else setCurrentPage("home");
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Handle navigation and URL updates
+  const navigateTo = (page, path) => {
+    setCurrentPage(page);
+    window.history.pushState(null, "", path);
+  };
+
+  // Make navigateTo available globally for links
+  window.navigateTo = navigateTo;
+
+  // Render appropriate page
+  switch (currentPage) {
+    case "terms":
+      return <TermsOfService />;
+    case "privacy":
+      return <PrivacyPolicy />;
+    case "refund":
+      return <RefundCancellationPolicy />;
+    case "cookies":
+      return <CookiePolicy />;
+    default:
+      return <HomePage />;
+  }
 }
 
 export default App;
