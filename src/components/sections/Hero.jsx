@@ -2,7 +2,6 @@
 import { heroContent } from "../../data";
 import { Button, StatItem } from "../ui";
 import { useHeroAnimation } from "../../hooks";
-// 1. ADD THIS IMPORT
 import ScrollIndicator from "../ui/ScrollIndicator"; 
 
 function Hero() {
@@ -12,7 +11,6 @@ function Hero() {
     <section 
       id="hero" 
       ref={sectionRef}
-      // 2. ADD "relative" here so the absolute position of the indicator works
       className="hero-section relative" 
     >
       {/* Animated Logo - Stroke Draw Effect */}
