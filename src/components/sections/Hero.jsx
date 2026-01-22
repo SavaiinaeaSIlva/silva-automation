@@ -22,30 +22,68 @@ function Hero() {
           viewBox="0 0 400 160" 
           xmlns="http://www.w3.org/2000/svg"
         >
+          {/* Font Styles */}
+          <style>
+            {`
+              @import url('https://fonts.cdnfonts.com/css/bank-gothic');
+              .silva-logo {
+                font-family: "Bank Gothic", "BankGothic Md BT", "Arial Black", sans-serif;
+                font-weight: 400;
+                text-anchor: middle;
+              }
+            `}
+          </style>
+
+          {/* Lock Icon - Added "logo-icon" class for animation */}
+          <g transform="translate(30, 35) scale(2.2)" className="logo-icon">
+            <rect 
+              x="3" y="11" width="18" height="11" rx="2" ry="2"
+              fill="none" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+            />
+            <path 
+              d="M7 11V7a5 5 0 0 1 10 0v4"
+              fill="none" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+            />
+          </g>
+
+          {/* SILVA Text - Added "silva-text" class */}
           <text 
             className="silva-logo silva-text" 
-            x="200" 
+            x="230" 
             y="70" 
+            fontSize="72"
+            fill="#ffffff" 
+            stroke="none"
             textLength="280" 
             lengthAdjust="spacing"
           >
             SILVA
           </text>
+
+          {/* AUTOMATION Text - Added "automation-text" class */}
           <text 
             className="silva-logo automation-text" 
-            x="200" 
+            x="230" 
             y="110" 
-            textLength="280" 
+            fontSize="22"
+            fill="none" 
+            stroke="#60A5FA" 
+            strokeWidth="0.9"
+            textLength="260" 
             lengthAdjust="spacing"
           >
             AUTOMATION
           </text>
+
+          {/* Underline - Added "logo-line" class */}
           <line 
             className="logo-line"
-            x1="120" 
+            x1="150" 
             y1="130" 
-            x2="280" 
+            x2="310" 
             y2="130"
+            stroke="#ffffff" 
+            strokeWidth="2"
           />
         </svg>
       </div>
@@ -79,7 +117,6 @@ function Hero() {
         </div>
       </div>
 
-      {/* 3. ADD THIS COMPONENT HERE */}
       <ScrollIndicator />
     </section>
   );
