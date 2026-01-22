@@ -31,16 +31,22 @@ function Hero() {
                 font-weight: 400;
                 text-anchor: middle;
               }
+              /* FORCE HIDE LOCK INITIALLY */
+              .logo-line {
+                visibility: hidden; /* JavaScript will make this visible when animation starts */
+              }
             `}
           </style>
 
-          {/* Lock Icon - Now includes "logo-line" class so it animates! */}
+          {/* Lock Icon - Both parts have 'logo-line' class to trigger animation */}
           <g transform="translate(30, 35) scale(2.2)" className="logo-icon">
+            {/* The Box Part */}
             <rect 
               className="logo-line" 
               x="3" y="11" width="18" height="11" rx="2" ry="2"
               fill="none" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
             />
+            {/* The Arch Part (Upside down U) */}
             <path 
               className="logo-line"
               d="M7 11V7a5 5 0 0 1 10 0v4"
