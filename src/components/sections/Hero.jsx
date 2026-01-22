@@ -34,19 +34,21 @@ function Hero() {
             `}
           </style>
 
-          {/* Lock Icon - Added "logo-icon" class for animation */}
+          {/* Lock Icon - Now includes "logo-line" class so it animates! */}
           <g transform="translate(30, 35) scale(2.2)" className="logo-icon">
             <rect 
+              className="logo-line" 
               x="3" y="11" width="18" height="11" rx="2" ry="2"
               fill="none" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
             />
             <path 
+              className="logo-line"
               d="M7 11V7a5 5 0 0 1 10 0v4"
               fill="none" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
             />
           </g>
 
-          {/* SILVA Text - Added "silva-text" class */}
+          {/* SILVA Text */}
           <text 
             className="silva-logo silva-text" 
             x="230" 
@@ -60,7 +62,7 @@ function Hero() {
             SILVA
           </text>
 
-          {/* AUTOMATION Text - Added "automation-text" class */}
+          {/* AUTOMATION Text */}
           <text 
             className="silva-logo automation-text" 
             x="230" 
@@ -75,7 +77,7 @@ function Hero() {
             AUTOMATION
           </text>
 
-          {/* Underline - Added "logo-line" class */}
+          {/* Underline */}
           <line 
             className="logo-line"
             x1="150" 
@@ -88,10 +90,9 @@ function Hero() {
         </svg>
       </div>
 
-      {/* Main Content - Fades in after logo animation */}
+      {/* Main Content */}
       <div ref={contentRef} className="hero-content">
         <div className="container-main pt-24 pb-12 md:pt-32 md:pb-16">
-          {/* F-Pattern: Strong horizontal top */}
           <div className="max-w-3xl">
             <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
               {heroContent.title}
@@ -103,7 +104,6 @@ function Hero() {
             <Button variant="primary" href="https://calendly.com/silvaautomation/consultation">{heroContent.cta}</Button>
           </div>
           
-          {/* Stats row - horizontal scan line */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
             {heroContent.stats.map((stat, index) => (
               <StatItem
