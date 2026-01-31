@@ -6,12 +6,13 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const sections = Array.from(document.querySelectorAll('section[id]')) as HTMLElement[];
-
-    if (!sections.length) return;
-
     // Track active section based on scroll position
+    // Query sections inside scroll handler to catch lazy-loaded sections
     const onScroll = () => {
+      const sections = Array.from(document.querySelectorAll('section[id]')) as HTMLElement[];
+      
+      if (!sections.length) return;
+
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       // Find the section that contains the scroll position
@@ -42,9 +43,13 @@ export default function Header() {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // Initial check
+    
+    // Re-check after lazy sections might have loaded
+    const timer = setTimeout(onScroll, 500);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      clearTimeout(timer);
     };
   }, []);
 

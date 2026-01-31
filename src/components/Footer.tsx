@@ -71,7 +71,12 @@ export default function Footer() {
             <h4 className="footer-heading">Get in Touch</h4>
             <ul className="space-y-2 text-muted text-sm">
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <a 
+                  href="https://calendly.com/silvaautomation/consultation" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
                   Book Free Assessment
                 </a>
               </li>
