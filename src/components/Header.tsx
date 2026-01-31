@@ -91,7 +91,7 @@ export default function Header() {
       </a>
 
       {/* Floating Island Navigation */}
-      <div className="container flex justify-center">
+      <div className="container flex justify-start lg:justify-center px-4">
         <div className="inline-flex items-center gap-3 px-2 py-2 bg-black/70 backdrop-blur-xl border border-white/[0.08] rounded-full shadow-lg shadow-black/20 pointer-events-auto">
           {/* Logo */}
           <a
@@ -138,7 +138,7 @@ export default function Header() {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="container flex justify-center mt-2 pointer-events-auto">
+        <div className="container flex justify-start mt-2 px-4 pointer-events-auto">
           <div
             id="mobile-menu"
             className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden"
