@@ -10,7 +10,7 @@ export default function Header() {
     // Query sections inside scroll handler to catch lazy-loaded sections
     const onScroll = () => {
       const sections = Array.from(document.querySelectorAll('section[id]')) as HTMLElement[];
-      
+
       if (!sections.length) return;
 
       const scrollPosition = window.scrollY + window.innerHeight / 3;
@@ -43,7 +43,7 @@ export default function Header() {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // Initial check
-    
+
     // Re-check after lazy sections might have loaded
     const timer = setTimeout(onScroll, 500);
 
