@@ -6,10 +6,11 @@ export default function Cookies() {
       <h3 className="text-xl font-bold text-white mt-6 mb-3">1. What Are Cookies?</h3>
       <p>
         Cookies are small text files that are placed on your device (computer, phone, or tablet)
-        when you visit a website. They are widely used to make websites work more efficiently and to
-        provide information to the site owners. Cookies can be "session" cookies, which are
-        temporary and deleted when you close your browser, or "persistent" cookies, which remain on
-        your device for a set period.
+        when you visit a website. We also use similar technologies such as local storage (data
+        stored in your browser) to remember your choices—for example, your cookie consent preference
+        so we do not show the banner again. Cookies can be "session" cookies, which are temporary
+        and deleted when you close your browser, or "persistent" cookies, which remain on your
+        device for a set period.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">2. How We Use Cookies</h3>
@@ -25,47 +26,17 @@ export default function Cookies() {
       </p>
 
       <p>
-        <strong>Analytics Cookies:</strong> We use third-party analytics services, such as Google
-        Analytics, to collect information about how users interact with our website. This data helps
-        us understand site traffic, measure the performance of our content, and identify areas for
-        improvement. The information collected is aggregated and does not directly identify you.
-      </p>
-
-      <p>
-        <strong>Functional Cookies:</strong> These cookies enable enhanced functionality and
-        personalization, such as remembering your preferences, settings, and form inputs when you
-        return to our website.
-      </p>
-
-      <p>
-        <strong>Performance Cookies:</strong> These cookies collect information about how visitors
-        use our website, such as which pages are most popular, loading times, and if users encounter
-        error messages. This helps us improve our website's performance and user experience.
+        <strong>Functional Cookies / Local Storage:</strong> We use local storage to remember your
+        cookie consent choice so the consent banner does not reappear on future visits. We do not
+        collect or send this data to our servers.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">3. Third-Party Cookies</h3>
       <p>
-        We may allow certain third-party services to place cookies on your device through our
-        website. These include:
+        We do not currently use third-party analytics, advertising, or live chat on our website. If
+        we add services that set cookies (for example, social media plugins, payment forms, or
+        content delivery), we will update this policy and our cookie banner accordingly.
       </p>
-      <ul className="list-disc pl-6 space-y-2">
-        <li>
-          <strong>Google Analytics:</strong> For website analytics and performance monitoring
-        </li>
-        <li>
-          <strong>Social Media Plugins:</strong> If we include social media buttons or feeds
-          (Facebook, LinkedIn, Twitter)
-        </li>
-        <li>
-          <strong>Customer Support Tools:</strong> For live chat or support ticket functionality
-        </li>
-        <li>
-          <strong>Payment Processors:</strong> For secure payment processing
-        </li>
-        <li>
-          <strong>Content Delivery Networks:</strong> For faster content loading
-        </li>
-      </ul>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">
         4. Managing Your Cookie Preferences
@@ -82,11 +53,6 @@ export default function Cookies() {
         <li>Delete existing cookies</li>
         <li>Set preferences for specific websites</li>
       </ul>
-
-      <p>
-        <strong>Opt-Out Tools:</strong> For specific services like Google Analytics, you can use
-        their opt-out browser add-on or tools.
-      </p>
 
       <p>
         <strong>Cookie Consent:</strong> When you first visit our website, you may see a cookie
@@ -112,7 +78,6 @@ export default function Cookies() {
         <li>Remembering your preferences</li>
         <li>Staying logged in to secure areas</li>
         <li>Proper functioning of contact forms</li>
-        <li>Website analytics that help us improve user experience</li>
       </ul>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">6. Cookie Retention</h3>
@@ -120,9 +85,6 @@ export default function Cookies() {
       <ul className="list-disc pl-6 space-y-2">
         <li>
           <strong>Session cookies:</strong> Deleted when you close your browser
-        </li>
-        <li>
-          <strong>Analytics cookies:</strong> Typically retained for 24-26 months
         </li>
         <li>
           <strong>Functional cookies:</strong> Usually retained for 1-2 years

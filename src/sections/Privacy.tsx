@@ -19,9 +19,12 @@ export default function Privacy() {
 
       <p>
         <strong>Personal Information:</strong> This includes data you voluntarily provide to us via
-        contact forms, project inquiries, or scheduling software. This may include your name,
-        company name, email address, phone number, business address, and any other information you
-        provide in your communications.
+        contact forms, project inquiries, or scheduling software. When you book a free assessment or
+        consultation, you are directed to Calendly (calendly.com). Calendly collects the information
+        you enter there (e.g. name, email, date/time) in accordance with their own privacy policy;
+        we receive booking details from Calendly so we can conduct the session. This may also
+        include your name, company name, email address, phone number, business address, and any
+        other information you provide in your communications.
       </p>
 
       <p>
@@ -35,7 +38,10 @@ export default function Privacy() {
         <strong>Usage and Technical Data:</strong> When you visit our website, we automatically
         collect certain information about your device and your activity. This includes your IP
         address, browser type, device type, operating system, referring website, pages visited, time
-        and date of visit, and data about your interaction with our site.
+        and date of visit, and data about your interaction with our site. Our site loads fonts from
+        Google Fonts; when you load a page, your browser may send request data (such as your IP
+        address) to Google's servers to fetch the fonts. See Google's privacy policy for how they
+        handle this data.
       </p>
 
       <p>
@@ -84,8 +90,9 @@ export default function Privacy() {
       <p>
         <strong>Service Providers:</strong> We may share information with trusted third-party
         service providers who assist us in operating our website and conducting business (e.g.,
-        payment processors, hosting providers, email service providers, project management tools).
-        These providers are contractually bound to protect your information.
+        payment processors, hosting providers, email service providers, font providers such as
+        Google Fonts, project management tools). These providers are contractually bound to protect
+        your information, or in the case of font delivery, subject to their own privacy policies.
       </p>
 
       <p>
@@ -158,7 +165,9 @@ export default function Privacy() {
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">7. Third-Party Links</h3>
       <p>
-        Our website may contain links to third-party websites. We are not responsible for the
+        Our website may contain links to third-party websites. When you click "Book Free
+        Assessment," you are directed to Calendly to schedule a consultation; Calendly's privacy
+        policy and practices apply to the data you submit there. We are not responsible for the
         privacy practices or content of these external sites. We encourage you to review the privacy
         policies of any third-party sites you visit.
       </p>

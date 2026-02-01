@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import CookieBanner from './components/CookieBanner';
 import ErrorBoundary from './components/ErrorBoundary';
 import Loader from './components/Loader';
 import HomePage from './pages/HomePage';
@@ -15,6 +16,7 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <ScrollToTop />
+        <CookieBanner />
         <Suspense fallback={<Loader fullScreen />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
