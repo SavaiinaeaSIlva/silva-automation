@@ -41,10 +41,7 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="max-w-md text-center">
             <h1 className="text-4xl font-bold mb-4">{title}</h1>
             <p className="text-muted mb-6">{message}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="cta-button-primary"
-            >
+            <button onClick={() => window.location.reload()} className="cta-button-primary">
               {refreshButton}
             </button>
             {process.env.NODE_ENV === 'development' && this.state.error && (

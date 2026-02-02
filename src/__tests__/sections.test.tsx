@@ -4,10 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 
 describe('Main sections render', () => {
-  test(
-    'renders hero and main sections',
-    async () => {
-      render(<App />);
+  test('renders hero and main sections', async () => {
+    render(<App />);
 
     // Check immediately loaded sections (hero title)
     expect(
@@ -31,7 +29,5 @@ describe('Main sections render', () => {
       },
       { timeout: 5000 }
     );
-    },
-    12000
-  );
+  }, 12000);
 });
