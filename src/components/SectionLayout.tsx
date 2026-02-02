@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLenis } from '../contexts/LenisContext';
 
 type LightLeakVariant = 'v1' | 'v2' | 'v3';
 
@@ -17,6 +18,18 @@ export default function SectionLayout({
 }: SectionLayoutProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const lenis = useLenis();
+
+  // When a section mounts (including lazy-loaded ones), let Lenis
+  // recalculate scroll metrics so the page remains fully scrollable.
+  useEffect(() => {
+    if (!lenis) return;
+    // Safely tell Lenis that layout/content may have changed.
+    // This helps avoid cases where new sections extend the page
+    // but Lenis' internal height doesn't update, which can prevent
+    // scrolling all the way to the bottom.
+    lenis.resize();
+  }, [lenis]);
 
   useEffect(() => {
     if (!lightLeaks || !sectionRef.current) return;
