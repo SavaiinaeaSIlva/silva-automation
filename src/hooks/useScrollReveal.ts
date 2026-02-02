@@ -40,6 +40,8 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
       scale: opts.scale,
     });
 
+    const isImmediate = opts.start === 'top top';
+
     const animation = gsap.to(el, {
       opacity: 1,
       y: 0,
@@ -47,12 +49,21 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
       duration: opts.duration,
       delay: opts.delay,
       ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: opts.start,
-        toggleActions: 'play none none none',
-      },
+      ...(isImmediate
+        ? {}
+        : {
+            scrollTrigger: {
+              trigger: el,
+              start: opts.start,
+              toggleActions: 'play none none none',
+            },
+          }),
     });
+
+    // When start is "top top", element is already in view — play immediately so content always shows
+    if (isImmediate) {
+      animation.play(0);
+    }
 
     return () => {
       animation.scrollTrigger?.kill();
