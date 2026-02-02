@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'blue';
 };
 
 export default function Button({
@@ -20,7 +20,9 @@ export default function Button({
   const variantStyles =
     variant === 'primary'
       ? 'bg-white text-black hover:bg-neutral-200 hover:-translate-y-0.5 shadow-lg shadow-white/10'
-      : 'bg-transparent text-white border border-white/10 hover:border-white/20 hover:bg-white/5';
+      : variant === 'blue'
+        ? 'bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 shadow-lg shadow-blue-900/30 border-0'
+        : 'bg-transparent text-white border border-white/10 hover:border-white/20 hover:bg-white/5';
 
   return (
     <button

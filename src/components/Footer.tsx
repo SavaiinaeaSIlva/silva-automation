@@ -70,6 +70,20 @@ export default function Footer() {
           <div>
             <h4 className="footer-heading">Get in Touch</h4>
             <ul className="space-y-2 text-muted text-sm">
+              <li className="text-white font-medium">Silva Automation LLC</li>
+              <li>
+                <a
+                  href="mailto:contact@silvaautomation.com"
+                  className="hover:text-white transition-colors"
+                >
+                  contact@silvaautomation.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:+18087266422" className="hover:text-white transition-colors">
+                  (808) 726-6422
+                </a>
+              </li>
               <li>
                 <a
                   href="https://calendly.com/silvaautomation/consultation"
@@ -80,8 +94,6 @@ export default function Footer() {
                   Book Free Assessment
                 </a>
               </li>
-              <li>Based in Waipahu, Hawaii</li>
-              <li>Serving Hawaii Service Businesses</li>
             </ul>
           </div>
         </div>

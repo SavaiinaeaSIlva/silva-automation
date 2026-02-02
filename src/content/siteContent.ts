@@ -1,8 +1,8 @@
 export const siteContent = {
   hero: {
-    title: 'Workflow Automation For Hawaii Service Businesses',
+    title: 'Stop Drowning in Paperwork. Start Running Your Business',
     subtitle:
-      'Fixed-price automation projects deployed directly into your cloud infrastructure. You own everything—we build the workflows that reclaim your time.',
+      'Custom automation systems for Hawaii service businesses — so scheduling, invoicing, and follow-ups run themselves.',
     stats: ['10+ hrs | Saved Monthly', '90 days | Free Support', '$5K-$8K | Fixed Pricing'],
     cta: 'Get Free Workflow Assessment',
   },
