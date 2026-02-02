@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import Accordion from '../components/Accordion';
-import Button from '../components/Button';
 import SectionLayout from '../components/SectionLayout';
 import { siteContent } from '../content/siteContent';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -34,7 +33,6 @@ export default function FAQSection() {
   }, [filteredItems, searchQuery, showAll]);
 
   const hasMore = !searchQuery.trim() && filteredItems.length > INITIAL_COUNT;
-  const isExpanded = showAll && filteredItems.length > INITIAL_COUNT;
 
   // Animation refs
   const headerRef = useScrollReveal({ y: 30, duration: 0.7 });
@@ -69,19 +67,12 @@ export default function FAQSection() {
 
       {hasMore && (
         <div className="mt-6 flex justify-center">
-          <Button type="button" onClick={() => setShowAll(true)} icon={false}>
-            See all ({filteredItems.length} questions)
-          </Button>
-        </div>
-      )}
-      {isExpanded && (
-        <div className="mt-6 flex justify-center">
           <button
             type="button"
-            onClick={() => setShowAll(false)}
-            className="text-muted hover:text-text-main text-sm underline transition-colors"
+            onClick={() => setShowAll((prev) => !prev)}
+            className="text-muted hover:text-white text-sm underline transition-colors"
           >
-            Show less
+            {showAll ? 'See less' : `See all (${filteredItems.length} questions)`}
           </button>
         </div>
       )}

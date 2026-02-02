@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowUpRight } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
-import Button from '../components/Button';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -80,10 +80,12 @@ export default function HeroSection() {
             </p>
 
             <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
-              <a href="#contact">
-                <Button type="button" variant="primary">
-                  {siteContent.hero.cta}
-                </Button>
+              <a
+                href="#contact"
+                className="px-5 py-2.5 rounded-full font-medium text-sm cursor-pointer transition-all inline-flex items-center gap-2 bg-white text-black hover:bg-neutral-200 hover:-translate-y-0.5 shadow-lg shadow-white/10"
+              >
+                {siteContent.hero.cta}
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
             </div>
           </div>

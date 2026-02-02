@@ -1,7 +1,6 @@
-import { Check } from 'lucide-react';
+import { ArrowUpRight, Check } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
 import SectionLayout from '../components/SectionLayout';
-import Button from '../components/Button';
 import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
 
 export default function ContactSection() {
@@ -43,11 +42,10 @@ export default function ContactSection() {
             href={contact.cta.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm cursor-pointer transition-all bg-white text-black hover:bg-neutral-200 hover:-translate-y-0.5 shadow-lg shadow-white/10"
           >
-            <Button type="button" variant="primary">
-              {contact.cta.text}
-            </Button>
+            {contact.cta.text}
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
           </a>
         </div>
       </div>

@@ -311,12 +311,12 @@ textarea {
 .site-background::before {
   top: -20%;
   right: -15%;
-  width: 70%;
-  height: 75%;
+  width: 55%;
+  height: 58%;
   background: radial-gradient(
     ellipse 100% 100% at 70% 30%,
-    rgba(255, 180, 120, 0.2) 0%,
-    rgba(255, 140, 80, 0.06) 40%,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
     transparent 60%
   );
   animation-name: fluid-drift-1;
@@ -573,7 +573,7 @@ section + section {
 }
 
 .legal-page-bg {
-  background: linear-gradient(135deg, #000000 85%, #e5e4e2 100%);
+  background: #000000;
 }
 
 /* Footer — solid opaque so orbs don't show through */
