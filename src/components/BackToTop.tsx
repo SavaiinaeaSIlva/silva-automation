@@ -5,8 +5,7 @@ import { useLenis } from '../contexts/LenisContext';
 const SHOW_AFTER_PX = 200;
 
 function getScrollTop(): number {
-  const el = document.scrollingElement;
-  return el ? el.scrollTop : (window.scrollY ?? document.documentElement.scrollTop ?? 0);
+  return document.scrollingElement?.scrollTop ?? 0;
 }
 
 export default function BackToTop() {
@@ -17,8 +16,6 @@ export default function BackToTop() {
     if (lenis) {
       lenis.scrollTo(0, { duration: 1.2 });
     } else {
-      const el = document.scrollingElement;
-      if (el) el.scrollTo({ top: 0, behavior: 'smooth' });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

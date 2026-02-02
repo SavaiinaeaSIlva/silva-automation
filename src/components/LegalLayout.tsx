@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, LucideIcon } from 'lucide-react';
+import { siteContent } from '../content/siteContent';
 
 type LegalLayoutProps = {
   title: string;
@@ -8,6 +9,8 @@ type LegalLayoutProps = {
 };
 
 export default function LegalLayout({ title, icon: Icon, children }: LegalLayoutProps) {
+  const { backToHome, logoAlt, lastUpdated, footerText } = siteContent.legalLayout;
+
   return (
     <div className="min-h-screen font-sans text-white legal-page-bg">
       <div className="bg-black/80 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
@@ -17,9 +20,9 @@ export default function LegalLayout({ title, icon: Icon, children }: LegalLayout
             className="flex items-center gap-2 text-white/70 hover:text-white transition-colors font-bold text-sm"
           >
             <ArrowLeft size={18} />
-            Back to Home
+            {backToHome}
           </Link>
-          <img src="/icon.png" alt="Silva Automation" className="h-8 w-auto" />
+          <img src="/icon.png" alt={logoAlt} className="h-8 w-auto" />
         </div>
       </div>
 
@@ -30,7 +33,7 @@ export default function LegalLayout({ title, icon: Icon, children }: LegalLayout
           </div>
           <div>
             <h1 className="text-3xl font-bold text-white">{title}</h1>
-            <p className="text-sm text-white/50">Last Updated: January 15, 2025</p>
+            <p className="text-sm text-white/50">Last Updated: {lastUpdated}</p>
           </div>
         </div>
 
@@ -38,7 +41,7 @@ export default function LegalLayout({ title, icon: Icon, children }: LegalLayout
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-white/40 text-sm">
-        &copy; {new Date().getFullYear()} Silva Automation LLC. All rights reserved.
+        &copy; {new Date().getFullYear()} {footerText}
       </footer>
     </div>
   );

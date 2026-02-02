@@ -24,7 +24,7 @@ const defaultOptions: RevealOptions = {
 const IO_OPTIONS: IntersectionObserverInit = {
   root: null,
   rootMargin: '0px',
-  threshold: 0.1,
+  threshold: 0.05,
 };
 
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
@@ -126,7 +126,6 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
     opts.duration,
     opts.y,
     opts.startOpacity,
-    opts.start,
     opts.stagger,
     opts.scale,
   ]);

@@ -1,10 +1,36 @@
 export const siteContent = {
+  header: {
+    skipToMainContent: 'Skip to main content',
+    logoAlt: 'Silva Automation',
+    backToTopAria: 'Back to top',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    mobileNavAria: 'Mobile navigation',
+    navLinks: [
+      { href: '#challenge-and-solution', label: 'Intro' },
+      { href: '#process', label: 'Process' },
+      { href: '#pricing', label: 'Pricing' },
+      { href: '#calculator', label: 'Calculator' },
+      { href: '#contact', label: 'Schedule' },
+      { href: '#faq', label: 'FAQ' },
+    ],
+  },
+
   hero: {
     title: 'Stop Drowning in Paperwork. Start Running Your Business',
+    titleLine1Highlight: 'Stop',
+    titleLine1Rest: 'Drowning in Paperwork.',
+    titleLine2Highlight: 'Start',
+    titleLine2Rest: 'Running Your Business',
     subtitle:
       'Custom automation systems for Hawaii service businesses — so scheduling, invoicing, and follow-ups run themselves.',
-    stats: ['10+ hrs | Saved Monthly', '90 days | Free Support', '$5K-$8K | Fixed Pricing'],
     cta: 'Get Free Workflow Assessment',
+    benefits: [
+      { label: 'Save time', icon: 'Zap' },
+      { label: 'Fewer errors', icon: 'Target' },
+      { label: 'Scale without hiring', icon: 'Repeat' },
+      { label: 'Runs reliably', icon: 'Shield' },
+    ],
   },
 
   pricing: {
@@ -92,27 +118,53 @@ export const siteContent = {
   calculator: {
     title: 'Overhead Calculator',
     subtitle: 'What Admin Work Really Costs You',
-    inputs: [
-      'Team Size (Crew/Agents): 1-50',
-      'Weekly Paperwork Hours (hrs/week): 1-40',
-      'Average Hourly Cost ($/hr): $20-$200',
-      'Estimated Automation Project Cost ($)',
+    inputsTitle: 'Inputs',
+    resultsTitle: 'Results',
+    fields: [
+      {
+        label: 'Team size (crew/agents doing admin work)',
+        placeholder: 'e.g., 10',
+        srDescription: 'Enter the number of team members doing administrative work (1-50)',
+        min: 1,
+        max: 50,
+      },
+      {
+        label: 'Weekly paperwork hours per person (hrs/week)',
+        placeholder: 'e.g., 15',
+        srDescription: 'Enter hours spent on paperwork per person per week (1-40)',
+        min: 1,
+        max: 40,
+      },
+      {
+        label: 'Average hourly cost ($/hr)',
+        placeholder: 'e.g., 45',
+        srDescription: 'Enter average hourly cost per employee ($20-$200)',
+        min: 20,
+        max: 200,
+      },
+      {
+        label: 'Estimated automation project cost ($)',
+        placeholder: 'e.g., 6000',
+        srDescription: 'Enter estimated cost for automation project in dollars',
+        min: 0,
+        max: undefined,
+      },
     ],
-    results: ['Monthly Admin Cost: $[calculated]', 'Yearly Revenue Leak: $[calculated]'],
+    resultLabels: {
+      monthlyAdminCost: 'Monthly admin cost',
+      yearlyRevenueLeak: 'Yearly revenue leak',
+      paybackPeriod: 'Payback period',
+    },
     analysisTitle: 'Stop Paying Skilled Workers for Paperwork',
     analysisCopy:
       "Whether it's a Project Manager chasing invoices or an Agent manually entering leads, you're burning cash on grunt work. Automation handles the repetitive tasks—so your team can focus on building, selling, and serving customers.",
-    industryExamples: [
-      'For Contractors — Stop PMs from spending 10+ hours weekly on estimates, change orders, and invoices.',
-      'For Real Estate Agencies — Instant lead response supports higher conversion rates and faster deal cycles.',
-      'Zero Human Error — Never lose a lead, miss a follow-up, or forget a bill again.',
-    ],
   },
 
   contact: {
     title: 'Ready to Automate Your Workflows?',
     subtitle:
       'Serving Hawaii service businesses across professional services, real estate, healthcare, and specialty trades—firms with 5–50 employees looking to eliminate repetitive work.',
+    whatToExpect: 'What to expect',
     cta: {
       text: 'Book Free Workflow Assessment',
       url: 'https://calendly.com/silvaautomation/consultation',
@@ -167,6 +219,12 @@ export const siteContent = {
   faq: {
     title: 'Frequently Asked Questions',
     intro: 'Answers to common questions about process, support, and pricing.',
+    searchPlaceholder: 'Search questions...',
+    searchLabelSr: 'Search FAQ',
+    searchAriaLabel: 'Search FAQ',
+    seeLess: 'See less',
+    seeAllTemplate: 'See all ({{count}} questions)',
+    noResults: 'No questions match your search.',
 
     categories: {
       process: [
@@ -230,8 +288,60 @@ export const siteContent = {
   },
 
   footer: {
+    quickLinksTitle: 'Quick Links',
+    legalTitle: 'Legal',
+    getInTouchTitle: 'Get in Touch',
+    companyName: 'Silva Automation',
+    tagline:
+      'Workflow automation for Hawaii service businesses. Fixed-price projects, no recurring fees.',
+    quickLinks: [
+      { label: 'Intro', href: '#challenge-and-solution' },
+      { label: 'Process', href: '#process' },
+      { label: 'Pricing', href: '#pricing' },
+      { label: 'Calculator', href: '#calculator' },
+      { label: 'Contact', href: '#contact' },
+      { label: 'FAQ', href: '#faq' },
+    ],
+    legalLinks: [
+      { label: 'Terms & Conditions', to: '/terms' },
+      { label: 'Privacy Policy', to: '/privacy' },
+      { label: 'Cookie Policy', to: '/cookies' },
+      { label: 'Refunds', to: '/refunds' },
+    ],
+    email: 'contact@silvaautomation.com',
+    phone: '(808) 726-6422',
+    phoneHref: 'tel:+18087266422',
+    bookAssessmentText: 'Book Free Assessment',
+    bookAssessmentUrl: 'https://calendly.com/silvaautomation/consultation',
     copyright:
       '© 2026 Silva Automation LLC | Based in Waipahu, Hawaii | Serving Hawaii Service Businesses',
+  },
+
+  cookieBanner: {
+    ariaLabel: 'Cookie consent',
+    message:
+      'We use cookies and local storage to remember your preferences and improve your experience. By continuing, you agree to our',
+    cookiePolicyLinkText: 'Cookie Policy',
+    learnMore: 'Learn more',
+    accept: 'Accept',
+  },
+
+  errorBoundary: {
+    title: 'Oops! Something went wrong',
+    message: "We're sorry for the inconvenience. Please try refreshing the page.",
+    refreshButton: 'Refresh Page',
+    errorDetailsLabel: 'Error details',
+  },
+
+  loader: {
+    loadingText: 'Loading...',
+  },
+
+  legalLayout: {
+    backToHome: 'Back to Home',
+    logoAlt: 'Silva Automation',
+    lastUpdated: 'January 15, 2025',
+    footerText: 'Silva Automation LLC. All rights reserved.',
   },
 };
 

@@ -45,7 +45,7 @@ export default function ProblemSolutionSection() {
   });
 
   return (
-    <SectionLayout id="challenge-and-solution">
+    <SectionLayout id="challenge-and-solution" lightLeaks="v3">
       <div ref={headerRef} className="space-y-4 mb-12">
         <h2 className="section-header">{challengeAndSolutionSection.header}</h2>
         <p className="section-subtitle">{challengeAndSolutionSection.intro}</p>

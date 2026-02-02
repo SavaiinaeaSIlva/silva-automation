@@ -18,14 +18,14 @@ export default function ContactSection() {
   });
 
   return (
-    <SectionLayout id="contact">
+    <SectionLayout id="contact" lightLeaks="v1">
       <div ref={headerRef}>
         <h2 className="section-header">{contact.title}</h2>
         <p className="section-subtitle">{contact.subtitle}</p>
       </div>
 
       <div ref={cardRef} className="mt-8 max-w-xl mx-auto glass-card p-6 md:p-8 overflow-hidden">
-        <p className="text-white/80 text-sm font-medium mb-4 text-left">What to expect</p>
+        <p className="text-white/80 text-sm font-medium mb-4 text-left">{contact.whatToExpect}</p>
         <ul ref={benefitsRef} className="space-y-3 mb-8 text-left">
           {contact.benefits.map((benefit) => (
             <li key={benefit} className="flex items-start gap-3">
@@ -42,7 +42,7 @@ export default function ContactSection() {
             href={contact.cta.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm cursor-pointer transition-all bg-white text-black hover:bg-neutral-200 hover:-translate-y-0.5 shadow-lg shadow-white/10"
+            className="cta-button-primary"
           >
             {contact.cta.text}
             <ArrowUpRight className="w-4 h-4" aria-hidden="true" />

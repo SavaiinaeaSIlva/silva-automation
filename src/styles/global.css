@@ -21,6 +21,7 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-full: 9999px;
+  --card-bg: color-mix(in srgb, var(--color-bg) 85%, transparent);
 }
 
 * {
@@ -91,6 +92,7 @@ input[type='text'],
 input[type='email'],
 input[type='number'],
 input[type='tel'],
+input[type='search'],
 textarea {
   width: 100%;
   padding: 0.625rem 0.875rem;
@@ -108,6 +110,7 @@ input[type='text']:focus,
 input[type='email']:focus,
 input[type='number']:focus,
 input[type='tel']:focus,
+input[type='search']:focus,
 textarea:focus {
   outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: 2px;
@@ -158,18 +161,75 @@ textarea {
   opacity: 0.6;
 }
 
-/* Cards – glassmorphism (frosted glass) */
-.glass-card {
-  background: rgba(17, 17, 17, 0.5);
+/* Primary CTA (hero + contact) – single source for pill button style */
+.cta-button-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-cta-text);
+  background: var(--color-cta);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
+}
+.cta-button-primary:hover {
+  background: var(--color-cta-hover);
+  transform: translateY(-2px);
+}
+
+/* Secondary CTA (outline – process section, etc.) */
+.cta-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-cta-secondary-text);
+  background: var(--color-cta-secondary);
+  border: 1px solid var(--color-border-hover);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+.cta-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Cards – glassmorphism (frosted glass), shared background */
+.glass-card,
+.glass-card-featured {
+  background: var(--card-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: border-color 0.2s;
+  border: 1px solid var(--color-border);
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
-.glass-card:hover {
-  border-color: var(--color-border-hover);
+.glass-card:hover,
+.glass-card-featured:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: color-mix(in srgb, var(--color-bg) 78%, rgba(255, 255, 255, 0.06));
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 24px -8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 @property --gradient-angle {
@@ -188,13 +248,9 @@ textarea {
 }
 
 .glass-card-featured {
-  background: rgba(22, 22, 22, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: var(--radius-md);
-  border: none;
   position: relative;
   z-index: 1;
+  border: none; /* uses animated ::before border instead */
 }
 
 .glass-card-featured::before {
@@ -332,8 +388,8 @@ textarea {
   height: 70%;
   background: radial-gradient(
     ellipse 100% 100% at 30% 70%,
-    rgba(160, 120, 255, 0.15) 0%,
-    rgba(120, 80, 200, 0.04) 45%,
+    rgba(100, 160, 255, 0.15) 0%,
+    rgba(80, 130, 255, 0.04) 45%,
     transparent 65%
   );
   animation-name: fluid-drift-2;
@@ -375,6 +431,7 @@ textarea {
   z-index: 1;
 }
 
+/* v1 = orange */
 .light-leak-v1::before {
   top: -30%;
   right: -20%;
@@ -396,13 +453,14 @@ textarea {
   height: 70%;
   background: radial-gradient(
     ellipse 100% 100% at 30% 70%,
-    rgba(160, 120, 255, 0.18) 0%,
-    rgba(120, 80, 200, 0.05) 45%,
+    rgba(255, 160, 80, 0.18) 0%,
+    rgba(255, 120, 60, 0.05) 45%,
     transparent 65%
   );
   filter: blur(120px);
 }
 
+/* v2 = blue */
 .light-leak-v2::before {
   top: -25%;
   left: -30%;
@@ -410,8 +468,8 @@ textarea {
   height: 85%;
   background: radial-gradient(
     ellipse 100% 100% at 25% 40%,
-    rgba(80, 140, 255, 0.22) 0%,
-    rgba(60, 100, 200, 0.06) 40%,
+    rgba(100, 160, 255, 0.22) 0%,
+    rgba(80, 130, 255, 0.06) 40%,
     transparent 60%
   );
   filter: blur(110px);
@@ -424,13 +482,14 @@ textarea {
   height: 65%;
   background: radial-gradient(
     ellipse 100% 100% at 75% 60%,
-    rgba(80, 220, 200, 0.15) 0%,
-    rgba(60, 180, 160, 0.04) 45%,
+    rgba(80, 140, 255, 0.15) 0%,
+    rgba(60, 120, 255, 0.04) 45%,
     transparent 60%
   );
   filter: blur(100px);
 }
 
+/* v3 = white */
 .light-leak-v3::before {
   top: -35%;
   left: 10%;
@@ -438,8 +497,8 @@ textarea {
   height: 75%;
   background: radial-gradient(
     ellipse 100% 100% at 40% 25%,
-    rgba(255, 100, 180, 0.2) 0%,
-    rgba(200, 80, 140, 0.05) 40%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.06) 40%,
     transparent 60%
   );
   filter: blur(120px);
@@ -452,8 +511,8 @@ textarea {
   height: 70%;
   background: radial-gradient(
     ellipse 100% 100% at 65% 70%,
-    rgba(255, 200, 100, 0.18) 0%,
-    rgba(220, 160, 60, 0.05) 45%,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.04) 45%,
     transparent 60%
   );
   filter: blur(110px);
@@ -486,8 +545,8 @@ textarea {
     ),
     radial-gradient(
       ellipse 60% 80% at 30% 70%,
-      rgba(160, 120, 255, 0.1) 0%,
-      rgba(120, 80, 200, 0.03) 50%,
+      rgba(100, 160, 255, 0.1) 0%,
+      rgba(80, 130, 255, 0.03) 50%,
       transparent 70%
     );
   filter: blur(60px);
@@ -572,16 +631,16 @@ section + section {
 }
 
 .legal-content strong {
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .legal-page-bg {
-  background: #000000;
+  background: var(--color-bg);
 }
 
 /* Footer — solid opaque so orbs don't show through */
 footer {
-  background: #0a0a0a !important;
+  background: var(--color-bg) !important;
 }
 
 .footer-heading {
@@ -599,7 +658,7 @@ footer {
 }
 
 .footer-link:hover {
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 /* Navigation */

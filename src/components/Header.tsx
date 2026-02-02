@@ -1,7 +1,17 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { siteContent } from '../content/siteContent';
 
 export default function Header() {
+  const {
+    skipToMainContent,
+    logoAlt,
+    backToTopAria,
+    navLinks,
+    openMenu,
+    closeMenu,
+    mobileNavAria,
+  } = siteContent.header;
   const [active, setActive] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -87,7 +97,7 @@ export default function Header() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded pointer-events-auto"
       >
-        Skip to main content
+        {skipToMainContent}
       </a>
 
       {/* Floating Island Navigation */}
@@ -96,12 +106,12 @@ export default function Header() {
           {/* Logo */}
           <a
             href="#hero"
-            aria-label="Back to top"
+            aria-label={backToTopAria}
             className="flex items-center pl-2 pr-1 hover:opacity-80 transition-opacity"
           >
             <img
               src="/icon.png"
-              alt="Silva Automation"
+              alt={logoAlt}
               className="h-7 w-auto"
               loading="eager"
               width="28"
@@ -114,12 +124,9 @@ export default function Header() {
 
           {/* Desktop navigation tabs */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLink('#challenge-and-solution', 'Intro')}
-            {navLink('#process', 'Process')}
-            {navLink('#pricing', 'Pricing')}
-            {navLink('#calculator', 'Calculator')}
-            {navLink('#contact', 'Schedule')}
-            {navLink('#faq', 'FAQ')}
+            {navLinks.map((link) => (
+              <Fragment key={link.href}>{navLink(link.href, link.label)}</Fragment>
+            ))}
           </nav>
 
           {/* Mobile hamburger button */}
@@ -127,7 +134,7 @@ export default function Header() {
             type="button"
             className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileMenuOpen ? closeMenu : openMenu}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
           >
@@ -143,15 +150,14 @@ export default function Header() {
             id="mobile-menu"
             className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden"
             role="navigation"
-            aria-label="Mobile navigation"
+            aria-label={mobileNavAria}
           >
             <nav className="flex flex-col p-2">
-              {navLink('#challenge-and-solution', 'Intro', closeMobileMenu)}
-              {navLink('#process', 'Process', closeMobileMenu)}
-              {navLink('#pricing', 'Pricing', closeMobileMenu)}
-              {navLink('#calculator', 'Calculator', closeMobileMenu)}
-              {navLink('#contact', 'Schedule', closeMobileMenu)}
-              {navLink('#faq', 'FAQ', closeMobileMenu)}
+              {navLinks.map((link) => (
+                <Fragment key={link.href}>
+                  {navLink(link.href, link.label, closeMobileMenu)}
+                </Fragment>
+              ))}
             </nav>
           </div>
         </div>

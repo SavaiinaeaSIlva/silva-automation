@@ -52,24 +52,16 @@ export default function HeroSection() {
               ref={titleRef}
               className="text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight tracking-tight text-center flex flex-col items-center"
             >
-              {(() => {
-                const title = siteContent.hero.title;
-                const periodIdx = title.indexOf('. ');
-                const line2 = periodIdx >= 0 ? title.slice(periodIdx + 2) : '';
-                return (
-                  <>
-                    <span className="block whitespace-nowrap text-center">
-                      <span className="text-white">Stop</span> Drowning in Paperwork.
-                    </span>
-                    {line2 && (
-                      <span className="block whitespace-nowrap text-center mt-4">
-                        <span className="hero-light-leak-text italic">Start</span> Running Your
-                        Business
-                      </span>
-                    )}
-                  </>
-                );
-              })()}
+              <span className="block whitespace-nowrap text-center">
+                <span className="text-white">{siteContent.hero.titleLine1Highlight}</span>{' '}
+                {siteContent.hero.titleLine1Rest}
+              </span>
+              <span className="block whitespace-nowrap text-center mt-4">
+                <span className="hero-light-leak-text italic">
+                  {siteContent.hero.titleLine2Highlight}
+                </span>{' '}
+                {siteContent.hero.titleLine2Rest}
+              </span>
             </h1>
 
             <p
@@ -80,10 +72,7 @@ export default function HeroSection() {
             </p>
 
             <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
-              <a
-                href="#contact"
-                className="px-5 py-2.5 rounded-full font-medium text-sm cursor-pointer transition-all inline-flex items-center gap-2 bg-white text-black hover:bg-neutral-200 hover:-translate-y-0.5 shadow-lg shadow-white/10"
-              >
+              <a href="#contact" className="cta-button-primary">
                 {siteContent.hero.cta}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>

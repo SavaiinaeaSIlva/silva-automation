@@ -40,7 +40,7 @@ export default function CalculatorSection() {
   });
 
   return (
-    <SectionLayout id="calculator">
+    <SectionLayout id="calculator" lightLeaks="v2">
       <div ref={headerRef}>
         <h2 className="section-header">{calc.title}</h2>
         <p className="section-subtitle">{calc.subtitle}</p>
@@ -48,129 +48,120 @@ export default function CalculatorSection() {
 
       <div ref={cardsRef} className="grid md:grid-cols-2 gap-6 mt-8">
         <div className="glass-card p-6">
-          <h3 className="font-semibold mb-4 text-text-main">Inputs</h3>
+          <h3 className="font-semibold mb-4 text-text-main">{calc.inputsTitle}</h3>
           <div className="space-y-4">
             <label className="block">
-              <span className="text-muted text-sm block mb-1">
-                Team size (crew/agents doing admin work)
-              </span>
+              <span className="text-muted text-sm block mb-1">{calc.fields[0].label}</span>
               <input
                 type="number"
                 id="team-size"
-                min={1}
-                max={50}
+                min={calc.fields[0].min}
+                max={calc.fields[0].max}
                 value={teamSize}
-                placeholder="e.g., 10"
+                placeholder={calc.fields[0].placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
-                  if (val === '') {
-                    setTeamSize('');
-                  } else {
-                    setTeamSize(Math.max(1, Math.min(50, Number(val))));
-                  }
+                  if (val === '') setTeamSize('');
+                  else
+                    setTeamSize(
+                      Math.max(calc.fields[0].min!, Math.min(calc.fields[0].max!, Number(val)))
+                    );
                 }}
                 className="form-input-underlined"
                 aria-describedby="team-size-desc"
               />
               <span id="team-size-desc" className="sr-only">
-                Enter the number of team members doing administrative work (1-50)
+                {calc.fields[0].srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">
-                Weekly paperwork hours per person (hrs/week)
-              </span>
+              <span className="text-muted text-sm block mb-1">{calc.fields[1].label}</span>
               <input
                 type="number"
                 id="weekly-hours"
-                min={1}
-                max={40}
+                min={calc.fields[1].min}
+                max={calc.fields[1].max}
                 value={weeklyHours}
-                placeholder="e.g., 15"
+                placeholder={calc.fields[1].placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
-                  if (val === '') {
-                    setWeeklyHours('');
-                  } else {
-                    setWeeklyHours(Math.max(1, Math.min(40, Number(val))));
-                  }
+                  if (val === '') setWeeklyHours('');
+                  else
+                    setWeeklyHours(
+                      Math.max(calc.fields[1].min!, Math.min(calc.fields[1].max!, Number(val)))
+                    );
                 }}
                 className="form-input-underlined"
                 aria-describedby="weekly-hours-desc"
               />
               <span id="weekly-hours-desc" className="sr-only">
-                Enter hours spent on paperwork per person per week (1-40)
+                {calc.fields[1].srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">Average hourly cost ($/hr)</span>
+              <span className="text-muted text-sm block mb-1">{calc.fields[2].label}</span>
               <input
                 type="number"
                 id="hourly-cost"
-                min={20}
-                max={200}
+                min={calc.fields[2].min}
+                max={calc.fields[2].max}
                 value={hourlyCost}
-                placeholder="e.g., 45"
+                placeholder={calc.fields[2].placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
-                  if (val === '') {
-                    setHourlyCost('');
-                  } else {
-                    setHourlyCost(Math.max(20, Math.min(200, Number(val))));
-                  }
+                  if (val === '') setHourlyCost('');
+                  else
+                    setHourlyCost(
+                      Math.max(calc.fields[2].min!, Math.min(calc.fields[2].max!, Number(val)))
+                    );
                 }}
                 className="form-input-underlined"
                 aria-describedby="hourly-cost-desc"
               />
               <span id="hourly-cost-desc" className="sr-only">
-                Enter average hourly cost per employee ($20-$200)
+                {calc.fields[2].srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">
-                Estimated automation project cost ($)
-              </span>
+              <span className="text-muted text-sm block mb-1">{calc.fields[3].label}</span>
               <input
                 type="number"
                 id="project-cost"
-                min={0}
+                min={calc.fields[3].min}
                 value={projectCost}
-                placeholder="e.g., 6000"
+                placeholder={calc.fields[3].placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
-                  if (val === '') {
-                    setProjectCost('');
-                  } else {
-                    setProjectCost(Math.max(0, Number(val)));
-                  }
+                  if (val === '') setProjectCost('');
+                  else setProjectCost(Math.max(calc.fields[3].min!, Number(val)));
                 }}
                 className="form-input-underlined"
                 aria-describedby="project-cost-desc"
               />
               <span id="project-cost-desc" className="sr-only">
-                Enter estimated cost for automation project in dollars
+                {calc.fields[3].srDescription}
               </span>
             </label>
           </div>
         </div>
 
         <div className="glass-card p-6">
-          <h3 className="font-semibold mb-4 text-text-main">Results</h3>
+          <h3 className="font-semibold mb-4 text-text-main">{calc.resultsTitle}</h3>
           <ul className="space-y-4">
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-muted">Monthly admin cost</span>
+              <span className="text-muted">{calc.resultLabels.monthlyAdminCost}</span>
               <span className="font-display text-cta">
                 ${monthlyAdminCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-muted">Yearly revenue leak</span>
+              <span className="text-muted">{calc.resultLabels.yearlyRevenueLeak}</span>
               <span className="font-display text-cta">
                 ${yearlyRevenueLeak.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4 pt-2 border-t border-white/10">
-              <span className="text-muted">Payback period</span>
+              <span className="text-muted">{calc.resultLabels.paybackPeriod}</span>
               <span className="font-display text-success">
                 {paybackMonths > 0 && paybackMonths < 120
                   ? `${paybackMonths.toFixed(1)} months`

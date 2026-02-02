@@ -48,16 +48,16 @@ export default function FAQSection() {
 
       <div ref={searchRef} className="mt-6 max-w-xl mx-auto">
         <label htmlFor="faq-search" className="sr-only">
-          Search FAQ
+          {faq.searchLabelSr}
         </label>
         <input
           id="faq-search"
           type="search"
-          placeholder="Search questions..."
+          placeholder={faq.searchPlaceholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="form-input"
-          aria-label="Search FAQ"
+          aria-label={faq.searchAriaLabel}
         />
       </div>
 
@@ -72,12 +72,14 @@ export default function FAQSection() {
             onClick={() => setShowAll((prev) => !prev)}
             className="text-muted hover:text-white text-sm underline transition-colors"
           >
-            {showAll ? 'See less' : `See all (${filteredItems.length} questions)`}
+            {showAll
+              ? faq.seeLess
+              : faq.seeAllTemplate.replace('{{count}}', String(filteredItems.length))}
           </button>
         </div>
       )}
       {searchQuery.trim() !== '' && filteredItems.length === 0 && (
-        <p className="mt-6 text-center text-muted">No questions match your search.</p>
+        <p className="mt-6 text-center text-muted">{faq.noResults}</p>
       )}
     </SectionLayout>
   );

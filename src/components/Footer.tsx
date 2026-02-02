@@ -2,21 +2,7 @@ import { Link } from 'react-router-dom';
 import { siteContent } from '../content/siteContent';
 
 export default function Footer() {
-  const quickLinks = [
-    { label: 'Intro', href: '#challenge-and-solution' },
-    { label: 'Process', href: '#process' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Calculator', href: '#calculator' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'FAQ', href: '#faq' },
-  ];
-
-  const legalLinks = [
-    { label: 'Terms & Conditions', to: '/terms' },
-    { label: 'Privacy Policy', to: '/privacy' },
-    { label: 'Cookie Policy', to: '/cookies' },
-    { label: 'Refunds', to: '/refunds' },
-  ];
+  const footer = siteContent.footer;
 
   return (
     <footer className="relative z-10 text-white border-t border-white/10 mt-16">
@@ -26,23 +12,20 @@ export default function Footer() {
           <div>
             <img
               src="/icon.png"
-              alt="Silva Automation"
+              alt={footer.companyName}
               className="h-8 w-auto mb-4"
               loading="lazy"
               width="32"
               height="32"
             />
-            <p className="text-muted text-sm">
-              Workflow automation for Hawaii service businesses. Fixed-price projects, no recurring
-              fees.
-            </p>
+            <p className="text-muted text-sm">{footer.tagline}</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="footer-heading">Quick Links</h4>
+            <h4 className="footer-heading">{footer.quickLinksTitle}</h4>
             <ul className="space-y-2">
-              {quickLinks.map((link) => (
+              {footer.quickLinks.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="footer-link">
                     {link.label}
@@ -54,9 +37,9 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="footer-heading">Legal</h4>
+            <h4 className="footer-heading">{footer.legalTitle}</h4>
             <ul className="space-y-2">
-              {legalLinks.map((link) => (
+              {footer.legalLinks.map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="footer-link">
                     {link.label}
@@ -68,30 +51,27 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="footer-heading">Get in Touch</h4>
+            <h4 className="footer-heading">{footer.getInTouchTitle}</h4>
             <ul className="space-y-2 text-muted text-sm">
-              <li className="text-white font-medium">Silva Automation LLC</li>
+              <li className="text-white font-medium">{footer.companyName}</li>
               <li>
-                <a
-                  href="mailto:contact@silvaautomation.com"
-                  className="hover:text-white transition-colors"
-                >
-                  contact@silvaautomation.com
+                <a href={`mailto:${footer.email}`} className="hover:text-white transition-colors">
+                  {footer.email}
                 </a>
               </li>
               <li>
-                <a href="tel:+18087266422" className="hover:text-white transition-colors">
-                  (808) 726-6422
+                <a href={footer.phoneHref} className="hover:text-white transition-colors">
+                  {footer.phone}
                 </a>
               </li>
               <li>
                 <a
-                  href="https://calendly.com/silvaautomation/consultation"
+                  href={footer.bookAssessmentUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  Book Free Assessment
+                  {footer.bookAssessmentText}
                 </a>
               </li>
             </ul>
@@ -100,7 +80,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10 text-center">
-          <p className="text-muted text-sm">{siteContent.footer.copyright}</p>
+          <p className="text-muted text-sm">{footer.copyright}</p>
         </div>
       </div>
     </footer>
