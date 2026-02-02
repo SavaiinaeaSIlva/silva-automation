@@ -7,9 +7,9 @@ describe('Main sections render', () => {
   test('renders hero and main sections', async () => {
     render(<App />);
 
-    // Check immediately loaded sections
+    // Check immediately loaded sections (hero title)
     expect(
-      screen.getByRole('heading', { name: /Workflow Automation For Hawaii/i })
+      screen.getByRole('heading', { name: /Stop Drowning in Paperwork/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /The Challenge & Our Solution/i })

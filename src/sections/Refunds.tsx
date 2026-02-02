@@ -4,7 +4,7 @@ export default function Refunds() {
       <p className="text-sm text-white/50 italic mb-4">Effective Date: January 15, 2025</p>
 
       <p>
-        This Refund & Cancellation Policy outlines the conditions under which Silva Automation
+        This Refund & Cancellation Policy outlines the conditions under which Silva Automation LLC
         ("we," "us," or "our") provides refunds and allows for the cancellation of services. This
         policy is governed by Hawaii state law and incorporates fair business practices for
         service-based businesses.
@@ -189,7 +189,8 @@ export default function Refunds() {
           <strong>Phone:</strong> (808) 726-6422
         </p>
         <p>
-          <strong>Address:</strong> Silva Automation, 94-207 Waipahu Street #323, Waipahu, HI 96797
+          <strong>Address:</strong> Silva Automation LLC, 94-207 Waipahu Street #323, Waipahu, HI
+          96797
         </p>
       </div>
     </div>

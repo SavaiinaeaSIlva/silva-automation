@@ -4,7 +4,7 @@ import { toHaveNoViolations } from 'jest-axe';
 // Extend Jest matchers with jest-axe
 expect.extend(toHaveNoViolations);
 
-// Mock IntersectionObserver for GSAP ScrollTrigger
+// Mock IntersectionObserver for scroll-reveal hook
 class MockIntersectionObserver {
   observe = () => null;
   disconnect = () => null;

@@ -25,8 +25,9 @@ export default function ContactSection() {
         <p className="section-subtitle">{contact.subtitle}</p>
       </div>
 
-      <div ref={cardRef} className="mt-8 max-w-xl mx-auto glass-card p-6 md:p-8">
-        <ul ref={benefitsRef} className="space-y-3 mb-6 text-left">
+      <div ref={cardRef} className="mt-8 max-w-xl mx-auto glass-card p-6 md:p-8 overflow-hidden">
+        <p className="text-white/80 text-sm font-medium mb-4 text-left">What to expect</p>
+        <ul ref={benefitsRef} className="space-y-3 mb-8 text-left">
           {contact.benefits.map((benefit) => (
             <li key={benefit} className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -37,9 +38,16 @@ export default function ContactSection() {
           ))}
         </ul>
 
-        <div className="flex justify-center">
-          <a href={contact.cta.url} target="_blank" rel="noopener noreferrer">
-            <Button type="button">{contact.cta.text}</Button>
+        <div className="border-t border-white/10 pt-6 flex justify-center">
+          <a
+            href={contact.cta.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <Button type="button" variant="primary">
+              {contact.cta.text}
+            </Button>
           </a>
         </div>
       </div>

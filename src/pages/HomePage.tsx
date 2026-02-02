@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import SiteBackground from '../components/SiteBackground';
-import BackToTop from '../components/BackToTop';
 import Footer from '../components/Footer';
 import Loader from '../components/Loader';
 import HeroSection from '../sections/HeroSection';
@@ -15,8 +14,8 @@ const FAQSection = lazy(() => import('../sections/FAQSection'));
 
 export default function HomePage() {
   return (
-    <>
-      {/* Background layer */}
+    <div className="relative min-h-screen">
+      {/* Background layer — absolute so orbs scroll with page, not sticky */}
       <SiteBackground />
 
       {/* Content layer */}
@@ -51,8 +50,7 @@ export default function HomePage() {
         </main>
 
         <Footer />
-        <BackToTop />
       </div>
-    </>
+    </div>
   );
 }

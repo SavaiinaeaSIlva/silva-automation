@@ -6,9 +6,15 @@ type SectionLayoutProps = {
   id: string;
   children: React.ReactNode;
   lightLeaks?: LightLeakVariant;
+  fullScreen?: boolean;
 };
 
-export default function SectionLayout({ id, children, lightLeaks }: SectionLayoutProps) {
+export default function SectionLayout({
+  id,
+  children,
+  lightLeaks,
+  fullScreen,
+}: SectionLayoutProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,7 +35,8 @@ export default function SectionLayout({ id, children, lightLeaks }: SectionLayou
   }, [lightLeaks]);
 
   const sectionClasses = [
-    'py-24 md:py-32 text-text-main',
+    fullScreen ? 'min-h-screen flex flex-col justify-center py-16 md:py-20' : 'py-24 md:py-32',
+    'text-text-main',
     lightLeaks && 'section-light-leaks',
     lightLeaks && `light-leak-${lightLeaks}`,
     lightLeaks && isVisible && 'is-visible',

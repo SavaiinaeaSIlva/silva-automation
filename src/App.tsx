@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import BackToTop from './components/BackToTop';
+import { LenisProvider } from './contexts/LenisContext';
 import CookieBanner from './components/CookieBanner';
 import ErrorBoundary from './components/ErrorBoundary';
 import Loader from './components/Loader';
@@ -15,17 +17,20 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <ScrollToTop />
-        <CookieBanner />
-        <Suspense fallback={<Loader fullScreen />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/terms" element={<TermsPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/cookies" element={<CookiesPage />} />
-            <Route path="/refunds" element={<RefundsPage />} />
-          </Routes>
-        </Suspense>
+        <LenisProvider>
+          <ScrollToTop />
+          <CookieBanner />
+          <BackToTop />
+          <Suspense fallback={<Loader fullScreen />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/cookies" element={<CookiesPage />} />
+              <Route path="/refunds" element={<RefundsPage />} />
+            </Routes>
+          </Suspense>
+        </LenisProvider>
       </BrowserRouter>
     </ErrorBoundary>
   );

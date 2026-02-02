@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useLenis } from '../contexts/LenisContext';
 
 const SHOW_AFTER_PX = 200;
 
@@ -8,23 +9,25 @@ function getScrollTop(): number {
   return el ? el.scrollTop : (window.scrollY ?? document.documentElement.scrollTop ?? 0);
 }
 
-function scrollToTop(): void {
-  const el = document.scrollingElement;
-  if (el) {
-    el.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 export default function BackToTop() {
+  const lenis = useLenis();
   const [visible, setVisible] = useState(false);
+
+  const scrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      const el = document.scrollingElement;
+      if (el) el.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const update = () => {
       const scrollTop = getScrollTop();
       setVisible(scrollTop > SHOW_AFTER_PX);
     };
-    // Run immediately and after layout (handles SSR/hydration and late layout)
     update();
     const raf = requestAnimationFrame(update);
     const t = setTimeout(update, 150);

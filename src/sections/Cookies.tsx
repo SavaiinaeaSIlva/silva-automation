@@ -115,7 +115,8 @@ export default function Cookies() {
           <strong>Phone:</strong> (808) 726-6422
         </p>
         <p>
-          <strong>Address:</strong> Silva Automation, 94-207 Waipahu Street #323, Waipahu, HI 96797
+          <strong>Address:</strong> Silva Automation LLC, 94-207 Waipahu Street #323, Waipahu, HI
+          96797
         </p>
       </div>
     </div>

@@ -70,7 +70,7 @@ The project uses:
 - **GSAP** for scroll animations
 - **Responsive Design** with mobile-first approach
 
-See `read_me_first/THEMING.md` for detailed theming documentation.
+Theme variables and design tokens are defined in `src/styles/global.css`.
 
 ## ♿ Accessibility Features
 
@@ -176,10 +176,7 @@ GitHub Actions workflow (`.github/workflows/ci.yml`):
 
 ## 📝 Additional Documentation
 
-For more detailed information, see:
-- `read_me_first/Change_Log.md` - Detailed changelog
-- `read_me_first/STYLING-SNAPSHOT.md` - Styling conventions
-- `read_me_first/THEMING.md` - Theme customization guide
+Theme and styling are configured in `src/styles/global.css` and `tailwind.config.cjs`.
 
 ## 🤝 Contributing
 
@@ -214,7 +211,6 @@ All rights reserved. See individual files for specific copyright information.
 
 For questions or issues:
 - Check the FAQ section in the application
-- Review documentation in `read_me_first/`
 - Open an issue on the repository
 
 ---

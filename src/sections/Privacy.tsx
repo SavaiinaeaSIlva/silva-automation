@@ -4,8 +4,8 @@ export default function Privacy() {
       <p className="text-sm text-white/50 italic mb-4">Effective Date: January 15, 2025</p>
 
       <p>
-        This Privacy Policy describes how Silva Automation ("we," "us," or "our") collects, uses,
-        and discloses information from users of our website and services, located at
+        This Privacy Policy describes how Silva Automation LLC ("we," "us," or "our") collects,
+        uses, and discloses information from users of our website and services, located at
         www.silvaautomation.com. We are committed to protecting your privacy and complying with all
         applicable laws, including the data protection principles of the State of Hawaii and federal
         privacy regulations.
@@ -222,7 +222,8 @@ export default function Privacy() {
           <strong>Phone:</strong> (808) 726-6422
         </p>
         <p>
-          <strong>Address:</strong> Silva Automation, 94-207 Waipahu Street #323, Waipahu, HI 96797
+          <strong>Address:</strong> Silva Automation LLC, 94-207 Waipahu Street #323, Waipahu, HI
+          96797
         </p>
       </div>
     </div>

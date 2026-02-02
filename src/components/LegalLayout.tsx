@@ -38,7 +38,7 @@ export default function LegalLayout({ title, icon: Icon, children }: LegalLayout
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-white/40 text-sm">
-        &copy; {new Date().getFullYear()} Silva Automation. All rights reserved.
+        &copy; {new Date().getFullYear()} Silva Automation LLC. All rights reserved.
       </footer>
     </div>
   );

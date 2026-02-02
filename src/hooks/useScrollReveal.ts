@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 type RevealOptions = {
   delay?: number;
@@ -17,11 +14,17 @@ type RevealOptions = {
 const defaultOptions: RevealOptions = {
   delay: 0,
   duration: 0.8,
-  y: 40,
-  startOpacity: 0,
-  start: 'top 85%',
+  y: 48,
+  startOpacity: 1,
+  start: 'top 88%',
   stagger: 0,
-  scale: 1,
+  scale: 0.97,
+};
+
+const IO_OPTIONS: IntersectionObserverInit = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.1,
 };
 
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
@@ -29,6 +32,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
 ) {
   const ref = useRef<T>(null);
   const opts = { ...defaultOptions, ...options };
+  const playedRef = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -49,24 +53,23 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
       duration: opts.duration,
       delay: opts.delay,
       ease: 'power3.out',
-      ...(isImmediate
-        ? {}
-        : {
-            scrollTrigger: {
-              trigger: el,
-              start: opts.start,
-              toggleActions: 'play none none none',
-            },
-          }),
+      paused: !isImmediate,
     });
 
-    // When start is "top top", element is already in view — play immediately so content always shows
     if (isImmediate) {
       animation.play(0);
+      return () => animation.kill();
     }
 
+    const observer = new IntersectionObserver(([entry]) => {
+      if (playedRef.current || !entry?.isIntersecting) return;
+      playedRef.current = true;
+      animation.play();
+    }, IO_OPTIONS);
+
+    observer.observe(el);
     return () => {
-      animation.scrollTrigger?.kill();
+      observer.disconnect();
       animation.kill();
     };
   }, [opts.delay, opts.duration, opts.y, opts.startOpacity, opts.start, opts.scale]);
@@ -80,6 +83,7 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
   const ref = useRef<T>(null);
   const { childSelector = ':scope > *', ...animOptions } = options;
   const opts = { ...defaultOptions, stagger: 0.1, ...animOptions };
+  const playedRef = useRef(false);
 
   useEffect(() => {
     const parent = ref.current;
@@ -102,15 +106,18 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
       delay: opts.delay,
       stagger: opts.stagger,
       ease: 'power3.out',
-      scrollTrigger: {
-        trigger: parent,
-        start: opts.start,
-        toggleActions: 'play none none none',
-      },
+      paused: true,
     });
 
+    const observer = new IntersectionObserver(([entry]) => {
+      if (playedRef.current || !entry?.isIntersecting) return;
+      playedRef.current = true;
+      animation.play();
+    }, IO_OPTIONS);
+
+    observer.observe(parent);
     return () => {
-      animation.scrollTrigger?.kill();
+      observer.disconnect();
       animation.kill();
     };
   }, [

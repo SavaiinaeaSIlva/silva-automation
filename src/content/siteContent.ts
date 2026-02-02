@@ -231,7 +231,7 @@ export const siteContent = {
 
   footer: {
     copyright:
-      '© 2026 Silva Automation | Based in Waipahu, Hawaii | Serving Hawaii Service Businesses',
+      '© 2026 Silva Automation LLC | Based in Waipahu, Hawaii | Serving Hawaii Service Businesses',
   },
 };
 

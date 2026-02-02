@@ -5,15 +5,15 @@ export default function Terms() {
 
       <p>
         This website, www.silvaautomation.com (the "Site"), and the services offered through it, are
-        owned and operated by Silva Automation, a sole proprietorship organized under Hawaii law
-        ("Silva Automation," "we," "us," or "our"). By accessing or using our Site and services, you
+        owned and operated by Silva Automation LLC, a Hawaii limited liability company ("Silva
+        Automation LLC," "we," "us," or "our"). By accessing or using our Site and services, you
         agree to be bound by these Terms and Conditions ("Terms"). If you do not agree with any part
         of these Terms, you must not use our Site or services.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">1. Description of Services</h3>
       <p>
-        Silva Automation provides business-to-business automation services, including but not
+        Silva Automation LLC provides business-to-business automation services, including but not
         limited to workflow optimization, CRM setup, and automated marketing campaigns. The specific
         scope of work for each project will be outlined in a separate Service Agreement and a
         Project Proposal, which are incorporated into these Terms by reference.
@@ -39,9 +39,9 @@ export default function Terms() {
       <h3 className="text-xl font-bold text-white mt-6 mb-3">3. Intellectual Property</h3>
       <p>
         All content on the Site, including text, graphics, logos, images, and software, is the
-        property of Silva Automation or its content suppliers and is protected by intellectual
+        property of Silva Automation LLC or its content suppliers and is protected by intellectual
         property laws. As per our Service Agreement, upon full and final payment, the client will
-        own the custom work product created specifically for them. Silva Automation retains
+        own the custom work product created specifically for them. Silva Automation LLC retains
         ownership of all underlying code, general tools, templates, and pre-existing intellectual
         property used to create the work product.
       </p>
@@ -67,18 +67,18 @@ export default function Terms() {
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">5. Limitation of Liability</h3>
       <p>
-        To the fullest extent permitted by Hawaii law, Silva Automation's total liability to you for
-        all damages, losses, and causes of action shall not exceed the total amount paid by you to
-        Silva Automation for the specific service giving rise to the liability. Silva Automation
-        shall not be liable for any indirect, incidental, special, consequential, or punitive
-        damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any
-        loss of data, use, goodwill, or other intangible losses, resulting from your use of our
-        services.
+        To the fullest extent permitted by Hawaii law, Silva Automation LLC's total liability to you
+        for all damages, losses, and causes of action shall not exceed the total amount paid by you
+        to Silva Automation LLC for the specific service giving rise to the liability. Silva
+        Automation LLC shall not be liable for any indirect, incidental, special, consequential, or
+        punitive damages, or any loss of profits or revenues, whether incurred directly or
+        indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from
+        your use of our services.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">6. Indemnification</h3>
       <p>
-        You agree to indemnify and hold harmless Silva Automation, its officers, directors,
+        You agree to indemnify and hold harmless Silva Automation LLC, its officers, directors,
         employees, and agents from and against any claims, liabilities, damages, losses, and
         expenses, including reasonable attorney's fees, arising out of or in any way connected with
         your use of our services or your violation of these Terms.
@@ -115,11 +115,11 @@ export default function Terms() {
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">10. Force Majeure</h3>
       <p>
-        Silva Automation shall not be liable for any failure or delay in performance under these
+        Silva Automation LLC shall not be liable for any failure or delay in performance under these
         Terms which is due to fire, flood, earthquake, tsunami, volcanic activity, elements of
         nature or acts of God, acts of war, terrorism, labor strikes, government actions, pandemic,
-        or any other cause which is beyond the reasonable control of Silva Automation, whether or
-        not similar to the foregoing.
+        or any other cause which is beyond the reasonable control of Silva Automation LLC, whether
+        or not similar to the foregoing.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">11. Severability</h3>
@@ -133,8 +133,9 @@ export default function Terms() {
       <h3 className="text-xl font-bold text-white mt-6 mb-3">12. Entire Agreement</h3>
       <p>
         These Terms, together with any Service Agreement and Project Proposal, constitute the entire
-        agreement between you and Silva Automation regarding the use of our services and supersede
-        all prior and contemporaneous understandings, agreements, representations, and warranties.
+        agreement between you and Silva Automation LLC regarding the use of our services and
+        supersede all prior and contemporaneous understandings, agreements, representations, and
+        warranties.
       </p>
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">13. Warranty Disclaimer</h3>
@@ -147,7 +148,7 @@ export default function Terms() {
 
       <h3 className="text-xl font-bold text-white mt-6 mb-3">14. Business License Compliance</h3>
       <p>
-        Silva Automation operates in compliance with all applicable Hawaii state and Oahu county
+        Silva Automation LLC operates in compliance with all applicable Hawaii state and Oahu county
         business licensing requirements. Our Hawaii General Excise Tax License number is
         GE-003-844-1472-01 and is available upon request.
       </p>
@@ -162,7 +163,8 @@ export default function Terms() {
           <strong>Phone:</strong> (808) 726-6422
         </p>
         <p>
-          <strong>Address:</strong> Silva Automation, 94-207 Waipahu Street #323, Waipahu, HI 96797
+          <strong>Address:</strong> Silva Automation LLC, 94-207 Waipahu Street #323, Waipahu, HI
+          96797
         </p>
       </div>
     </div>
