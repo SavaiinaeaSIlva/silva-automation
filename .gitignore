@@ -2,3 +2,6 @@ node_modules
 dist
 .env
 .vscode
+
+# Installers and binaries (not project assets)
+*.exe
