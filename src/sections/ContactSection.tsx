@@ -44,8 +44,10 @@ export default function ContactSection() {
             rel="noopener noreferrer"
             className="cta-button-primary"
           >
-            {contact.cta.text}
-            <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
+            <span className="cta-text">{contact.cta.text}</span>
+            <span className="cta-arrow-wrapper">
+              <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
+            </span>
           </a>
         </div>
       </div>

@@ -12,7 +12,9 @@ function BlockList({ items, iconType }: { items: ListItem[]; iconType: 'problem'
         <li key={i} className="flex items-start gap-3">
           <div
             className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 mt-0.5 ${
-              iconType === 'problem' ? 'bg-red-500/10 text-red-400' : 'bg-white/10 text-white'
+              iconType === 'problem'
+                ? 'bg-red-500/10 text-red-400'
+                : 'bg-emerald-500/10 text-emerald-400'
             }`}
           >
             {iconType === 'problem' ? (
