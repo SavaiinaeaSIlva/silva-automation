@@ -17,6 +17,12 @@
   --color-text-subtle: #666666;
   --focus-rgb: 255, 255, 255;
   --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.5rem;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -97,7 +103,7 @@ textarea {
   width: 100%;
   padding: 0.625rem 0.875rem;
   font-family: var(--font-main);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--color-text);
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -131,7 +137,7 @@ textarea {
   width: 100%;
   padding: 0.5rem 0;
   font-family: var(--font-main);
-  font-size: 1rem;
+  font-size: var(--text-base);
   color: var(--color-text);
   background: transparent;
   border: none;
@@ -189,7 +195,7 @@ textarea {
   align-items: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-cta-secondary-text);
   background: var(--color-cta-secondary);
@@ -610,7 +616,7 @@ section + section {
 }
 
 .legal-content h3 {
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: #ffffff;
   margin-top: 1.5rem;
@@ -646,7 +652,7 @@ footer {
 .footer-heading {
   font-weight: 600;
   margin-bottom: 1rem;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -666,7 +672,7 @@ footer {
   display: inline-block;
   color: var(--color-text-muted);
   text-decoration: none;
-  font-size: 0.8125rem;
+  font-size: var(--text-xs);
   font-weight: 500;
   padding: 0.5rem 0.875rem;
   border-radius: var(--radius-full);
@@ -690,7 +696,7 @@ footer {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  z-index: 30;
+  z-index: 9999;
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
@@ -702,9 +708,20 @@ footer {
   align-items: center;
   justify-content: center;
   transition:
+    opacity 0.2s ease,
     background 0.2s,
     border-color 0.2s,
     transform 0.2s;
+}
+
+.back-to-top[data-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.back-to-top[data-visible='true'] {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .back-to-top:hover {
@@ -713,10 +730,17 @@ footer {
   transform: translateY(-2px);
 }
 
+/* Metallic logo SVG text — font from design system */
+.metallic-logo-text {
+  font-family: var(--font-main);
+  font-size: 22px;
+  font-weight: 700;
+}
+
 /* Section headers */
 .section-header {
   font-family: var(--font-main);
-  font-size: 2rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -727,14 +751,14 @@ footer {
 
 @media (min-width: 1024px) {
   .section-header {
-    font-size: 2.5rem;
+    font-size: var(--text-2xl);
   }
 }
 
 .section-subtitle {
   display: block;
   margin: 0.5rem auto 1rem;
-  font-size: 1rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   color: var(--color-text-muted);
   max-width: 36rem;

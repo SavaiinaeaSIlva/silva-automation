@@ -52,12 +52,6 @@ export default function BackToTop() {
       onClick={scrollToTop}
       className="back-to-top"
       data-visible={visible}
-      style={{
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.2s ease',
-        zIndex: 9999,
-      }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

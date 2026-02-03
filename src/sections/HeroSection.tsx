@@ -46,31 +46,25 @@ export default function HeroSection() {
     >
       <div className="hero-parallax-bg" ref={parallaxRef} aria-hidden />
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <div className="hero-content relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="glass-card-featured p-10 sm:p-12 md:p-14 text-center overflow-hidden w-full max-w-full">
-            <h1
+        <div className="hero-content relative z-10 max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center">
+          <div className="glass-card-featured p-10 sm:p-12 md:p-14 overflow-hidden flex flex-col items-center">
+            <img
               ref={titleRef}
-              className="text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight tracking-tight text-center flex flex-col items-center"
-            >
-              <span className="block whitespace-nowrap text-center">
-                <span className="text-white">{siteContent.hero.titleLine1Highlight}</span>{' '}
-                {siteContent.hero.titleLine1Rest}
-              </span>
-              <span className="block whitespace-nowrap text-center mt-4">
-                <span className="hero-light-leak-text italic">
-                  {siteContent.hero.titleLine2Highlight}
-                </span>{' '}
-                {siteContent.hero.titleLine2Rest}
-              </span>
-            </h1>
-
-            <p
-              ref={subtitleRef}
-              className="text-muted text-base sm:text-lg max-w-full mx-auto mt-4 sm:mt-6 leading-relaxed text-center px-0"
-            >
-              {siteContent.hero.subtitle}
-            </p>
-
+              src="/LOGO.png"
+              alt="Silva Automation"
+              className="w-full max-w-sm sm:max-w-md h-auto"
+              loading="eager"
+              width="400"
+              height="150"
+            />
+            <div className="w-full max-w-xl mx-auto flex flex-col items-center mt-6 sm:mt-8">
+              <p
+                ref={subtitleRef}
+                className="text-zinc-400 text-base sm:text-lg leading-loose text-center w-full max-w-2xl"
+              >
+                {siteContent.hero.subtitle}
+              </p>
+            </div>
             <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
               <a href="#contact" className="cta-button-primary">
                 {siteContent.hero.cta}
