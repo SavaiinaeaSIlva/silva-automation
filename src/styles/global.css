@@ -888,9 +888,7 @@ section ol {
 }
 
 .scrolling-text-outlined {
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.2);
-  text-stroke: 2px rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.25);
 }
 
 @media (min-width: 768px) {
@@ -904,11 +902,6 @@ section ol {
 
   .scrolling-text-item {
     padding: 0 1.5rem;
-  }
-
-  .scrolling-text-outlined {
-    -webkit-text-stroke: 3px rgba(255, 255, 255, 0.18);
-    text-stroke: 3px rgba(255, 255, 255, 0.18);
   }
 }
 
