@@ -1,54 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLenis } from '../contexts/LenisContext';
+import { siteContent } from '../content/siteContent';
 
 const SHOW_AFTER_PX = 200;
-
-function getScrollTop(): number {
-  return document.scrollingElement?.scrollTop ?? 0;
-}
 
 export default function BackToTop() {
   const lenis = useLenis();
   const [visible, setVisible] = useState(false);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     if (lenis) {
       lenis.scrollTo(0, { duration: 1.2 });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [lenis]);
 
   useEffect(() => {
-    const update = () => {
-      const scrollTop = getScrollTop();
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
       setVisible(scrollTop > SHOW_AFTER_PX);
     };
-    update();
-    const raf = requestAnimationFrame(update);
-    const t = setTimeout(update, 150);
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    const el = document.scrollingElement;
-    if (el && el !== document.documentElement) {
-      el.addEventListener('scroll', update, { passive: true });
-    }
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-      if (el && el !== document.documentElement) {
-        el.removeEventListener('scroll', update);
-      }
-    };
+
+    // Initial check
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const button = (
     <button
       type="button"
-      aria-label="Back to top"
+      aria-label={siteContent.header.backToTopAria}
       onClick={scrollToTop}
       className="back-to-top"
       data-visible={visible}

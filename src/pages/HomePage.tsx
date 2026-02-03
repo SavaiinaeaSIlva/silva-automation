@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Loader from '../components/Loader';
 import HeroSection from '../sections/HeroSection';
 import ProblemSolutionSection from '../sections/ProblemSolutionSection';
+import { siteContent } from '../content/siteContent';
 
 const ProcessSection = lazy(() => import('../sections/ProcessSection'));
 const PricingSection = lazy(() => import('../sections/PricingSection'));
@@ -23,6 +24,7 @@ export default function HomePage() {
         <Header />
 
         <main id="main-content" className="pt-20">
+          <h1 className="sr-only">{siteContent.hero.title}</h1>
           {/* Above the fold - load immediately */}
           <HeroSection />
           <ProblemSolutionSection />
@@ -30,21 +32,9 @@ export default function HomePage() {
           {/* Below the fold - lazy load */}
           <Suspense fallback={<Loader />}>
             <ProcessSection />
-          </Suspense>
-
-          <Suspense fallback={<Loader />}>
             <PricingSection />
-          </Suspense>
-
-          <Suspense fallback={<Loader />}>
             <CalculatorSection />
-          </Suspense>
-
-          <Suspense fallback={<Loader />}>
             <ContactSection />
-          </Suspense>
-
-          <Suspense fallback={<Loader />}>
             <FAQSection />
           </Suspense>
         </main>

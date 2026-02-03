@@ -22,8 +22,8 @@ export default function Accordion({
   return (
     <div className="space-y-4">
       {items.map((item, i) => {
-        const btnId = `${idPrefix}-btn-${item.q.slice(0, 30).replace(/\W+/g, '-')}`;
-        const panelId = `${idPrefix}-panel-${item.q.slice(0, 30).replace(/\W+/g, '-')}`;
+        const btnId = `${idPrefix}-btn-${i}`;
+        const panelId = `${idPrefix}-panel-${i}`;
 
         return (
           <div key={item.q} className="glass-card p-4">
@@ -33,12 +33,6 @@ export default function Accordion({
                 aria-controls={panelId}
                 aria-expanded={openIndex === i}
                 onClick={() => toggle(i)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggle(i);
-                  }
-                }}
                 className="w-full text-left py-2 font-semibold flex items-center justify-between text-text-main"
               >
                 <span>{item.q}</span>
@@ -55,11 +49,15 @@ export default function Accordion({
               id={panelId}
               role="region"
               aria-labelledby={btnId}
-              className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
-                openIndex === i ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
-              }`}
+              className="grid transition-[grid-template-rows,opacity] duration-300 ease-in-out"
+              style={{
+                gridTemplateRows: openIndex === i ? '1fr' : '0fr',
+                opacity: openIndex === i ? 1 : 0,
+              }}
             >
-              <div className="pt-3 pb-1 text-muted border-t border-white/10 mt-2">{item.a}</div>
+              <div className="overflow-hidden">
+                <div className="pt-3 pb-1 text-muted border-t border-white/10 mt-2">{item.a}</div>
+              </div>
             </div>
           </div>
         );

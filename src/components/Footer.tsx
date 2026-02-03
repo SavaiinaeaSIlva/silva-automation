@@ -7,9 +7,9 @@ export default function Footer() {
   return (
     <footer className="relative z-10 text-white border-t border-white/10 mt-16">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-center md:text-left">
           {/* Brand */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <img
               src="/icon.png"
               alt={footer.companyName}

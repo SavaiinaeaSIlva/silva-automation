@@ -17,7 +17,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
   useEffect(() => {
     // Skip Lenis in test env (jsdom has no real scroll/RAF)
-    if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'test') {
+    if (import.meta.env.MODE === 'test') {
       return;
     }
     const instance = new Lenis({

@@ -45,7 +45,7 @@ export default function ContactSection() {
             className="cta-button-primary"
           >
             {contact.cta.text}
-            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
           </a>
         </div>
       </div>

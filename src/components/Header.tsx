@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useCallback, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
 
@@ -14,18 +14,21 @@ export default function Header() {
   } = siteContent.header;
   const [active, setActive] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const sectionsCache = useRef<HTMLElement[]>([]);
+
+  const updateSectionsCache = useCallback(() => {
+    sectionsCache.current = Array.from(document.querySelectorAll('section[id]'));
+  }, []);
 
   useEffect(() => {
-    // Track active section based on scroll position
-    // Query sections inside scroll handler to catch lazy-loaded sections
     const onScroll = () => {
-      const sections = Array.from(document.querySelectorAll('section[id]')) as HTMLElement[];
-
-      if (!sections.length) return;
+      const sections = sectionsCache.current;
+      if (!sections.length) {
+        updateSectionsCache();
+        return;
+      }
 
       const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      // Find the section that contains the scroll position
       let currentSection: string | null = null;
 
       for (const section of sections) {
@@ -41,7 +44,7 @@ export default function Header() {
       // If we're past the last section, keep it active
       if (!currentSection && sections.length > 0) {
         const lastSection = sections[sections.length - 1];
-        if (scrollPosition >= lastSection.offsetTop) {
+        if (lastSection && scrollPosition >= lastSection.offsetTop) {
           currentSection = lastSection.id;
         }
       }
@@ -51,17 +54,23 @@ export default function Header() {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // Initial check
+    // Initial cache and check
+    updateSectionsCache();
+    onScroll();
 
-    // Re-check after lazy sections might have loaded
-    const timer = setTimeout(onScroll, 500);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Re-cache after lazy sections load
+    const timer = setTimeout(() => {
+      updateSectionsCache();
+      onScroll();
+    }, 500);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       clearTimeout(timer);
     };
-  }, []);
+  }, [updateSectionsCache]);
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
@@ -144,24 +153,26 @@ export default function Header() {
       </div>
 
       {/* Mobile menu dropdown */}
-      {mobileMenuOpen && (
-        <div className="container flex justify-start mt-2 px-4 pointer-events-auto">
-          <div
-            id="mobile-menu"
-            className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden"
-            role="navigation"
-            aria-label={mobileNavAria}
-          >
-            <nav className="flex flex-col p-2">
-              {navLinks.map((link) => (
-                <Fragment key={link.href}>
-                  {navLink(link.href, link.label, closeMobileMenu)}
-                </Fragment>
-              ))}
-            </nav>
-          </div>
+      <div
+        className={`container flex justify-start mt-2 px-4 transition-all duration-300 ease-out ${
+          mobileMenuOpen
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-2 pointer-events-none'
+        }`}
+      >
+        <div
+          id="mobile-menu"
+          className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden"
+          role="navigation"
+          aria-label={mobileNavAria}
+        >
+          <nav className="flex flex-col p-2">
+            {navLinks.map((link) => (
+              <Fragment key={link.href}>{navLink(link.href, link.label, closeMobileMenu)}</Fragment>
+            ))}
+          </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }

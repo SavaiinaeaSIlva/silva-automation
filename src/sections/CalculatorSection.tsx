@@ -2,11 +2,17 @@ import { useState, useMemo } from 'react';
 import { siteContent } from '../content/siteContent';
 import SectionLayout from '../components/SectionLayout';
 import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
+import { useAnimatedNumber } from '../hooks/useAnimatedNumber';
 
 const WEEKS_PER_MONTH = 52 / 12;
 
 export default function CalculatorSection() {
   const calc = siteContent.calculator;
+  // Extract fields with guaranteed values
+  const [field0, field1, field2, field3] = calc.fields;
+  if (!field0 || !field1 || !field2 || !field3) {
+    throw new Error('Calculator fields configuration is incomplete');
+  }
 
   const [teamSize, setTeamSize] = useState<number | ''>('');
   const [weeklyHours, setWeeklyHours] = useState<number | ''>('');
@@ -30,6 +36,11 @@ export default function CalculatorSection() {
     };
   }, [teamSize, weeklyHours, hourlyCost, projectCost]);
 
+  // Animated display values
+  const animatedMonthly = useAnimatedNumber(monthlyAdminCost);
+  const animatedYearly = useAnimatedNumber(yearlyRevenueLeak);
+  const animatedPayback = useAnimatedNumber(paybackMonths);
+
   // Animation refs
   const headerRef = useScrollReveal({ y: 30, duration: 0.7 });
   const cardsRef = useStaggerReveal({
@@ -51,103 +62,95 @@ export default function CalculatorSection() {
           <h3 className="font-semibold mb-4 text-white text-lg">{calc.inputsTitle}</h3>
           <div className="space-y-5">
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">
-                {calc.fields[0].label}
-              </span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">{field0.label}</span>
               <input
                 type="number"
                 id="team-size"
-                min={calc.fields[0].min}
-                max={calc.fields[0].max}
+                min={field0.min}
+                max={field0.max}
                 value={teamSize}
-                placeholder={calc.fields[0].placeholder}
+                placeholder={field0.placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val === '') setTeamSize('');
                   else
                     setTeamSize(
-                      Math.max(calc.fields[0].min!, Math.min(calc.fields[0].max!, Number(val)))
+                      Math.max(field0.min, Math.min(field0.max ?? Infinity, Number(val)))
                     );
                 }}
                 className="form-input-underlined calculator-input"
                 aria-describedby="team-size-desc"
               />
               <span id="team-size-desc" className="sr-only">
-                {calc.fields[0].srDescription}
+                {field0.srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">
-                {calc.fields[1].label}
-              </span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">{field1.label}</span>
               <input
                 type="number"
                 id="weekly-hours"
-                min={calc.fields[1].min}
-                max={calc.fields[1].max}
+                min={field1.min}
+                max={field1.max}
                 value={weeklyHours}
-                placeholder={calc.fields[1].placeholder}
+                placeholder={field1.placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val === '') setWeeklyHours('');
                   else
                     setWeeklyHours(
-                      Math.max(calc.fields[1].min!, Math.min(calc.fields[1].max!, Number(val)))
+                      Math.max(field1.min, Math.min(field1.max ?? Infinity, Number(val)))
                     );
                 }}
                 className="form-input-underlined calculator-input"
                 aria-describedby="weekly-hours-desc"
               />
               <span id="weekly-hours-desc" className="sr-only">
-                {calc.fields[1].srDescription}
+                {field1.srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">
-                {calc.fields[2].label}
-              </span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">{field2.label}</span>
               <input
                 type="number"
                 id="hourly-cost"
-                min={calc.fields[2].min}
-                max={calc.fields[2].max}
+                min={field2.min}
+                max={field2.max}
                 value={hourlyCost}
-                placeholder={calc.fields[2].placeholder}
+                placeholder={field2.placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val === '') setHourlyCost('');
                   else
                     setHourlyCost(
-                      Math.max(calc.fields[2].min!, Math.min(calc.fields[2].max!, Number(val)))
+                      Math.max(field2.min, Math.min(field2.max ?? Infinity, Number(val)))
                     );
                 }}
                 className="form-input-underlined calculator-input"
                 aria-describedby="hourly-cost-desc"
               />
               <span id="hourly-cost-desc" className="sr-only">
-                {calc.fields[2].srDescription}
+                {field2.srDescription}
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">
-                {calc.fields[3].label}
-              </span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">{field3.label}</span>
               <input
                 type="number"
                 id="project-cost"
-                min={calc.fields[3].min}
+                min={field3.min}
                 value={projectCost}
-                placeholder={calc.fields[3].placeholder}
+                placeholder={field3.placeholder}
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val === '') setProjectCost('');
-                  else setProjectCost(Math.max(calc.fields[3].min!, Number(val)));
+                  else setProjectCost(Math.max(field3.min, Number(val)));
                 }}
                 className="form-input-underlined calculator-input"
                 aria-describedby="project-cost-desc"
               />
               <span id="project-cost-desc" className="sr-only">
-                {calc.fields[3].srDescription}
+                {field3.srDescription}
               </span>
             </label>
           </div>
@@ -161,7 +164,7 @@ export default function CalculatorSection() {
                 {calc.resultLabels.monthlyAdminCost}
               </span>
               <span className="font-display text-white text-xl tabular-nums">
-                ${monthlyAdminCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                ${Math.round(animatedMonthly).toLocaleString('en-US')}
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4">
@@ -169,16 +172,16 @@ export default function CalculatorSection() {
                 {calc.resultLabels.yearlyRevenueLeak}
               </span>
               <span className="font-display text-white text-xl tabular-nums">
-                ${yearlyRevenueLeak.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                ${Math.round(animatedYearly).toLocaleString('en-US')}
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4 pt-3 mt-1 border-t border-white/20">
               <span className="text-white/90 font-medium">{calc.resultLabels.paybackPeriod}</span>
               <span className="font-display text-success text-xl tabular-nums">
-                {paybackMonths > 0 && paybackMonths < 120
-                  ? `${paybackMonths.toFixed(1)} months`
-                  : paybackMonths >= 120
-                    ? `${(paybackMonths / 12).toFixed(1)} years`
+                {animatedPayback > 0 && animatedPayback < 120
+                  ? `${animatedPayback.toFixed(1)} months`
+                  : animatedPayback >= 120
+                    ? `${(animatedPayback / 12).toFixed(1)} years`
                     : '—'}
               </span>
             </li>

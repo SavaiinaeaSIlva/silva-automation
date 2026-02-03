@@ -86,6 +86,24 @@ body {
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
+/* Consistent focus-visible states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
+/* Remove default outline on focus (only show on focus-visible) */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -189,6 +207,14 @@ textarea {
   transform: translateY(-2px);
 }
 
+.cta-button-primary .cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.cta-button-primary:hover .cta-arrow {
+  transform: translate(2px, -2px);
+}
+
 /* Secondary CTA (outline – process section, etc.) */
 .cta-button-secondary {
   display: inline-flex;
@@ -257,6 +283,7 @@ textarea {
   position: relative;
   z-index: 1;
   border: none; /* uses animated ::before border instead */
+  box-shadow: 0 0 40px -10px rgba(255, 255, 255, 0.15);
 }
 
 .glass-card-featured::before {
@@ -767,9 +794,19 @@ footer {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: var(--color-text);
   margin-bottom: 1rem;
   text-align: center;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (min-width: 1024px) {
@@ -795,4 +832,16 @@ section ol {
   margin: 0.5rem auto 0;
   text-align: left;
   padding-left: 1rem;
+}
+
+/* Respect user's motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

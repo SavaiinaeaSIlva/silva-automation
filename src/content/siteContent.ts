@@ -340,8 +340,21 @@ export const siteContent = {
   legalLayout: {
     backToHome: 'Back to Home',
     logoAlt: 'Silva Automation',
-    lastUpdated: 'January 15, 2025',
+    lastUpdated: 'February 2, 2026',
     footerText: 'Silva Automation LLC. All rights reserved.',
+  },
+
+  legal: {
+    effectiveDate: 'February 2, 2026',
+    contactEmail: 'contact@silvaautomation.com',
+    contactPhone: '(808) 726-6422',
+    contactAddress: 'Silva Automation LLC, 94-207 Waipahu Street #323, Waipahu, HI 96797',
+    pages: {
+      terms: 'Terms and Conditions',
+      privacy: 'Privacy Policy',
+      cookies: 'Cookie Policy',
+      refunds: 'Refund & Cancellation Policy',
+    },
   },
 };
 

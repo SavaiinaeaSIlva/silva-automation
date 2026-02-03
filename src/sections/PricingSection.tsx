@@ -46,13 +46,13 @@ export default function PricingSection() {
 
       {/* Pricing Tab Content */}
       {activeTab === 'pricing' && (
-        <div ref={tiersRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div ref={tiersRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:items-center">
           {pricing.tiers.map((tier) => {
             const isFeatured = tier.badge === 'Most Popular';
             return (
               <div
                 key={tier.name}
-                className={`${isFeatured ? 'glass-card-featured' : 'glass-card'} p-6 flex flex-col relative`}
+                className={`${isFeatured ? 'glass-card-featured md:scale-105 md:z-10' : 'glass-card'} p-6 flex flex-col relative transition-transform`}
               >
                 {tier.badge && (
                   <span

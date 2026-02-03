@@ -6,18 +6,15 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const INITIAL_COUNT = 5;
 
+// Static items array - extracted outside component since siteContent never changes
+const items = Object.values(siteContent.faq.categories)
+  .flat()
+  .map((qa) => ({ q: qa.q, a: qa.a }));
+
 export default function FAQSection() {
   const faq = siteContent.faq;
   const [searchQuery, setSearchQuery] = useState('');
   const [showAll, setShowAll] = useState(false);
-
-  const items = useMemo(
-    () =>
-      Object.values(faq.categories)
-        .flat()
-        .map((qa) => ({ q: qa.q, a: qa.a })),
-    [faq.categories]
-  );
 
   const filteredItems = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -25,7 +22,7 @@ export default function FAQSection() {
     return items.filter(
       (item) => item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q)
     );
-  }, [items, searchQuery]);
+  }, [searchQuery]);
 
   const displayItems = useMemo(() => {
     if (searchQuery.trim() !== '') return filteredItems;

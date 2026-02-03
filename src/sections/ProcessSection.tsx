@@ -1,7 +1,7 @@
 import { siteContent } from '../content/siteContent';
 import SectionLayout from '../components/SectionLayout';
 import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
-import { Search, Compass, Cog, Rocket, ChevronRight } from 'lucide-react';
+import { Search, Compass, Cog, Rocket, ChevronRight, ArrowRight } from 'lucide-react';
 
 // Icon mapping for each step
 const stepIcons = [Search, Compass, Cog, Rocket];
@@ -29,50 +29,64 @@ export default function ProcessSection() {
       {/* Process Steps – each column: number above the line, card below */}
       <div
         ref={stepsRef}
-        className="mt-12 flex flex-col lg:flex-row justify-center items-stretch gap-4 lg:gap-4"
+        className="mt-12 flex flex-col lg:flex-row justify-center items-stretch gap-4 lg:gap-0"
       >
         {process.steps.map((step, idx) => {
           const Icon = stepIcons[idx];
+          if (!Icon) return null;
+          const isLast = idx === process.steps.length - 1;
           return (
             <div
               key={step.title}
-              className="process-step flex flex-col w-full lg:w-64 flex-shrink-0"
+              className="process-step flex flex-col lg:flex-row items-stretch w-full lg:w-auto flex-shrink-0"
             >
-              {/* Number above the line */}
-              <div className="flex justify-center pb-4">
-                <span
-                  className="text-[4rem] sm:text-[5rem] lg:text-[6rem] font-bold leading-none text-white/20 select-none"
-                  aria-hidden="true"
-                >
-                  {step.number}
-                </span>
-              </div>
-              {/* Line directly under the number */}
-              <div className="w-full h-px bg-white/25 shrink-0" aria-hidden="true" />
-              {/* Card below the line */}
-              <div className="min-h-[14rem] lg:min-h-[16rem] pt-6 flex flex-col">
-                <div className="glass-card p-4 h-full relative overflow-hidden group flex flex-col flex-1">
-                  {/* Icon */}
-                  <div className="relative z-10 w-10 h-10 rounded-xl bg-white/[0.08] border border-white/[0.06] flex items-center justify-center mb-3 group-hover:bg-white/[0.2] group-hover:border-white/[0.15] transition-colors duration-300">
-                    <Icon className="w-4 h-4 text-white/80" strokeWidth={1.5} />
-                  </div>
-
-                  {/* Step number badge */}
-                  <span className="relative z-10 inline-block text-xs font-medium text-white/50 uppercase tracking-wider mb-1">
-                    Step {step.number}
+              {/* Step content */}
+              <div className="flex flex-col w-full lg:w-64">
+                {/* Number above the line */}
+                <div className="flex justify-center pb-4">
+                  <span
+                    className="text-[4rem] sm:text-[5rem] lg:text-[6rem] font-bold leading-none text-white/20 select-none"
+                    aria-hidden="true"
+                  >
+                    {step.number}
                   </span>
+                </div>
+                {/* Line directly under the number */}
+                <div className="w-full h-px bg-white/25 shrink-0" aria-hidden="true" />
+                {/* Card below the line */}
+                <div className="min-h-[14rem] lg:min-h-[16rem] pt-6 flex flex-col">
+                  <div className="glass-card p-4 h-full relative overflow-hidden group flex flex-col flex-1">
+                    {/* Icon */}
+                    <div className="relative z-10 w-10 h-10 rounded-xl bg-white/[0.08] border border-white/[0.06] flex items-center justify-center mb-3 group-hover:bg-white/[0.2] group-hover:border-white/[0.15] transition-colors duration-300">
+                      <Icon className="w-4 h-4 text-white/80" strokeWidth={1.5} />
+                    </div>
 
-                  {/* Title */}
-                  <h3 className="relative z-10 text-lg font-semibold text-white mb-2">
-                    {step.title}
-                  </h3>
+                    {/* Step number badge */}
+                    <span className="relative z-10 inline-block text-xs font-medium text-white/50 uppercase tracking-wider mb-1">
+                      Step {step.number}
+                    </span>
 
-                  {/* Description */}
-                  <p className="relative z-10 text-muted text-sm leading-relaxed flex-1">
-                    {step.body}
-                  </p>
+                    {/* Title */}
+                    <h3 className="relative z-10 text-lg font-semibold text-white mb-2">
+                      {step.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="relative z-10 text-muted text-sm leading-relaxed flex-1">
+                      {step.body}
+                    </p>
+                  </div>
                 </div>
               </div>
+
+              {/* Connecting arrow between steps (desktop only) */}
+              {!isLast && (
+                <div className="hidden lg:flex items-center justify-center px-3" aria-hidden="true">
+                  <div className="flex flex-col items-center gap-1 pt-20">
+                    <ArrowRight className="w-5 h-5 text-white/30" strokeWidth={1.5} />
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}

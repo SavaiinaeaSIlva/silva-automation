@@ -7,10 +7,9 @@ describe('Main sections render', () => {
   test('renders hero and main sections', async () => {
     render(<App />);
 
-    // Check immediately loaded sections (hero title)
-    expect(
-      screen.getByRole('heading', { name: /Stop Drowning in Paperwork/i })
-    ).toBeInTheDocument();
+    // Check immediately loaded sections - hero uses logo image, not text heading
+    const logos = screen.getAllByRole('img', { name: /Silva Automation/i });
+    expect(logos.length).toBeGreaterThanOrEqual(1);
     expect(
       screen.getByRole('heading', { name: /The Challenge & Our Solution/i })
     ).toBeInTheDocument();
