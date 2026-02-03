@@ -46,12 +46,14 @@ export default function CalculatorSection() {
         <p className="section-subtitle">{calc.subtitle}</p>
       </div>
 
-      <div ref={cardsRef} className="grid md:grid-cols-2 gap-6 mt-8">
-        <div className="glass-card p-6">
-          <h3 className="font-semibold mb-4 text-text-main">{calc.inputsTitle}</h3>
-          <div className="space-y-4">
+      <div ref={cardsRef} className="grid md:grid-cols-2 gap-6 mt-8 calculator-cards">
+        <div className="glass-card glass-card-calculator p-6">
+          <h3 className="font-semibold mb-4 text-white text-lg">{calc.inputsTitle}</h3>
+          <div className="space-y-5">
             <label className="block">
-              <span className="text-muted text-sm block mb-1">{calc.fields[0].label}</span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">
+                {calc.fields[0].label}
+              </span>
               <input
                 type="number"
                 id="team-size"
@@ -67,7 +69,7 @@ export default function CalculatorSection() {
                       Math.max(calc.fields[0].min!, Math.min(calc.fields[0].max!, Number(val)))
                     );
                 }}
-                className="form-input-underlined"
+                className="form-input-underlined calculator-input"
                 aria-describedby="team-size-desc"
               />
               <span id="team-size-desc" className="sr-only">
@@ -75,7 +77,9 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">{calc.fields[1].label}</span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">
+                {calc.fields[1].label}
+              </span>
               <input
                 type="number"
                 id="weekly-hours"
@@ -91,7 +95,7 @@ export default function CalculatorSection() {
                       Math.max(calc.fields[1].min!, Math.min(calc.fields[1].max!, Number(val)))
                     );
                 }}
-                className="form-input-underlined"
+                className="form-input-underlined calculator-input"
                 aria-describedby="weekly-hours-desc"
               />
               <span id="weekly-hours-desc" className="sr-only">
@@ -99,7 +103,9 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">{calc.fields[2].label}</span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">
+                {calc.fields[2].label}
+              </span>
               <input
                 type="number"
                 id="hourly-cost"
@@ -115,7 +121,7 @@ export default function CalculatorSection() {
                       Math.max(calc.fields[2].min!, Math.min(calc.fields[2].max!, Number(val)))
                     );
                 }}
-                className="form-input-underlined"
+                className="form-input-underlined calculator-input"
                 aria-describedby="hourly-cost-desc"
               />
               <span id="hourly-cost-desc" className="sr-only">
@@ -123,7 +129,9 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-muted text-sm block mb-1">{calc.fields[3].label}</span>
+              <span className="text-white/90 text-sm block mb-2 font-medium">
+                {calc.fields[3].label}
+              </span>
               <input
                 type="number"
                 id="project-cost"
@@ -135,7 +143,7 @@ export default function CalculatorSection() {
                   if (val === '') setProjectCost('');
                   else setProjectCost(Math.max(calc.fields[3].min!, Number(val)));
                 }}
-                className="form-input-underlined"
+                className="form-input-underlined calculator-input"
                 aria-describedby="project-cost-desc"
               />
               <span id="project-cost-desc" className="sr-only">
@@ -145,24 +153,28 @@ export default function CalculatorSection() {
           </div>
         </div>
 
-        <div className="glass-card p-6">
-          <h3 className="font-semibold mb-4 text-text-main">{calc.resultsTitle}</h3>
-          <ul className="space-y-4">
+        <div className="glass-card glass-card-calculator p-6">
+          <h3 className="font-semibold mb-4 text-white text-lg">{calc.resultsTitle}</h3>
+          <ul className="space-y-5">
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-muted">{calc.resultLabels.monthlyAdminCost}</span>
-              <span className="font-display text-cta">
+              <span className="text-white/90 font-medium">
+                {calc.resultLabels.monthlyAdminCost}
+              </span>
+              <span className="font-display text-white text-xl tabular-nums">
                 ${monthlyAdminCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-muted">{calc.resultLabels.yearlyRevenueLeak}</span>
-              <span className="font-display text-cta">
+              <span className="text-white/90 font-medium">
+                {calc.resultLabels.yearlyRevenueLeak}
+              </span>
+              <span className="font-display text-white text-xl tabular-nums">
                 ${yearlyRevenueLeak.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </span>
             </li>
-            <li className="flex items-baseline justify-between gap-4 pt-2 border-t border-white/10">
-              <span className="text-muted">{calc.resultLabels.paybackPeriod}</span>
-              <span className="font-display text-success">
+            <li className="flex items-baseline justify-between gap-4 pt-3 mt-1 border-t border-white/20">
+              <span className="text-white/90 font-medium">{calc.resultLabels.paybackPeriod}</span>
+              <span className="font-display text-success text-xl tabular-nums">
                 {paybackMonths > 0 && paybackMonths < 120
                   ? `${paybackMonths.toFixed(1)} months`
                   : paybackMonths >= 120
@@ -171,8 +183,8 @@ export default function CalculatorSection() {
               </span>
             </li>
           </ul>
-          <p className="text-muted text-sm mt-6">{calc.analysisTitle}</p>
-          <p className="text-muted text-sm mt-2">{calc.analysisCopy}</p>
+          <p className="text-white/90 font-medium mt-6 text-base">{calc.analysisTitle}</p>
+          <p className="text-white/85 mt-2 text-base leading-relaxed">{calc.analysisCopy}</p>
         </div>
       </div>
     </SectionLayout>

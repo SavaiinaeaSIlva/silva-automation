@@ -298,6 +298,29 @@ textarea {
   height: 100%;
 }
 
+/* Calculator section: stronger contrast for readability */
+.glass-card-calculator {
+  background: color-mix(in srgb, var(--color-bg) 92%, rgba(255, 255, 255, 0.04));
+}
+
+.calculator-input {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.625rem 0.5rem 0.5rem 0;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.calculator-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.calculator-input:focus {
+  border-bottom-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 /* Fluid background – moving light leaks */
 @keyframes fluid-drift-1 {
   0%,
