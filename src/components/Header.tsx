@@ -1,6 +1,40 @@
-import { Fragment, useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef, memo } from 'react';
 import { Menu, X } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
+import { useLenis } from '../contexts/LenisContext';
+import type Lenis from 'lenis';
+
+type NavLinkProps = {
+  href: string;
+  label: string;
+  isActive: boolean;
+  lenis: Lenis | null;
+  onClick?: () => void;
+};
+
+const NavLink = memo(function NavLink({ href, label, isActive, lenis, onClick }: NavLinkProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (lenis) {
+      lenis.scrollTo(href, { offset: 0 });
+    } else {
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+    onClick?.();
+  };
+
+  return (
+    <a
+      href={href}
+      className={`nav-link tracking-wide text-sm ${isActive ? 'active' : ''}`}
+      aria-current={isActive ? 'page' : undefined}
+      onClick={handleClick}
+    >
+      {label}
+    </a>
+  );
+});
 
 export default function Header() {
   const {
@@ -15,6 +49,7 @@ export default function Header() {
   const [active, setActive] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sectionsCache = useRef<HTMLElement[]>([]);
+  const lenis = useLenis();
 
   const updateSectionsCache = useCallback(() => {
     sectionsCache.current = Array.from(document.querySelectorAll('section[id]'));
@@ -83,22 +118,19 @@ export default function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const navLink = (href: string, label: string, onClick?: () => void) => {
-    const id = href.replace('#', '');
-    const isActive = active === id;
-    return (
-      <a
-        href={href}
-        className={`nav-link tracking-wide text-sm ${isActive ? 'active' : ''}`}
-        aria-current={isActive ? 'page' : undefined}
-        onClick={onClick}
-      >
-        {label}
-      </a>
-    );
-  };
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const handleLogoClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo('#hero', { offset: 0 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    [lenis]
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 py-4 pointer-events-none">
@@ -117,6 +149,7 @@ export default function Header() {
             href="#hero"
             aria-label={backToTopAria}
             className="flex items-center pl-2 pr-1 hover:opacity-80 transition-opacity"
+            onClick={handleLogoClick}
           >
             <img
               src="/icon.png"
@@ -132,9 +165,15 @@ export default function Header() {
           <div className="hidden lg:block w-px h-5 bg-white/10" />
 
           {/* Desktop navigation tabs */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <Fragment key={link.href}>{navLink(link.href, link.label)}</Fragment>
+              <NavLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                isActive={active === link.href.replace('#', '')}
+                lenis={lenis}
+              />
             ))}
           </nav>
 
@@ -160,18 +199,22 @@ export default function Header() {
             : 'opacity-0 -translate-y-2 pointer-events-none'
         }`}
       >
-        <div
+        <nav
           id="mobile-menu"
-          className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden"
-          role="navigation"
+          className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden flex flex-col p-2"
           aria-label={mobileNavAria}
         >
-          <nav className="flex flex-col p-2">
-            {navLinks.map((link) => (
-              <Fragment key={link.href}>{navLink(link.href, link.label, closeMobileMenu)}</Fragment>
-            ))}
-          </nav>
-        </div>
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.href}
+              href={link.href}
+              label={link.label}
+              isActive={active === link.href.replace('#', '')}
+              lenis={lenis}
+              onClick={closeMobileMenu}
+            />
+          ))}
+        </nav>
       </div>
     </header>
   );

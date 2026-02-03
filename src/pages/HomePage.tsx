@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import SiteBackground from '../components/SiteBackground';
+import ScrollingTextWall from '../components/ScrollingTextWall';
 import Footer from '../components/Footer';
 import Loader from '../components/Loader';
 import HeroSection from '../sections/HeroSection';
@@ -32,6 +33,7 @@ export default function HomePage() {
           {/* Below the fold - lazy load */}
           <Suspense fallback={<Loader />}>
             <ProcessSection />
+            <ScrollingTextWall />
             <PricingSection />
             <CalculatorSection />
             <ContactSection />

@@ -14,7 +14,7 @@ const localStorageMock: Storage = {
     delete storageStore[key];
   },
   clear: () => {
-    for (const key of Object.keys(storageStore)) delete storageStore[key];
+    Object.keys(storageStore).forEach((key) => delete storageStore[key]);
   },
   key: (i: number) => Object.keys(storageStore)[i] ?? null,
   get length() {

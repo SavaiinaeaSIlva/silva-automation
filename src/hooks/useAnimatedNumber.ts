@@ -1,5 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 
+// Cache matchMedia query result to avoid repeated queries
+const getReducedMotionPreference = (() => {
+  let cachedValue: boolean | null = null;
+  return () => {
+    if (cachedValue === null) {
+      cachedValue = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return cachedValue;
+  };
+})();
+
 /**
  * Hook that animates a number from its previous value to the target value
  * @param targetValue - The value to animate towards
@@ -18,8 +29,7 @@ export function useAnimatedNumber(targetValue: number, duration: number = 400): 
     // Skip animation if no change or if reduced motion is preferred
     if (difference === 0) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    if (getReducedMotionPreference()) {
       setDisplayValue(targetValue);
       previousValue.current = targetValue;
       return;

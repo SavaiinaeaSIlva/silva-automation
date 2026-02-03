@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 
 type RevealOptions = {
@@ -31,8 +31,13 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   options: RevealOptions = {}
 ) {
   const ref = useRef<T>(null);
-  const opts = { ...defaultOptions, ...options };
   const playedRef = useRef(false);
+
+  // Memoize options to prevent effect from rerunning on every render
+  const opts = useMemo(
+    () => ({ ...defaultOptions, ...options }),
+    [options.delay, options.duration, options.y, options.startOpacity, options.start, options.scale]
+  );
 
   useEffect(() => {
     const el = ref.current;
@@ -72,7 +77,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
       observer.disconnect();
       animation.kill();
     };
-  }, [opts.delay, opts.duration, opts.y, opts.startOpacity, opts.start, opts.scale]);
+  }, [opts]);
 
   return ref;
 }
@@ -82,8 +87,20 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
 ) {
   const ref = useRef<T>(null);
   const { childSelector = ':scope > *', ...animOptions } = options;
-  const opts = { ...defaultOptions, stagger: 0.1, ...animOptions };
   const playedRef = useRef(false);
+
+  // Memoize options to prevent effect from rerunning on every render
+  const opts = useMemo(
+    () => ({ ...defaultOptions, stagger: 0.1, ...animOptions }),
+    [
+      animOptions.delay,
+      animOptions.duration,
+      animOptions.y,
+      animOptions.startOpacity,
+      animOptions.stagger,
+      animOptions.scale,
+    ]
+  );
 
   useEffect(() => {
     const parent = ref.current;
@@ -120,15 +137,7 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
       observer.disconnect();
       animation.kill();
     };
-  }, [
-    childSelector,
-    opts.delay,
-    opts.duration,
-    opts.y,
-    opts.startOpacity,
-    opts.stagger,
-    opts.scale,
-  ]);
+  }, [childSelector, opts]);
 
   return ref;
 }

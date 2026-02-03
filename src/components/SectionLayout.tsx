@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useLenis } from '../contexts/LenisContext';
 
 type LightLeakVariant = 'v1' | 'v2' | 'v3';
@@ -47,15 +47,18 @@ export default function SectionLayout({
     return () => observer.disconnect();
   }, [lightLeaks]);
 
-  const sectionClasses = [
-    fullScreen ? 'min-h-screen flex flex-col justify-center py-16 md:py-20' : 'py-24 md:py-32',
-    'text-text-main',
-    lightLeaks && 'section-light-leaks',
-    lightLeaks && `light-leak-${lightLeaks}`,
-    lightLeaks && isVisible && 'is-visible',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  // Memoize class string to avoid recalculating on every render
+  const sectionClasses = useMemo(() => {
+    const baseClass = fullScreen
+      ? 'min-h-screen flex flex-col justify-center py-16 md:py-20'
+      : 'py-24 md:py-32';
+
+    if (!lightLeaks) {
+      return `${baseClass} text-text-main`;
+    }
+
+    return `${baseClass} text-text-main section-light-leaks light-leak-${lightLeaks}${isVisible ? ' is-visible' : ''}`;
+  }, [fullScreen, lightLeaks, isVisible]);
 
   return (
     <section ref={sectionRef} id={id} className={sectionClasses}>

@@ -70,7 +70,12 @@ export default function HeroSection() {
             </p>
           </div>
           <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
-            <a href="#contact" className="cta-button-primary">
+            <a
+              href={siteContent.contact.cta.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-button-primary"
+            >
               {siteContent.hero.cta}
               <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
             </a>

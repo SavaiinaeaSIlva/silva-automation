@@ -26,7 +26,7 @@ interface LegalSectionProps {
 }
 
 function isListItemWithLabel(item: string | ListItemWithLabel): item is ListItemWithLabel {
-  return typeof item === 'object' && 'label' in item;
+  return typeof item === 'object' && item !== null && 'label' in item;
 }
 
 export default function LegalSection({ section }: LegalSectionProps) {
