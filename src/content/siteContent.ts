@@ -30,6 +30,12 @@ export const siteContent = {
       { label: 'Fewer errors', icon: 'Target' },
       { label: 'Scale without hiring', icon: 'Repeat' },
       { label: 'Runs reliably', icon: 'Shield' },
+      { label: 'You Own It', icon: 'Key' },
+      { label: 'Secure Data', icon: 'Lock' },
+      { label: 'Custom Built', icon: 'Wrench' },
+      { label: 'Fast ROI', icon: 'TrendingUp' },
+      { label: 'Hawaii Based', icon: 'MapPin' },
+      { label: 'Seamless Integration', icon: 'Plug' },
     ],
   },
 

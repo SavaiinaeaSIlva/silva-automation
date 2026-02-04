@@ -15,7 +15,7 @@ const defaultOptions: RevealOptions = {
   delay: 0,
   duration: 0.8,
   y: 48,
-  startOpacity: 1,
+  startOpacity: 0,
   start: 'top 88%',
   stagger: 0,
   scale: 0.97,
@@ -36,12 +36,22 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   // Memoize options to prevent effect from rerunning on every render
   const opts = useMemo(
     () => ({ ...defaultOptions, ...options }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [options.delay, options.duration, options.y, options.startOpacity, options.start, options.scale]
   );
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false);
+    if (prefersReduced) {
+      // Immediately set the final state and skip animations for users who prefer reduced motion
+      gsap.set(el, { opacity: 1, y: 0, scale: 1 });
+      return;
+    }
 
     gsap.set(el, {
       opacity: opts.startOpacity,
@@ -92,6 +102,7 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
   // Memoize options to prevent effect from rerunning on every render
   const opts = useMemo(
     () => ({ ...defaultOptions, stagger: 0.1, ...animOptions }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       animOptions.delay,
       animOptions.duration,
@@ -108,6 +119,15 @@ export function useStaggerReveal<T extends HTMLElement = HTMLDivElement>(
 
     const children = parent.querySelectorAll(childSelector);
     if (children.length === 0) return;
+
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false);
+    if (prefersReduced) {
+      // Immediately set final state for children and skip animations
+      gsap.set(children, { opacity: 1, y: 0, scale: 1 });
+      return;
+    }
 
     gsap.set(children, {
       opacity: opts.startOpacity,

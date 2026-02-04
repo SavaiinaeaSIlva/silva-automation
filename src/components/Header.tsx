@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef, memo } from 'react';
 import { Menu, X } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
-import { useLenis } from '../contexts/LenisContext';
+import { useLenis } from '../core/LenisContext';
 import type Lenis from 'lenis';
 
 type NavLinkProps = {
@@ -10,9 +10,17 @@ type NavLinkProps = {
   isActive: boolean;
   lenis: Lenis | null;
   onClick?: () => void;
+  innerRef?: React.Ref<HTMLAnchorElement>;
 };
 
-const NavLink = memo(function NavLink({ href, label, isActive, lenis, onClick }: NavLinkProps) {
+const NavLink = memo(function NavLink({
+  href,
+  label,
+  isActive,
+  lenis,
+  onClick,
+  innerRef,
+}: NavLinkProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (lenis) {
@@ -26,6 +34,7 @@ const NavLink = memo(function NavLink({ href, label, isActive, lenis, onClick }:
 
   return (
     <a
+      ref={innerRef}
       href={href}
       className={`nav-link tracking-wide text-sm ${isActive ? 'active' : ''}`}
       aria-current={isActive ? 'page' : undefined}
@@ -50,6 +59,19 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sectionsCache = useRef<HTMLElement[]>([]);
   const lenis = useLenis();
+
+  const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const mobileFirstLinkRef = useRef<HTMLAnchorElement | null>(null);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const t = setTimeout(() => mobileFirstLinkRef.current?.focus(), 50);
+      return () => clearTimeout(t);
+    }
+
+    // When menu closes, return focus to the toggle button
+    mobileMenuButtonRef.current?.focus();
+  }, [mobileMenuOpen]);
 
   const updateSectionsCache = useCallback(() => {
     sectionsCache.current = Array.from(document.querySelectorAll('section[id]'));
@@ -143,7 +165,7 @@ export default function Header() {
 
       {/* Floating Island Navigation */}
       <div className="container flex justify-start lg:justify-center px-4">
-        <div className="inline-flex items-center gap-3 px-2 py-2 bg-black/70 backdrop-blur-xl border border-white/[0.08] rounded-full shadow-lg shadow-black/20 pointer-events-auto">
+        <div className="inline-flex items-center gap-3 px-2 py-2 bg-black/70 backdrop-blur-xl border border-medium rounded-full shadow-nav pointer-events-auto">
           {/* Logo */}
           <a
             href="#hero"
@@ -179,6 +201,7 @@ export default function Header() {
 
           {/* Mobile hamburger button */}
           <button
+            ref={mobileMenuButtonRef}
             type="button"
             className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -201,10 +224,10 @@ export default function Header() {
       >
         <nav
           id="mobile-menu"
-          className="lg:hidden bg-black/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-lg shadow-black/30 overflow-hidden flex flex-col p-2"
+          className="lg:hidden bg-black/90 backdrop-blur-xl border border-medium rounded-2xl shadow-nav overflow-hidden flex flex-col p-2"
           aria-label={mobileNavAria}
         >
-          {navLinks.map((link) => (
+          {navLinks.map((link, idx) => (
             <NavLink
               key={link.href}
               href={link.href}
@@ -212,6 +235,7 @@ export default function Header() {
               isActive={active === link.href.replace('#', '')}
               lenis={lenis}
               onClick={closeMobileMenu}
+              innerRef={idx === 0 ? mobileFirstLinkRef : undefined}
             />
           ))}
         </nav>

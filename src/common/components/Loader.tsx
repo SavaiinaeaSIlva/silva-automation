@@ -1,4 +1,4 @@
-import { siteContent } from '../content/siteContent';
+import { siteContent } from '../../content/siteContent';
 
 type LoaderProps = {
   fullScreen?: boolean;
@@ -16,7 +16,7 @@ export default function Loader({ fullScreen = false }: LoaderProps) {
   }
 
   return (
-    <div className="min-h-[200px] flex items-center justify-center">
+    <div className="min-h-loader flex items-center justify-center">
       <div className="text-muted">{loadingText}</div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { ArrowUpRight, Check } from 'lucide-react';
-import { siteContent } from '../content/siteContent';
-import SectionLayout from '../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
+import { siteContent } from '../../content/siteContent';
+import SectionLayout from '../../components/SectionLayout';
+import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
 
 export default function ContactSection() {
   const contact = siteContent.contact;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Check } from 'lucide-react';
-import { siteContent } from '../content/siteContent';
-import SectionLayout from '../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
+import { siteContent } from '../../content/siteContent';
+import SectionLayout from '../../components/SectionLayout';
+import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
 
 type TabKey = 'pricing' | 'support';
 
@@ -29,7 +29,7 @@ export default function PricingSection() {
 
       {/* Tab Navigation */}
       <div className="flex justify-center mb-8">
-        <div className="inline-flex bg-white/[0.05] rounded-full p-1 border border-white/[0.08]">
+        <div className="inline-flex bg-glass-light rounded-full p-1 border border-medium">
           {(Object.keys(pricing.tabs) as TabKey[]).map((key) => (
             <button
               key={key}
@@ -104,7 +104,7 @@ export default function PricingSection() {
               {pricing.afterSupport.benefits.map((benefit) => (
                 <div
                   key={benefit.label}
-                  className="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4"
+                  className="bg-glass-subtle border border-subtle rounded-lg p-4"
                 >
                   <div className="flex items-start gap-3">
                     <Check className="w-4 h-4 text-white shrink-0 mt-1" aria-hidden="true" />
@@ -118,7 +118,7 @@ export default function PricingSection() {
             </div>
 
             {/* Divider */}
-            <div className="border-t border-white/[0.08] my-8" />
+            <div className="border-t border-medium my-8" />
 
             {/* What Support Covers */}
             <div>

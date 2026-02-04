@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
-import { siteContent } from '../content/siteContent';
-import SectionLayout from '../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
-import { useAnimatedNumber } from '../hooks/useAnimatedNumber';
+import { siteContent } from '../../content/siteContent';
+import SectionLayout from '../../components/SectionLayout';
+import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
+import { useAnimatedNumber } from '../../hooks/useAnimatedNumber';
 
 const WEEKS_PER_MONTH = 52 / 12;
 

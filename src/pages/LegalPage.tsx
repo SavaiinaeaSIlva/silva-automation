@@ -1,15 +1,31 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
+import { ArrowLeft, Cookie, DollarSign, FileText, Shield, LucideIcon } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
+import { legalContent } from '../content/legalContent';
+import LegalSection from '../components/LegalSection';
 
-type LegalLayoutProps = {
-  title: string;
-  icon: LucideIcon;
-  children: React.ReactNode;
+type LegalPageType = 'terms' | 'privacy' | 'cookies' | 'refunds';
+
+interface LegalPageProps {
+  type: LegalPageType;
+}
+
+const pageConfig: Record<
+  LegalPageType,
+  { icon: LucideIcon; contentKey: keyof typeof legalContent }
+> = {
+  terms: { icon: FileText, contentKey: 'terms' },
+  privacy: { icon: Shield, contentKey: 'privacy' },
+  cookies: { icon: Cookie, contentKey: 'cookies' },
+  refunds: { icon: DollarSign, contentKey: 'refunds' },
 };
 
-export default function LegalLayout({ title, icon: Icon, children }: LegalLayoutProps) {
+export default function LegalPage({ type }: LegalPageProps) {
   const { backToHome, logoAlt, lastUpdated, footerText } = siteContent.legalLayout;
+  const { effectiveDate } = siteContent.legal;
+  const title = siteContent.legal.pages[type];
+  const { icon: Icon, contentKey } = pageConfig[type];
+  const { sections } = legalContent[contentKey];
 
   return (
     <div className="min-h-screen font-sans text-white legal-page-bg">
@@ -37,7 +53,12 @@ export default function LegalLayout({ title, icon: Icon, children }: LegalLayout
           </div>
         </div>
 
-        {children}
+        <div className="legal-content">
+          <p className="text-sm text-white/50 italic mb-4">Effective Date: {effectiveDate}</p>
+          {sections.map((section, idx) => (
+            <LegalSection key={idx} section={section} />
+          ))}
+        </div>
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-white/40 text-sm">

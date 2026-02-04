@@ -2,16 +2,13 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import BackToTop from './components/BackToTop';
-import { LenisProvider } from './contexts/LenisContext';
+import { LenisProvider } from './core/LenisContext';
 import CookieBanner from './components/CookieBanner';
-import ErrorBoundary from './components/ErrorBoundary';
-import Loader from './components/Loader';
+import ErrorBoundary from './common/components/ErrorBoundary';
+import Loader from './common/components/Loader';
 import HomePage from './pages/HomePage';
 
-const TermsPage = lazy(() => import('./pages/TermsPage'));
-const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
-const CookiesPage = lazy(() => import('./pages/CookiesPage'));
-const RefundsPage = lazy(() => import('./pages/RefundsPage'));
+const LegalPage = lazy(() => import('./pages/LegalPage'));
 
 export default function App() {
   return (
@@ -24,10 +21,10 @@ export default function App() {
           <Suspense fallback={<Loader fullScreen />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="/cookies" element={<CookiesPage />} />
-              <Route path="/refunds" element={<RefundsPage />} />
+              <Route path="/terms" element={<LegalPage type="terms" />} />
+              <Route path="/privacy" element={<LegalPage type="privacy" />} />
+              <Route path="/cookies" element={<LegalPage type="cookies" />} />
+              <Route path="/refunds" element={<LegalPage type="refunds" />} />
             </Routes>
           </Suspense>
         </LenisProvider>

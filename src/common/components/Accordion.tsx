@@ -49,6 +49,7 @@ export default function Accordion({
               id={panelId}
               role="region"
               aria-labelledby={btnId}
+              aria-hidden={openIndex !== i}
               className="grid transition-[grid-template-rows,opacity] duration-300 ease-in-out"
               style={{
                 gridTemplateRows: openIndex === i ? '1fr' : '0fr',
@@ -56,7 +57,12 @@ export default function Accordion({
               }}
             >
               <div className="overflow-hidden">
-                <div className="pt-3 pb-1 text-muted border-t border-white/10 mt-2">{item.a}</div>
+                <div
+                  tabIndex={openIndex === i ? 0 : -1}
+                  className="pt-3 pb-1 text-muted border-t border-white/10 mt-2"
+                >
+                  {item.a}
+                </div>
               </div>
             </div>
           </div>

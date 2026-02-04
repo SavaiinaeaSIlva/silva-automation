@@ -20,7 +20,7 @@ const getReducedMotionPreference = (() => {
 export function useAnimatedNumber(targetValue: number, duration: number = 400): number {
   const [displayValue, setDisplayValue] = useState(targetValue);
   const previousValue = useRef(targetValue);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const startValue = previousValue.current;

@@ -36,41 +36,100 @@ This application provides:
 
 ## 🏗️ Architecture & Structure
 
+This project follows a **modular hierarchy** architecture with a **design-system first** approach:
+
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── Button.tsx
+├── core/               # Providers, Contexts, Global Logic
+│   └── LenisContext.tsx
+├── common/             # Atomic UI components
+│   └── components/
+│       ├── Accordion.tsx
+│       ├── ErrorBoundary.tsx
+│       └── Loader.tsx
+├── modules/            # Feature-specific sections
+│   └── home/
+│       ├── HeroSection.tsx
+│       ├── ProcessSection.tsx
+│       ├── PricingSection.tsx
+│       ├── CalculatorSection.tsx
+│       ├── ContactSection.tsx
+│       ├── FAQSection.tsx
+│       ├── ProblemSolutionSection.tsx
+│       └── FeatureHighlights.tsx
+├── pages/              # Top-level route components
+│   ├── HomePage.tsx
+│   └── LegalPage.tsx
+├── hooks/              # Custom React hooks
+│   ├── useScrollReveal.ts
+│   └── useAnimatedNumber.ts
+├── components/         # Shared layout components
 │   ├── Header.tsx
 │   ├── Footer.tsx
-│   ├── Accordion.tsx
-│   ├── ErrorBoundary.tsx
-│   └── __tests__/      # Component tests
-├── sections/           # Page sections
-│   ├── HeroSection.tsx
-│   ├── CalculatorSection.tsx
-│   ├── PricingSection.tsx
-│   └── ...
-├── pages/              # Route pages
-│   ├── HomePage.tsx
-│   ├── TermsPage.tsx
-│   └── ...
-├── hooks/              # Custom React hooks
-│   └── useScrollReveal.ts
+│   ├── SectionLayout.tsx
+│   ├── CookieBanner.tsx
+│   ├── BackToTop.tsx
+│   └── ScrollingTextWall.tsx
 ├── content/            # Content and data
-│   └── siteContent.ts
+│   ├── siteContent.ts
+│   └── legalContent.ts
+├── assets/             # Images, icons, static fonts
 └── styles/             # Global styles
     └── global.css
 ```
 
-## 🎨 Styling
+### Design System Architecture
 
-The project uses:
-- **Tailwind CSS** for utility-first styling
-- **CSS Variables** for theming (defined in `global.css`)
-- **GSAP** for scroll animations
-- **Responsive Design** with mobile-first approach
+The project uses a **token-based design system**:
 
-Theme variables and design tokens are defined in `src/styles/global.css`.
+1. **CSS Variables** (`:root` in `global.css`) — Single source of truth for colors, typography, spacing
+2. **Tailwind Config** (`tailwind.config.cjs`) — Consumes CSS variables and extends with semantic tokens
+3. **Component Classes** — Complex animations and glassmorphism effects in `global.css`
+
+#### Key Design Tokens
+
+| Category | Examples |
+|----------|----------|
+| **Colors** | `brand-bg`, `brand-elevated`, `text-main`, `muted`, `cta` |
+| **Text Opacity** | `text-white-90`, `text-white-70`, `text-white-50` |
+| **Backgrounds** | `bg-glass-subtle`, `bg-glass-medium`, `bg-glass-strong` |
+| **Borders** | `border-subtle`, `border-medium`, `border-strong` |
+| **Typography** | `text-display-sm`, `text-display-md`, `text-display-lg` |
+| **Spacing** | `min-h-section-card-sm`, `w-step-card`, `h-icon-sm` |
+| **Shadows** | `shadow-nav`, `shadow-card-hover`, `shadow-cta` |
+| **Transitions** | `duration-fast`, `duration-slow`, `ease-bounce-sm` |
+| **Z-Index** | `z-base`, `z-sticky`, `z-modal`, `z-back-to-top` |
+
+## 🎨 Styling & Design System
+
+The project uses a **design-system first** approach:
+
+### Token Architecture
+- **CSS Custom Properties** — Core values in `:root` (colors, typography, radii)
+- **Tailwind Tokens** — Semantic naming in `tailwind.config.cjs` consuming CSS variables
+- **Utility Classes** — Standard Tailwind utilities for layout and spacing
+- **Component Classes** — Complex animations in `global.css` (glassmorphism, CTA buttons)
+
+### Key Technologies
+- **Tailwind CSS** — Utility-first styling with custom design tokens
+- **CSS Variables** — Theming and single source of truth
+- **GSAP + ScrollTrigger** — Performant scroll animations
+- **Lenis** — Smooth scrolling with GSAP sync
+- **Responsive Design** — Mobile-first with `sm:`, `md:`, `lg:` breakpoints
+
+### Glass Card System
+```css
+.glass-card          /* Standard glassmorphism card */
+.glass-card-featured /* Animated border gradient card */
+.glass-card-calculator /* Slightly different opacity for inputs */
+```
+
+### Animation Classes
+- `.section-light-leaks` — Ambient background animations per section
+- `.light-leak-v1/v2/v3` — Variant color schemes (warm, cool, neutral)
+- `.cta-button-primary` — Animated CTA with hover arrow reveal
+
+Theme variables are defined in `src/styles/global.css` and extended in `tailwind.config.cjs`.
 
 ## ♿ Accessibility Features
 
@@ -161,22 +220,45 @@ GitHub Actions workflow (`.github/workflows/ci.yml`):
 ## 📦 Dependencies
 
 ### Main Dependencies
-- **React 18** - UI library
-- **React Router 7** - Routing
-- **GSAP 3** - Animations
-- **Lucide React** - Icons
+- **React 18** — UI library
+- **React Router 7** — Client-side routing
+- **GSAP 3** — Professional-grade animations
+- **Lenis** — Smooth scroll with GSAP integration
+- **Lucide React** — Modern icon library
 
 ### Dev Dependencies
-- **Vite 7** - Build tool
-- **TypeScript 5** - Type safety
-- **Tailwind CSS 3** - Styling
-- **Vitest 4** - Testing framework
-- **ESLint 8** - Linting
-- **Prettier 3** - Code formatting
+- **Vite 7** — Next-gen build tool
+- **TypeScript 5** — Strict type safety
+- **Tailwind CSS 3** — Utility-first styling
+- **Vitest** — Fast unit testing
+- **Testing Library** — React component testing
+- **jest-axe** — Accessibility testing
+- **ESLint 8** — Code linting
+- **Prettier** — Code formatting
+- **Husky** — Git hooks
 
 ## 📝 Additional Documentation
 
-Theme and styling are configured in `src/styles/global.css` and `tailwind.config.cjs`.
+### Design System Files
+- `src/styles/global.css` — CSS custom properties and complex component styles
+- `tailwind.config.cjs` — Extended Tailwind theme with semantic tokens
+
+### Component Patterns
+
+**Gold-Standard Example:** See `src/modules/home/ProcessSection.tsx` for the recommended patterns:
+- JSDoc documentation
+- Semantic token usage (no arbitrary values)
+- Centralized hooks from `/hooks`
+- Accessibility attributes on decorative elements
+- Consistent naming conventions
+
+### Adding New Sections
+
+1. Create component in `src/modules/home/`
+2. Use `SectionLayout` wrapper with `lightLeaks` variant
+3. Import animation hooks from `../../hooks/useScrollReveal`
+4. Use semantic Tailwind tokens from the design system
+5. Add to `HomePage.tsx` with lazy loading if below fold
 
 ## 🤝 Contributing
 
@@ -200,12 +282,14 @@ All rights reserved. See individual files for specific copyright information.
 
 ## 🔧 Configuration Files
 
-- `vite.config.ts` - Vite configuration with test setup and build optimization
-- `tsconfig.json` - TypeScript configuration with strict mode
-- `tailwind.config.cjs` - Tailwind CSS configuration with custom theme
-- `.eslintrc.cjs` - ESLint rules and plugins
-- `.prettierrc` - Prettier formatting rules
-- `postcss.config.cjs` - PostCSS configuration
+| File | Purpose |
+|------|---------|
+| `vite.config.ts` | Build config, test setup, chunk splitting |
+| `tsconfig.json` | TypeScript strict mode configuration |
+| `tailwind.config.cjs` | **Design system tokens** — colors, spacing, typography |
+| `postcss.config.cjs` | PostCSS with Tailwind and Autoprefixer |
+| `.eslintrc.cjs` | ESLint rules (React, TypeScript, Prettier) |
+| `.prettierrc` | Code formatting rules |
 
 ## 📞 Support
 

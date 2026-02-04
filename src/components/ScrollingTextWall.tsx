@@ -25,6 +25,15 @@ function TextLine({ text, direction, speed, outlined = false }: TextLineProps) {
     const startX = direction === 'left' ? -10 : -(10 + range);
     const endX = direction === 'left' ? -(10 + range) : -10;
 
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false);
+    if (prefersReduced) {
+      // For reduced motion, position content without animation
+      gsap.set(inner, { xPercent: endX });
+      return;
+    }
+
     const tween = gsap.fromTo(
       inner,
       { xPercent: startX },

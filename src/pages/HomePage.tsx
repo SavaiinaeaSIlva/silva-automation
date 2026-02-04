@@ -1,24 +1,23 @@
 import { lazy, Suspense } from 'react';
 import Header from '../components/Header';
-import SiteBackground from '../components/SiteBackground';
 import ScrollingTextWall from '../components/ScrollingTextWall';
 import Footer from '../components/Footer';
-import Loader from '../components/Loader';
-import HeroSection from '../sections/HeroSection';
-import ProblemSolutionSection from '../sections/ProblemSolutionSection';
+import Loader from '../common/components/Loader';
+import HeroSection from '../modules/home/HeroSection';
+import ProblemSolutionSection from '../modules/home/ProblemSolutionSection';
 import { siteContent } from '../content/siteContent';
 
-const ProcessSection = lazy(() => import('../sections/ProcessSection'));
-const PricingSection = lazy(() => import('../sections/PricingSection'));
-const CalculatorSection = lazy(() => import('../sections/CalculatorSection'));
-const ContactSection = lazy(() => import('../sections/ContactSection'));
-const FAQSection = lazy(() => import('../sections/FAQSection'));
+const ProcessSection = lazy(() => import('../modules/home/ProcessSection'));
+const PricingSection = lazy(() => import('../modules/home/PricingSection'));
+const CalculatorSection = lazy(() => import('../modules/home/CalculatorSection'));
+const ContactSection = lazy(() => import('../modules/home/ContactSection'));
+const FAQSection = lazy(() => import('../modules/home/FAQSection'));
 
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
       {/* Background layer — absolute so orbs scroll with page, not sticky */}
-      <SiteBackground />
+      <div className="site-background" aria-hidden="true" />
 
       {/* Content layer */}
       <div className="relative z-10 min-h-screen text-text-main">

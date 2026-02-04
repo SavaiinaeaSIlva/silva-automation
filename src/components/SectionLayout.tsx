@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { useLenis } from '../contexts/LenisContext';
+import { useLenis } from '../core/LenisContext';
 
 type LightLeakVariant = 'v1' | 'v2' | 'v3';
 

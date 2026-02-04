@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Accordion from '../components/Accordion';
+import Accordion from '../common/components/Accordion';
 
 const items = [
   { q: 'First question?', a: 'First answer.' },

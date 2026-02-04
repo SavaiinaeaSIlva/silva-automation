@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import FAQSection from '../sections/FAQSection';
+import FAQSection from '../modules/home/FAQSection';
 
 describe('FAQSection', () => {
   test('renders FAQ title and search input', () => {

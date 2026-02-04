@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { siteContent } from '../content/siteContent';
 
@@ -7,16 +7,37 @@ const STORAGE_KEY = 'cookie-consent';
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const { ariaLabel, message, cookiePolicyLinkText, learnMore, accept } = siteContent.cookieBanner;
+  const acceptBtnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    const consent = localStorage.getItem(STORAGE_KEY);
-    if (consent === null) {
+    try {
+      const consent = localStorage.getItem(STORAGE_KEY);
+      if (consent === null) {
+        setVisible(true);
+      }
+    } catch (err) {
+      // Some browsers or privacy modes throw when accessing localStorage; fall back to showing banner
+      // and do not crash the app.
+      // eslint-disable-next-line no-console
+      console.warn('CookieBanner: localStorage access failed', err);
       setVisible(true);
     }
   }, []);
 
+  useEffect(() => {
+    if (visible && acceptBtnRef.current) {
+      acceptBtnRef.current.focus();
+    }
+  }, [visible]);
+
   const onAccept = () => {
-    localStorage.setItem(STORAGE_KEY, 'accepted');
+    try {
+      localStorage.setItem(STORAGE_KEY, 'accepted');
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('CookieBanner: failed to persist consent', err);
+    }
+
     setVisible(false);
   };
 
@@ -24,12 +45,12 @@ export default function CookieBanner() {
 
   return (
     <div
-      role="dialog"
+      role="region"
       aria-label={ariaLabel}
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-5 bg-[var(--color-bg-elevated)] border-t border-[var(--color-border)] shadow-[0_-4px_24px_rgba(0,0,0,0.4)]"
+      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-5 bg-brand-elevated border-t border shadow-cookie-banner"
     >
       <div className="container flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-[var(--color-text-muted)] text-center sm:text-left flex-1">
+        <p className="text-sm text-muted text-center sm:text-left flex-1">
           {message}{' '}
           <Link
             to="/cookies"
@@ -47,6 +68,7 @@ export default function CookieBanner() {
             {learnMore}
           </Link>
           <button
+            ref={acceptBtnRef}
             type="button"
             onClick={onAccept}
             className="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-black hover:bg-neutral-200 transition-colors shadow-lg shadow-white/10"

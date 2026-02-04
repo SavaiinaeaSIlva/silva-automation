@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
-import Accordion from '../components/Accordion';
-import SectionLayout from '../components/SectionLayout';
-import { siteContent } from '../content/siteContent';
-import { useScrollReveal } from '../hooks/useScrollReveal';
+import Accordion from '../../common/components/Accordion';
+import SectionLayout from '../../components/SectionLayout';
+import { siteContent } from '../../content/siteContent';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 const INITIAL_COUNT = 5;
 

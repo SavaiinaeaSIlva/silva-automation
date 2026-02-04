@@ -1,7 +1,7 @@
 import { X, Check } from 'lucide-react';
-import { challengeAndSolutionSection } from '../content/siteContent';
-import SectionLayout from '../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal';
+import { challengeAndSolutionSection } from '../../content/siteContent';
+import SectionLayout from '../../components/SectionLayout';
+import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
 
 type ListItem = { header: string; body: string };
 
@@ -13,8 +13,8 @@ function BlockList({ items, iconType }: { items: ListItem[]; iconType: 'problem'
           <div
             className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 mt-0.5 ${
               iconType === 'problem'
-                ? 'bg-red-500/10 text-red-400'
-                : 'bg-emerald-500/10 text-emerald-400'
+                ? 'bg-problem-bg text-problem-text'
+                : 'bg-solution-bg text-solution-text'
             }`}
           >
             {iconType === 'problem' ? (

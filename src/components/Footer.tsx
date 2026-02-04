@@ -5,8 +5,8 @@ export default function Footer() {
   const footer = siteContent.footer;
 
   return (
-    <footer className="relative z-10 text-white border-t border-white/10 mt-16">
-      <div className="container py-12">
+    <footer className="relative z-10 text-white border-t border-white/10 mt-16 pt-8">
+      <div className="container pt-20 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-center md:text-left">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start">

@@ -10,9 +10,14 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
     
     <!-- Content Security Policy -->
+    <!-- IMPORTANT: CSP is more secure when sent as server response headers. We remove
+         inline-script allowance here; inline styles are still allowed temporarily since
+         the app uses style attributes in some interactive components. To fully remove
+         inline styles, switch to nonce/hash-based styles on the server and update
+         any inline-style usage accordingly. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';"
     />
     
     <link rel="icon" type="image/png" href="/icon.png" />
