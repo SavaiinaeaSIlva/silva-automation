@@ -35,7 +35,7 @@ export default function PricingSection() {
               key={key}
               onClick={() => setActiveTab(key)}
               className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
-                activeTab === key ? 'bg-white text-black' : 'text-white/60 hover:text-white/90'
+                activeTab === key ? 'bg-white text-black' : 'text-white-60 hover:text-white-90'
               }`}
             >
               {pricing.tabs[key]}
@@ -46,18 +46,44 @@ export default function PricingSection() {
 
       {/* Pricing Tab Content */}
       {activeTab === 'pricing' && (
-        <div ref={tiersRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:items-center">
-          {pricing.tiers.map((tier) => {
+        <div
+          ref={tiersRef}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:items-center relative"
+        >
+          {/* Decorative backdrop orb behind center card */}
+          <div
+            className="pricing-orb pointer-events-none absolute left-1/2 transform -translate-x-1/2 -translate-y-6"
+            aria-hidden="true"
+          />
+          {/* Up-light (squashed oval at very bottom of section) */}
+          <div
+            className="pricing-up-light pointer-events-none absolute left-1/2 transform -translate-x-1/2"
+            aria-hidden="true"
+          />
+          {/* Very faint volumetric shimmers (dust in spotlight) */}
+          <div
+            className="pricing-shimmers pointer-events-none absolute inset-0"
+            aria-hidden="true"
+          />
+
+          {pricing.tiers.map((tier, i) => {
             const isFeatured = tier.badge === 'Most Popular';
+            const isMiddle = i === Math.floor(pricing.tiers.length / 2);
+            const baseClass = isFeatured
+              ? 'glass-card-featured md:scale-105 md:z-10'
+              : 'glass-card';
+            const middleModifiers = isMiddle
+              ? ' md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured'
+              : '';
             return (
               <div
                 key={tier.name}
-                className={`${isFeatured ? 'glass-card-featured md:scale-105 md:z-10' : 'glass-card'} p-6 flex flex-col relative transition-transform`}
+                className={`${baseClass}${middleModifiers} p-6 flex flex-col relative transition-transform`}
               >
                 {tier.badge && (
                   <span
                     className={`inline-flex self-start px-2.5 py-0.5 text-xs font-medium rounded-full mb-4 ${
-                      isFeatured ? 'bg-white text-black' : 'bg-white/10 text-white'
+                      isFeatured ? 'bg-white text-black' : 'bg-glass-strong text-white'
                     }`}
                   >
                     {tier.badge}
@@ -86,7 +112,7 @@ export default function PricingSection() {
           <div className="glass-card p-8 md:p-10">
             {/* Title & Headline */}
             <div className="text-center mb-8">
-              <p className="text-white/50 text-sm uppercase tracking-wider mb-2">
+              <p className="text-white-50 text-sm uppercase tracking-wider mb-2">
                 {pricing.afterSupport.title}
               </p>
               <h3 className="text-2xl md:text-3xl font-semibold text-white">
@@ -110,7 +136,7 @@ export default function PricingSection() {
                     <Check className="w-4 h-4 text-white shrink-0 mt-1" aria-hidden="true" />
                     <div>
                       <p className="text-white font-medium text-sm">{benefit.label}</p>
-                      <p className="text-white/50 text-xs mt-0.5">{benefit.detail}</p>
+                      <p className="text-white-50 text-xs mt-0.5">{benefit.detail}</p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +154,7 @@ export default function PricingSection() {
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto">
                 {pricing.afterSupport.covers.map((item) => (
                   <li key={item} className="flex items-center gap-2.5 text-muted text-sm">
-                    <Check className="w-4 h-4 text-white/60 shrink-0" aria-hidden="true" />
+                    <Check className="w-4 h-4 text-white-60 shrink-0" aria-hidden="true" />
                     {item}
                   </li>
                 ))}

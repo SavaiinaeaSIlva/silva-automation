@@ -49,7 +49,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                 <summary className="cursor-pointer text-sm text-muted hover:text-white transition-colors">
                   {errorDetailsLabel}
                 </summary>
-                <pre className="mt-2 p-4 rounded text-xs overflow-auto text-red-400 bg-brand-elevated border border">
+                <pre className="mt-2 p-4 rounded text-xs overflow-auto text-red-400 bg-brand-elevated border">
                   {this.state.error.toString()}
                   {this.state.error.stack}
                 </pre>

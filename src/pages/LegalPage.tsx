@@ -29,11 +29,11 @@ export default function LegalPage({ type }: LegalPageProps) {
 
   return (
     <div className="min-h-screen font-sans text-white legal-page-bg">
-      <div className="bg-black/80 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
+      <div className="bg-nav-bg backdrop-blur-sm border-b border-subtle sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link
             to="/"
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors font-bold text-sm"
+            className="flex items-center gap-2 text-white-70 hover:text-white transition-colors font-bold text-sm"
           >
             <ArrowLeft size={18} />
             {backToHome}
@@ -44,24 +44,24 @@ export default function LegalPage({ type }: LegalPageProps) {
 
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-white/10 rounded-lg text-white">
+          <div className="p-2 bg-glass-strong rounded-lg text-white">
             <Icon size={24} />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-white">{title}</h1>
-            <p className="text-sm text-white/50">Last Updated: {lastUpdated}</p>
+            <p className="text-sm text-white-50">Last Updated: {lastUpdated}</p>
           </div>
         </div>
 
         <div className="legal-content">
-          <p className="text-sm text-white/50 italic mb-4">Effective Date: {effectiveDate}</p>
+          <p className="text-sm text-white-50 italic mb-4">Effective Date: {effectiveDate}</p>
           {sections.map((section, idx) => (
             <LegalSection key={idx} section={section} />
           ))}
         </div>
       </main>
 
-      <footer className="border-t border-white/10 py-8 text-center text-white/40 text-sm">
+      <footer className="border-t border-subtle py-8 text-center text-white-40 text-sm">
         &copy; {new Date().getFullYear()} {footerText}
       </footer>
     </div>

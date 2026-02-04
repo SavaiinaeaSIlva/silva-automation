@@ -67,7 +67,7 @@ export default function ProcessSection() {
                 </div>
 
                 {/* Divider Line */}
-                <div className="w-full h-divider bg-white/25 shrink-0" aria-hidden="true" />
+                <div className="w-full h-divider bg-glass-intense shrink-0" aria-hidden="true" />
 
                 {/* Step Card */}
                 <div className="min-h-section-card-sm lg:min-h-section-card-lg pt-6 flex flex-col">

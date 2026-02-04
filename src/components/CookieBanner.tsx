@@ -18,8 +18,10 @@ export default function CookieBanner() {
     } catch (err) {
       // Some browsers or privacy modes throw when accessing localStorage; fall back to showing banner
       // and do not crash the app.
-      // eslint-disable-next-line no-console
-      console.warn('CookieBanner: localStorage access failed', err);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('CookieBanner: localStorage access failed', err);
+      }
       setVisible(true);
     }
   }, []);
@@ -34,8 +36,10 @@ export default function CookieBanner() {
     try {
       localStorage.setItem(STORAGE_KEY, 'accepted');
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn('CookieBanner: failed to persist consent', err);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('CookieBanner: failed to persist consent', err);
+      }
     }
 
     setVisible(false);
@@ -63,7 +67,7 @@ export default function CookieBanner() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             to="/cookies"
-            className="px-4 py-2.5 rounded-full text-sm font-medium text-white border border-white/10 hover:border-white/20 hover:bg-white/5 transition-colors"
+            className="px-4 py-2.5 rounded-full text-sm font-medium text-white border border-subtle hover:border-divider-strong hover:bg-glass-light transition-colors"
           >
             {learnMore}
           </Link>
@@ -71,7 +75,7 @@ export default function CookieBanner() {
             ref={acceptBtnRef}
             type="button"
             onClick={onAccept}
-            className="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-black hover:bg-neutral-200 transition-colors shadow-lg shadow-white/10"
+            className="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-black hover:bg-neutral-200 transition-colors shadow-button-glow"
           >
             {accept}
           </button>

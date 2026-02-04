@@ -752,6 +752,106 @@ textarea {
   filter: blur(60px);
 }
 
+/* Pricing section decorative elements */
+.pricing-orb {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  transform: translateX(-50%);
+  width: 36rem;
+  height: 36rem;
+  border-radius: 50%;
+  /* Use design tokens: muted & accent */
+  background: radial-gradient(
+    circle at 50% 45%,
+    var(--color-accent-blue-muted) 0%,
+    var(--color-accent-blue) 30%,
+    transparent 60%
+  );
+  filter: blur(120px);
+  z-index: 0;
+  opacity: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .pricing-orb {
+    width: 22rem;
+    height: 22rem;
+    top: 10%;
+    filter: blur(80px);
+    opacity: 0.9;
+  }
+}
+
+.pricing-up-light {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 48px;
+  border-radius: 9999px / 24px;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    var(--color-accent-blue-muted) 0%,
+    var(--color-accent-blue) 30%,
+    transparent 80%
+  );
+  filter: blur(18px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .pricing-up-light {
+    height: 36px;
+    bottom: -1rem;
+    filter: blur(14px);
+  }
+}
+
+.pricing-shimmers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    25deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 2px,
+    transparent 2px,
+    transparent 40px
+  );
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(2px);
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.2) 40%,
+    transparent 80%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.2) 40%,
+    transparent 80%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-shimmers {
+    opacity: 0;
+  }
+  .pricing-orb {
+    transition: none;
+  }
+}
+
 /* Hero gradient text */
 .hero-light-leak-text {
   display: inline-block;

@@ -80,37 +80,45 @@ export default function HeroSection() {
     >
       <div className="hero-parallax-bg" ref={parallaxRef} aria-hidden />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
-        <div className="glass-card-featured p-10 sm:p-12 md:p-14 overflow-hidden flex flex-col items-center">
-          <img
-            ref={titleRef}
-            src="/LOGO.png"
-            alt={siteContent.header.logoAlt}
-            className="w-full max-w-sm sm:max-w-md h-auto"
-            loading="eager"
-            width="400"
-            height="150"
-          />
-          <div className="w-full max-w-xl mx-auto flex flex-col items-center mt-6 sm:mt-8">
-            <p
-              ref={subtitleRef}
-              className="text-zinc-400 text-base sm:text-lg leading-loose text-center w-full max-w-2xl"
-            >
-              {siteContent.hero.subtitle}
-            </p>
-          </div>
-          <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
-            <a
-              href={siteContent.contact.cta.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-button-primary"
-            >
-              <span className="cta-text">{siteContent.hero.cta}</span>
-              <span className="cta-arrow-wrapper">
-                <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
-              </span>
-            </a>
-          </div>
+        <img
+          ref={titleRef}
+          src="/LOGO.png"
+          alt={siteContent.header.logoAlt}
+          className="w-full max-w-[180px] sm:max-w-[240px] h-auto transform -translate-y-10 sm:-translate-y-12"
+          loading="eager"
+          width="240"
+          height="90"
+        />
+        <h1 className="mt-4 text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+          <span className="block">
+            <span className="text-white">{siteContent.hero.titleLine1Highlight}</span>{' '}
+            <span className="text-current">{siteContent.hero.titleLine1Rest}</span>
+          </span>
+          <span className="block">
+            <span className="text-accent-blue italic">{siteContent.hero.titleLine2Highlight}</span>{' '}
+            <span className="text-current">{siteContent.hero.titleLine2Rest}</span>
+          </span>
+        </h1>
+        <div className="w-full max-w-xl mx-auto flex flex-col items-center mt-6 sm:mt-8">
+          <p
+            ref={subtitleRef}
+            className="text-zinc-400 text-base sm:text-lg leading-loose text-center w-full max-w-2xl"
+          >
+            {siteContent.hero.subtitle}
+          </p>
+        </div>
+        <div ref={ctaRef} className="flex justify-center mt-6 sm:mt-8">
+          <a
+            href={siteContent.contact.cta.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-button-primary"
+          >
+            <span className="cta-text">{siteContent.hero.cta}</span>
+            <span className="cta-arrow-wrapper">
+              <ArrowUpRight className="w-4 h-4 cta-arrow" aria-hidden="true" />
+            </span>
+          </a>
         </div>
         {/* Benefits Carousel */}
         <div ref={iconsRef} className="w-full mt-20 space-y-12 md:space-y-16">

@@ -59,7 +59,7 @@ export default function Accordion({
               <div className="overflow-hidden">
                 <div
                   tabIndex={openIndex === i ? 0 : -1}
-                  className="pt-3 pb-1 text-muted border-t border-white/10 mt-2"
+                  className="pt-3 pb-1 text-muted border-t border-subtle mt-2"
                 >
                   {item.a}
                 </div>

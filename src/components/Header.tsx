@@ -165,7 +165,7 @@ export default function Header() {
 
       {/* Floating Island Navigation */}
       <div className="container flex justify-start lg:justify-center px-4">
-        <div className="inline-flex items-center gap-3 px-2 py-2 bg-black/70 backdrop-blur-xl border border-medium rounded-full shadow-nav pointer-events-auto">
+        <div className="inline-flex items-center gap-3 px-2 py-2 bg-nav-bg backdrop-blur-xl border border-medium rounded-full shadow-nav pointer-events-auto">
           {/* Logo */}
           <a
             href="#hero"
@@ -184,7 +184,7 @@ export default function Header() {
           </a>
 
           {/* Divider */}
-          <div className="hidden lg:block w-px h-5 bg-white/10" />
+          <div className="hidden lg:block w-px h-5 bg-glass-strong" />
 
           {/* Desktop navigation tabs */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
@@ -203,7 +203,7 @@ export default function Header() {
           <button
             ref={mobileMenuButtonRef}
             type="button"
-            className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
+            className="lg:hidden p-2 text-white hover:bg-glass-light rounded-full transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? closeMenu : openMenu}
             aria-expanded={mobileMenuOpen}
@@ -224,7 +224,7 @@ export default function Header() {
       >
         <nav
           id="mobile-menu"
-          className="lg:hidden bg-black/90 backdrop-blur-xl border border-medium rounded-2xl shadow-nav overflow-hidden flex flex-col p-2"
+          className="lg:hidden bg-nav-mobile backdrop-blur-xl border border-medium rounded-2xl shadow-nav overflow-hidden flex flex-col p-2"
           aria-label={mobileNavAria}
         >
           {navLinks.map((link, idx) => (

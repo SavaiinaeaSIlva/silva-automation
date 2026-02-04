@@ -62,7 +62,7 @@ export default function CalculatorSection() {
           <h3 className="font-semibold mb-4 text-white text-lg">{calc.inputsTitle}</h3>
           <div className="space-y-5">
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">{field0.label}</span>
+              <span className="text-white-90 text-sm block mb-2 font-medium">{field0.label}</span>
               <input
                 type="number"
                 id="team-size"
@@ -86,7 +86,7 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">{field1.label}</span>
+              <span className="text-white-90 text-sm block mb-2 font-medium">{field1.label}</span>
               <input
                 type="number"
                 id="weekly-hours"
@@ -110,7 +110,7 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">{field2.label}</span>
+              <span className="text-white-90 text-sm block mb-2 font-medium">{field2.label}</span>
               <input
                 type="number"
                 id="hourly-cost"
@@ -134,7 +134,7 @@ export default function CalculatorSection() {
               </span>
             </label>
             <label className="block">
-              <span className="text-white/90 text-sm block mb-2 font-medium">{field3.label}</span>
+              <span className="text-white-90 text-sm block mb-2 font-medium">{field3.label}</span>
               <input
                 type="number"
                 id="project-cost"
@@ -160,7 +160,7 @@ export default function CalculatorSection() {
           <h3 className="font-semibold mb-4 text-white text-lg">{calc.resultsTitle}</h3>
           <ul className="space-y-5">
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-white/90 font-medium">
+              <span className="text-white-90 font-medium">
                 {calc.resultLabels.monthlyAdminCost}
               </span>
               <span className="font-display text-white text-xl tabular-nums">
@@ -168,15 +168,15 @@ export default function CalculatorSection() {
               </span>
             </li>
             <li className="flex items-baseline justify-between gap-4">
-              <span className="text-white/90 font-medium">
+              <span className="text-white-90 font-medium">
                 {calc.resultLabels.yearlyRevenueLeak}
               </span>
               <span className="font-display text-white text-xl tabular-nums">
                 ${Math.round(animatedYearly).toLocaleString('en-US')}
               </span>
             </li>
-            <li className="flex items-baseline justify-between gap-4 pt-3 mt-1 border-t border-white/20">
-              <span className="text-white/90 font-medium">{calc.resultLabels.paybackPeriod}</span>
+            <li className="flex items-baseline justify-between gap-4 pt-3 mt-1 border-t border-divider-strong">
+              <span className="text-white-90 font-medium">{calc.resultLabels.paybackPeriod}</span>
               <span className="font-display text-success text-xl tabular-nums">
                 {animatedPayback > 0 && animatedPayback < 120
                   ? `${animatedPayback.toFixed(1)} months`
@@ -186,8 +186,8 @@ export default function CalculatorSection() {
               </span>
             </li>
           </ul>
-          <p className="text-white/90 font-medium mt-6 text-base">{calc.analysisTitle}</p>
-          <p className="text-white/85 mt-2 text-base leading-relaxed">{calc.analysisCopy}</p>
+          <p className="text-white-90 font-medium mt-6 text-base">{calc.analysisTitle}</p>
+          <p className="text-white-85 mt-2 text-base leading-relaxed">{calc.analysisCopy}</p>
         </div>
       </div>
     </SectionLayout>
