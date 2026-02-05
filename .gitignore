@@ -1,7 +1,12 @@
 node_modules
 dist
 .env
-.vscode
+
+# VS Code - ignore personal settings but keep project config
+.vscode/*
+!.vscode/settings.json
+!.vscode/tailwind.json
+!.vscode/extensions.json
 
 # Test coverage
 coverage
