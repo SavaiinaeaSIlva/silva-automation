@@ -3,5 +3,18 @@ dist
 .env
 .vscode
 
+# Test coverage
+coverage
+
 # Installers and binaries (not project assets)
 *.exe
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+*.swp
+*.swo
+*~
+.idea/

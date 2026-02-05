@@ -1,0 +1,8 @@
+# CODEOWNERS -- Replace placeholders with real GitHub usernames
+# Example: /src/ @your-org/team-front-end
+
+# Ownership for source code
+/src/ @silva
+
+# Ownership for docs and infra
+/.github/ @silva

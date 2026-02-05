@@ -7,11 +7,13 @@ function findFiles() {
 }
 
 function extractClassStrings(content) {
-  const regex = /className=\"([^\"]+)\"/g;
+  // Match patterns like: className="..." or className='...' or className={"..."}
+  const regex = /className\s*=\s*(?:"([^"]+)"|'([^']+)'|\{\s*["'`]([^"'`]+)["'`]\s*\})/g;
   const results = [];
   let m;
   while ((m = regex.exec(content)) !== null) {
-    results.push(m[1]);
+    // one of the capture groups will be populated
+    results.push(m[1] || m[2] || m[3]);
   }
   return results;
 }

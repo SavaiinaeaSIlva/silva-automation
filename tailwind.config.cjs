@@ -32,9 +32,9 @@ module.exports = {
         'solution-bg': 'rgba(16, 185, 129, 0.1)',
         'solution-text': '#34d399',
 
-        // Accent (approved orange) - single token, use sparingly
-        'accent-blue': 'var(--color-accent-blue)',
-        'accent-blue-muted': 'var(--color-accent-blue-muted)',
+        // Accent (platinum) - single token, use sparingly
+        'accent-platinum': 'var(--color-accent-platinum)',
+        'accent-platinum-muted': 'var(--color-accent-platinum-muted)',
 
         // Zinc palette for text
         'zinc-400': '#a1a1aa',
@@ -122,10 +122,10 @@ module.exports = {
         'gap-lg': '1.5rem',
         'gap-xl': '2rem',
 
-        // Section spacing
-        'section-py': '6rem',
-        'section-py-lg': '8rem',
-        'section-mt': '6rem',
+        // Section spacing — increased for more breathable layout
+        'section-py': '8rem',
+        'section-py-lg': '10rem',
+        'section-mt': '8rem',
 
         // Component specific
         'icon-sm': '2.5rem',

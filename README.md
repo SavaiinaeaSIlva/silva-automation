@@ -276,7 +276,7 @@ All rights reserved. See individual files for specific copyright information.
 
 ## 🌐 Environment
 
-- **Node.js**: 18+ recommended
+- **Node.js**: 20+ recommended
 - **Package Manager**: npm
 - **Browser Support**: Modern browsers (ES2020+)
 

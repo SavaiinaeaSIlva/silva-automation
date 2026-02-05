@@ -1,5 +1,7 @@
-// DEBUG TOOL — remove this file after debugging
-// Runs only on localhost/dev and when viewport <= 1024px
+// DEBUG TOOL — Development helper for hero debugging
+// This script was moved out of public/ to avoid being served in production.
+// Use only for local development on localhost or file:// views.
+
 (function () {
   try {
     if (!location.hostname.includes('localhost') && location.hostname !== '127.0.0.1' && location.protocol !== 'file:') return;

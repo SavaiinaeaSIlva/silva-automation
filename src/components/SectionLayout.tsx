@@ -8,6 +8,7 @@ type SectionLayoutProps = {
   children: React.ReactNode;
   lightLeaks?: LightLeakVariant;
   fullScreen?: boolean;
+  compactTop?: boolean; // Reduce top padding to allow overlap with preceding sections
 };
 
 export default function SectionLayout({
@@ -15,6 +16,7 @@ export default function SectionLayout({
   children,
   lightLeaks,
   fullScreen,
+  compactTop,
 }: SectionLayoutProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -50,15 +52,24 @@ export default function SectionLayout({
   // Memoize class string to avoid recalculating on every render
   const sectionClasses = useMemo(() => {
     const baseClass = fullScreen
-      ? 'min-h-screen flex flex-col justify-center py-16 md:py-20'
-      : 'py-24 md:py-32';
+      ? compactTop
+        ? 'min-h-screen flex flex-col justify-center py-16 md:py-20'
+        : 'min-h-screen flex flex-col justify-center py-20 md:py-24'
+      : compactTop
+        ? 'pt-16 md:pt-20 pb-32'
+        : 'py-section-py md:py-section-py-lg';
 
     if (!lightLeaks) {
       return `${baseClass} text-text-main`;
     }
 
-    return `${baseClass} text-text-main section-light-leaks light-leak-${lightLeaks}${isVisible ? ' is-visible' : ''}`;
-  }, [fullScreen, lightLeaks, isVisible]);
+    return (
+      baseClass +
+      ' text-text-main section-light-leaks light-leak-' +
+      lightLeaks +
+      (isVisible ? ' is-visible' : '')
+    );
+  }, [fullScreen, lightLeaks, isVisible, compactTop]);
 
   return (
     <section ref={sectionRef} id={id} className={sectionClasses}>

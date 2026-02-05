@@ -9,9 +9,16 @@ type TextLineProps = {
   direction: 'left' | 'right';
   speed: number;
   outlined?: boolean;
+  outlinedCenter?: boolean;
 };
 
-function TextLine({ text, direction, speed, outlined = false }: TextLineProps) {
+function TextLine({
+  text,
+  direction,
+  speed,
+  outlined = false,
+  outlinedCenter = false,
+}: TextLineProps) {
   const lineRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +71,7 @@ function TextLine({ text, direction, speed, outlined = false }: TextLineProps) {
         {copies.map((t, i) => (
           <span
             key={i}
-            className={`scrolling-text-item ${outlined ? 'scrolling-text-outlined' : 'scrolling-text-filled'}`}
+            className={`scrolling-text-item ${outlined ? (outlinedCenter ? 'scrolling-text-outlined scrolling-text-outlined--center' : 'scrolling-text-outlined') : 'scrolling-text-filled'}`}
           >
             {t}
           </span>
@@ -98,15 +105,18 @@ export default function ScrollingTextWall({ lines = defaultLines }: ScrollingTex
       aria-hidden="true"
     >
       <div className="scrolling-text-container">
-        {lines.map((line, index) => (
-          <TextLine
-            key={`${line.text}-${index}`}
-            text={line.text}
-            direction={line.direction}
-            speed={line.speed}
-            outlined={line.outlined}
-          />
-        ))}
+        {lines.map((line, index) => {
+          return (
+            <TextLine
+              key={`${line.text}-${index}`}
+              text={line.text}
+              direction={line.direction}
+              speed={line.speed}
+              outlined={!!line.outlined}
+              outlinedCenter={false}
+            />
+          );
+        })}
       </div>
     </section>
   );

@@ -25,7 +25,7 @@ export default function ContactSection() {
       </div>
 
       <div ref={cardRef} className="mt-8 max-w-xl mx-auto glass-card p-6 md:p-8 overflow-hidden">
-        <p className="text-white-80 text-sm font-medium mb-4 text-left">{contact.whatToExpect}</p>
+        <p className="text-white-80 text-sm font-medium mb-4 text-center">{contact.whatToExpect}</p>
         <ul ref={benefitsRef} className="space-y-3 mb-8 text-left">
           {contact.benefits.map((benefit) => (
             <li key={benefit} className="flex items-start gap-3">

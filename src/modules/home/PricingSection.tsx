@@ -55,6 +55,10 @@ export default function PricingSection() {
             className="pricing-orb pointer-events-none absolute left-1/2 transform -translate-x-1/2 -translate-y-6"
             aria-hidden="true"
           />
+          {/* Soft gold accent orb */}
+          <div className="pricing-orb-gold pointer-events-none" aria-hidden="true" />
+          {/* Subtle blue accent orb */}
+          <div className="pricing-orb-blue pointer-events-none" aria-hidden="true" />
           {/* Up-light (squashed oval at very bottom of section) */}
           <div
             className="pricing-up-light pointer-events-none absolute left-1/2 transform -translate-x-1/2"
@@ -72,9 +76,14 @@ export default function PricingSection() {
             const baseClass = isFeatured
               ? 'glass-card-featured md:scale-105 md:z-10'
               : 'glass-card';
-            const middleModifiers = isMiddle
-              ? ' md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured'
-              : '';
+            // If a tier is the featured one, force it into the center column on
+            // medium+ screens. This ensures the "Most Popular" card is visually
+            // centered even when transforms are applied for emphasis.
+            const middleModifiers = isFeatured
+              ? ' pricing-highlight md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured md:col-start-2 md:col-span-1'
+              : isMiddle
+                ? ' pricing-highlight md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured'
+                : '';
             return (
               <div
                 key={tier.name}
@@ -92,9 +101,9 @@ export default function PricingSection() {
                 <div className="text-muted text-sm mb-1">{tier.name}</div>
                 <div className="text-3xl font-semibold text-white mb-1">{tier.price}</div>
                 <div className="text-muted text-sm mb-6">{tier.description}</div>
-                <ul className="text-sm space-y-3 flex-1">
+                <ul className="text-sm space-y-3 flex-1 text-left">
                   {tier.included.map((inc) => (
-                    <li key={inc} className="flex items-start gap-2.5 text-muted">
+                    <li key={inc} className="flex items-start gap-2.5 text-muted text-left">
                       <Check className="w-4 h-4 text-white shrink-0 mt-0.5" aria-hidden="true" />
                       {inc}
                     </li>

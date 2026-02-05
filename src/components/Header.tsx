@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { siteContent } from '../content/siteContent';
 import { useLenis } from '../core/LenisContext';
 import type Lenis from 'lenis';
+import silvaIcon from '../assets/icons/silva-icon.png';
 
 type NavLinkProps = {
   href: string;
@@ -78,55 +79,96 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => {
-      const sections = sectionsCache.current;
-      if (!sections.length) {
-        updateSectionsCache();
-        return;
-      }
-
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-      let currentSection: string | null = null;
-
-      for (const section of sections) {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          currentSection = section.id;
-          break;
-        }
-      }
-
-      // If we're past the last section, keep it active
-      if (!currentSection && sections.length > 0) {
-        const lastSection = sections[sections.length - 1];
-        if (lastSection && scrollPosition >= lastSection.offsetTop) {
-          currentSection = lastSection.id;
-        }
-      }
-
-      if (currentSection) {
-        setActive(currentSection);
-      }
-    };
-
-    // Initial cache and check
+    // Use IntersectionObserver for robust, performant active-link detection.
+    // Falls back to a one-time cache update if IntersectionObserver is unavailable.
     updateSectionsCache();
-    onScroll();
+    const sections = sectionsCache.current;
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if ('IntersectionObserver' in window && sections.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // Find the entry with largest intersectionRatio that's intersecting
+          let best: IntersectionObserverEntry | null = null;
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
+          }
 
-    // Re-cache after lazy sections load
-    const timer = setTimeout(() => {
-      updateSectionsCache();
-      onScroll();
-    }, 500);
+          if (best && best.target && (best.target as HTMLElement).id) {
+            setActive((best.target as HTMLElement).id);
+            return;
+          }
 
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      clearTimeout(timer);
-    };
+          // Fallback: when no entries are intersecting (gap between sections),
+          // pick the section closest to the top of the viewport so the nav stays highlighted.
+          let closest: IntersectionObserverEntry | null = null;
+          for (const entry of entries) {
+            if (!closest) {
+              closest = entry;
+              continue;
+            }
+            const currentTop = Math.abs((entry.boundingClientRect as DOMRect).top);
+            const closestTop = Math.abs((closest.boundingClientRect as DOMRect).top);
+            if (currentTop < closestTop) closest = entry;
+          }
+          if (closest && (closest.target as HTMLElement).id) {
+            setActive((closest.target as HTMLElement).id);
+          }
+        },
+        {
+          root: null,
+          rootMargin: '0px 0px -40% 0px', // consider a section active when its top is in the upper ~60% of the viewport
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+        }
+      );
+
+      sections.forEach((s) => observer.observe(s));
+
+      // Add a robust scroll fallback for environments where IntersectionObserver
+      // may be unreliable (or when transforms affect intersection computations).
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const secs = sectionsCache.current;
+          if (!secs || !secs.length) {
+            ticking = false;
+            return;
+          }
+          // choose the section whose top is closest to the top of the viewport
+          let closestEl: HTMLElement | null = null;
+          let closestDistance = Infinity;
+          for (const el of secs) {
+            const rect = el.getBoundingClientRect();
+            const distance = Math.abs(rect.top);
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestEl = el;
+            }
+          }
+          if (closestEl && closestEl.id) setActive(closestEl.id);
+          ticking = false;
+        });
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // re-cache after lazy content loads
+      const timer = setTimeout(() => {
+        updateSectionsCache();
+      }, 500);
+
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('scroll', onScroll);
+        clearTimeout(timer);
+      };
+    }
+
+    // Fallback: simple cache refresh
+    const timer = setTimeout(() => updateSectionsCache(), 500);
+    return () => clearTimeout(timer);
   }, [updateSectionsCache]);
 
   // Close mobile menu on resize to desktop
@@ -174,7 +216,7 @@ export default function Header() {
             onClick={handleLogoClick}
           >
             <img
-              src="/icon.png"
+              src={silvaIcon}
               alt={logoAlt}
               className="h-7 w-auto"
               loading="eager"

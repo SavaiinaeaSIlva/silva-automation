@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { siteContent } from '../content/siteContent';
+import silvaIcon from '../assets/icons/silva-icon.png';
 
 export default function Footer() {
   const footer = siteContent.footer;
@@ -11,7 +12,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start">
             <img
-              src="/icon.png"
+              src={silvaIcon}
               alt={footer.companyName}
               className="h-8 w-auto mb-4"
               loading="lazy"

@@ -2,9 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { BrowserRouter } from 'react-router-dom';
-import Accordion from '../../common/components/Accordion';
-import Header from '../Header';
-import CookieBanner from '../CookieBanner';
+import Accordion from '../common/components/Accordion';
+import Header from '../components/Header';
+import CookieBanner from '../components/CookieBanner';
 
 const renderWithRouter = (ui: React.ReactElement) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);

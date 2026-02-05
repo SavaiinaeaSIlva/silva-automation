@@ -18,6 +18,34 @@ import { Search, Compass, Cog, Rocket, ChevronRight, ArrowRight } from 'lucide-r
 // Icon mapping for each step — keeps render logic clean
 const stepIcons = [Search, Compass, Cog, Rocket];
 
+function toRoman(num: number) {
+  if (!num || num <= 0) return '';
+  const map: [number, string][] = [
+    [1000, 'M'],
+    [900, 'CM'],
+    [500, 'D'],
+    [400, 'CD'],
+    [100, 'C'],
+    [90, 'XC'],
+    [50, 'L'],
+    [40, 'XL'],
+    [10, 'X'],
+    [9, 'IX'],
+    [5, 'V'],
+    [4, 'IV'],
+    [1, 'I'],
+  ];
+  let res = '';
+  let n = Math.floor(num);
+  for (const [value, numeral] of map) {
+    while (n >= value) {
+      res += numeral;
+      n -= value;
+    }
+  }
+  return res;
+}
+
 export default function ProcessSection() {
   const process = siteContent.process;
 
@@ -52,34 +80,60 @@ export default function ProcessSection() {
           return (
             <div
               key={step.title}
-              className="process-step flex flex-col lg:flex-row items-stretch w-full lg:w-auto shrink-0"
+              className="process-step flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto shrink-0"
             >
               {/* Step Content Column */}
-              <div className="flex flex-col w-full lg:w-step-card">
+              <div className="flex flex-col w-full lg:w-step-card items-center">
                 {/* Step Number — Display Typography */}
                 <div className="flex justify-center pb-4">
                   <span
-                    className="text-display-sm sm:text-display-md lg:text-display-lg leading-none text-white-20 select-none"
+                    className="text-display-sm sm:text-display-md lg:text-display-lg leading-none select-none outlined-number outlined-number--zinc text-zinc-400"
                     aria-hidden="true"
                   >
-                    {step.number}
+                    <svg
+                      className="inline-block w-auto h-16 sm:h-20 lg:h-24"
+                      viewBox="0 0 140 140"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      aria-hidden="true"
+                      focusable="false"
+                      overflow="visible"
+                      style={{ overflow: 'visible' }}
+                    >
+                      <text
+                        x="50%"
+                        y="66%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fontFamily="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
+                        fontWeight="700"
+                        fontSize="120"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinejoin="round"
+                        vectorEffect="non-scaling-stroke"
+                      >
+                        {toRoman(Number(step.number))}
+                      </text>
+                    </svg>
                   </span>
                 </div>
 
                 {/* Divider Line */}
-                <div className="w-full h-divider bg-glass-intense shrink-0" aria-hidden="true" />
+                <div className="w-full h-divider bg-zinc-400 shrink-0" aria-hidden="true" />
 
                 {/* Step Card */}
                 <div className="min-h-section-card-sm lg:min-h-section-card-lg pt-6 flex flex-col">
-                  <div className="glass-card p-card-sm h-full relative overflow-hidden group flex flex-col flex-1">
+                  <div className="glass-card p-card-sm h-full relative overflow-hidden group flex flex-col flex-1 items-center text-center">
                     {/* Icon Container */}
                     <div className="relative z-base w-icon-sm h-icon-sm rounded-xl bg-glass-medium border border-subtle flex items-center justify-center mb-3 group-hover:bg-glass-strong group-hover:border-strong transition-colors duration-slow">
-                      <Icon className="w-4 h-4 text-white-80" strokeWidth={1.5} />
+                      <Icon className="w-4 h-4 text-accent-platinum" strokeWidth={1.5} />
                     </div>
 
                     {/* Step Badge */}
                     <span className="relative z-base inline-block text-xs font-medium text-white-50 uppercase tracking-wider mb-1">
-                      Step {step.number}
+                      Step {toRoman(Number(step.number))}
                     </span>
 
                     {/* Step Title */}

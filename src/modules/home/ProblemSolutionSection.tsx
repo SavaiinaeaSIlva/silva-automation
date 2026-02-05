@@ -7,7 +7,7 @@ type ListItem = { header: string; body: string };
 
 function BlockList({ items, iconType }: { items: ListItem[]; iconType: 'problem' | 'solution' }) {
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-4 text-left">
       {items.map((item, i) => (
         <li key={i} className="flex items-start gap-3">
           <div
@@ -47,10 +47,10 @@ export default function ProblemSolutionSection() {
   });
 
   return (
-    <SectionLayout id="challenge-and-solution" lightLeaks="v3">
+    <SectionLayout id="challenge-and-solution" lightLeaks="v3" compactTop>
       <div ref={headerRef} className="space-y-4 mb-12">
         <h2 className="section-header">{challengeAndSolutionSection.header}</h2>
-        <p className="section-subtitle">{challengeAndSolutionSection.intro}</p>
+        <p className="section-subtitle text-gray-300">{challengeAndSolutionSection.intro}</p>
       </div>
 
       <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">

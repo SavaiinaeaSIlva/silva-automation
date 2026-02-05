@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import CookieBanner from '../components/CookieBanner';
 import { BrowserRouter } from 'react-router-dom';

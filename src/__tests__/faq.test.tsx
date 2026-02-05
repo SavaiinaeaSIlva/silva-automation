@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import FAQSection from '../modules/home/FAQSection';
 

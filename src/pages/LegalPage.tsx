@@ -3,6 +3,7 @@ import { ArrowLeft, Cookie, DollarSign, FileText, Shield, LucideIcon } from 'luc
 import { siteContent } from '../content/siteContent';
 import { legalContent } from '../content/legalContent';
 import LegalSection from '../components/LegalSection';
+import silvaIcon from '../assets/icons/silva-icon.png';
 
 type LegalPageType = 'terms' | 'privacy' | 'cookies' | 'refunds';
 
@@ -38,7 +39,7 @@ export default function LegalPage({ type }: LegalPageProps) {
             <ArrowLeft size={18} />
             {backToHome}
           </Link>
-          <img src="/icon.png" alt={logoAlt} className="h-8 w-auto" />
+          <img src={silvaIcon} alt={logoAlt} className="h-8 w-auto" />
         </div>
       </div>
 

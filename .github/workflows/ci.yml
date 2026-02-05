@@ -20,6 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check for debug files in public/
+        run: node scripts/check-no-debug.js
+
+      - name: Check duplicate class tokens
+        run: node scripts/find-duplicate-classes.js || true
+
       - name: Typecheck
         run: npm run typecheck
 
