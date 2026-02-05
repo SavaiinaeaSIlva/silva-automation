@@ -1,20 +1,20 @@
 import { useRef } from 'react';
 import {
   ArrowUpRight,
-  Zap,
-  Target,
-  Repeat,
-  Shield,
   Key,
   Lock,
-  Wrench,
-  TrendingUp,
   MapPin,
   Plug,
+  Repeat,
+  Shield,
+  Target,
+  TrendingUp,
+  Wrench,
+  Zap,
 } from 'lucide-react';
-import { siteContent } from '../../content/siteContent';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
-import silvaLogo from '../../assets/images/silva-logo.png';
+import silvaLogo from '@/assets/images/silva-logo.png';
+import { siteContent } from '@/content/siteContent';
+import { useScrollReveal } from '@/hooks';
 
 export default function HeroSection() {
   const titleRef = useScrollReveal<HTMLImageElement>({ y: 30, duration: 0.7, start: 'top top' });
@@ -39,11 +39,9 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       id="hero"
-      className="min-h-screen flex flex-col items-center justify-center py-16 md:py-20 text-text-main relative"
+      className="min-h-screen flex flex-col items-center justify-center py-16 md:py-24 text-text-main relative"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
-        <div className="hero-gold-orb" aria-hidden="true" />
-        <div className="hero-blue-orb" aria-hidden="true" />
         <img
           ref={titleRef}
           src={silvaLogo}

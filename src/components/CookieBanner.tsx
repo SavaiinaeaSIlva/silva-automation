@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { siteContent } from '../content/siteContent';
+import { siteContent } from '@/content/siteContent';
 
 const STORAGE_KEY = 'cookie-consent';
 

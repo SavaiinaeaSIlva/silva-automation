@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useLenis } from '../core/LenisContext';
-import { siteContent } from '../content/siteContent';
+import { siteContent } from '@/content/siteContent';
+import { useLenis } from '@/core';
 
 const SHOW_AFTER_PX = 200;
 

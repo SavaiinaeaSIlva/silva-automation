@@ -1,17 +1,17 @@
 import ContactInfoBlock from './ContactInfoBlock';
 
-interface ListItemWithLabel {
+type ListItemWithLabel = {
   label: string;
   text: string;
-}
+};
 
-interface Subsection {
+type Subsection = {
   label: string;
   text?: string;
   list?: string[];
-}
+};
 
-interface Section {
+type Section = {
   heading: string;
   content?: string;
   list?: (string | ListItemWithLabel)[];
@@ -19,11 +19,11 @@ interface Section {
   footer?: string;
   showContact?: boolean;
   isBold?: boolean;
-}
+};
 
-interface LegalSectionProps {
+type LegalSectionProps = {
   section: Section;
-}
+};
 
 function isListItemWithLabel(item: string | ListItemWithLabel): item is ListItemWithLabel {
   return typeof item === 'object' && item !== null && 'label' in item;

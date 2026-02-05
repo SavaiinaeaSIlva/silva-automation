@@ -1,14 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
-import BackToTop from './components/BackToTop';
-import { LenisProvider } from './core/LenisContext';
-import CookieBanner from './components/CookieBanner';
-import ErrorBoundary from './common/components/ErrorBoundary';
-import Loader from './common/components/Loader';
-import HomePage from './pages/HomePage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BackToTop, CookieBanner, ScrollToTop } from '@/components';
+import { ErrorBoundary, Loader } from '@/common/components';
+import { LenisProvider } from '@/core';
+import { HomePage } from '@/pages';
 
-const LegalPage = lazy(() => import('./pages/LegalPage'));
+const LegalPage = lazy(() => import('@/pages/LegalPage'));
 
 export default function App() {
   return (

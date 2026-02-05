@@ -122,10 +122,10 @@ module.exports = {
         'gap-lg': '1.5rem',
         'gap-xl': '2rem',
 
-        // Section spacing — increased for more breathable layout
-        'section-py': '8rem',
-        'section-py-lg': '10rem',
-        'section-mt': '8rem',
+        // Section spacing — professional gaps between sections
+        'section-py': '4rem',
+        'section-py-lg': '6rem',
+        'section-mt': '2rem',
 
         // Component specific
         'icon-sm': '2.5rem',

@@ -1,4 +1,4 @@
-import { siteContent } from '../content/siteContent';
+import { siteContent } from '@/content/siteContent';
 
 export default function ContactInfoBlock() {
   const { contactEmail, contactPhone, contactAddress } = siteContent.legal;

@@ -1,7 +1,7 @@
 import { ArrowUpRight, Check } from 'lucide-react';
-import { siteContent } from '../../content/siteContent';
-import SectionLayout from '../../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
+import { SectionLayout } from '@/components';
+import { siteContent } from '@/content/siteContent';
+import { useScrollReveal, useStaggerReveal } from '@/hooks';
 
 export default function ContactSection() {
   const contact = siteContent.contact;
@@ -18,7 +18,7 @@ export default function ContactSection() {
   });
 
   return (
-    <SectionLayout id="contact" lightLeaks="v1">
+    <SectionLayout id="contact">
       <div ref={headerRef}>
         <h2 className="section-header">{contact.title}</h2>
         <p className="section-subtitle">{contact.subtitle}</p>

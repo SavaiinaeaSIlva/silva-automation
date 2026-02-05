@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import { render, screen } from '@testing-library/react';
-import React from 'react';
-import ScrollingTextWall from '../components/ScrollingTextWall';
+import { ScrollingTextWall } from '@/components';
 
 test('renders default lines and is resilient to reduced-motion preference', () => {
   // Simulate prefers-reduced-motion: reduce

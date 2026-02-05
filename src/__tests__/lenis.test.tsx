@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { LenisProvider, useLenis } from '../core/LenisContext';
+import { LenisProvider, useLenis } from '@/core';
 
 function TestComp() {
   const lenis = useLenis();

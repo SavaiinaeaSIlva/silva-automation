@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback, useRef, memo } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { siteContent } from '../content/siteContent';
-import { useLenis } from '../core/LenisContext';
 import type Lenis from 'lenis';
-import silvaIcon from '../assets/icons/silva-icon.png';
+import { siteContent } from '@/content/siteContent';
+import { useLenis } from '@/core';
+import silvaIcon from '@/assets/icons/silva-icon.png';
 
 type NavLinkProps = {
   href: string;

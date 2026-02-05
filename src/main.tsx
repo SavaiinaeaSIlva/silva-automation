@@ -1,8 +1,8 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from '@/App';
 import 'lenis/dist/lenis.css';
-import './styles/global.css';
+import '@/styles/global.css';
 
 const rootElement = document.getElementById('root');
 
@@ -11,7 +11,7 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );

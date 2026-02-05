@@ -331,6 +331,7 @@ export const siteContent = {
     title: 'Oops! Something went wrong',
     message: "We're sorry for the inconvenience. Please try refreshing the page.",
     refreshButton: 'Refresh Page',
+    retryButton: 'Try Again',
     errorDetailsLabel: 'Error details',
   },
 

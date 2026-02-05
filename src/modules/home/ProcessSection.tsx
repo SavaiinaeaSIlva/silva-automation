@@ -1,7 +1,7 @@
-import { siteContent } from '../../content/siteContent';
-import SectionLayout from '../../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
-import { Search, Compass, Cog, Rocket, ChevronRight, ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, Cog, Compass, Rocket, Search } from 'lucide-react';
+import { SectionLayout } from '@/components';
+import { siteContent } from '@/content/siteContent';
+import { useScrollReveal, useStaggerReveal } from '@/hooks';
 
 /**
  * ProcessSection — Gold-Standard Component Example
@@ -60,7 +60,7 @@ export default function ProcessSection() {
   const ctaRef = useScrollReveal({ y: 20, duration: 0.5, delay: 0.4 });
 
   return (
-    <SectionLayout id="process" lightLeaks="v1">
+    <SectionLayout id="process">
       {/* Section Header */}
       <div ref={headerRef}>
         <h2 className="section-header">{process.header}</h2>

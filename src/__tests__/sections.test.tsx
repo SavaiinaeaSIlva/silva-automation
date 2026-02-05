@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { render, screen, waitFor } from '@testing-library/react';
-import App from '../App';
+import App from '@/App';
 
 describe('Main sections render', () => {
   test('renders hero and main sections', async () => {

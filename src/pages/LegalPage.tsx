@@ -1,15 +1,16 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Cookie, DollarSign, FileText, Shield, LucideIcon } from 'lucide-react';
-import { siteContent } from '../content/siteContent';
-import { legalContent } from '../content/legalContent';
-import LegalSection from '../components/LegalSection';
-import silvaIcon from '../assets/icons/silva-icon.png';
+import { ArrowLeft, Cookie, DollarSign, FileText, Shield, type LucideIcon } from 'lucide-react';
+import { LegalSection } from '@/components';
+import { legalContent } from '@/content/legalContent';
+import { siteContent } from '@/content/siteContent';
+import silvaIcon from '@/assets/icons/silva-icon.png';
 
 type LegalPageType = 'terms' | 'privacy' | 'cookies' | 'refunds';
 
-interface LegalPageProps {
+type LegalPageProps = {
   type: LegalPageType;
-}
+};
 
 const pageConfig: Record<
   LegalPageType,
@@ -27,6 +28,16 @@ export default function LegalPage({ type }: LegalPageProps) {
   const title = siteContent.legal.pages[type];
   const { icon: Icon, contentKey } = pageConfig[type];
   const { sections } = legalContent[contentKey];
+
+  // Update document title when page loads
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = `${title} | Silva Automation`;
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, [title]);
 
   return (
     <div className="min-h-screen font-sans text-white legal-page-bg">

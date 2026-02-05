@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { render, screen, within } from '@testing-library/react';
-import CalculatorSection from '../modules/home/CalculatorSection';
+import { CalculatorSection } from '@/modules/home';
 
 describe('CalculatorSection', () => {
   test('renders calculator title and inputs', () => {

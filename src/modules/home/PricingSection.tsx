@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Check } from 'lucide-react';
-import { siteContent } from '../../content/siteContent';
-import SectionLayout from '../../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
+import { SectionLayout } from '@/components';
+import { siteContent } from '@/content/siteContent';
+import { useScrollReveal, useStaggerReveal } from '@/hooks';
 
 type TabKey = 'pricing' | 'support';
 
@@ -21,7 +21,7 @@ export default function PricingSection() {
   const supportRef = useScrollReveal({ y: 30, duration: 0.5 });
 
   return (
-    <SectionLayout id="pricing" lightLeaks="v2">
+    <SectionLayout id="pricing">
       <div ref={headerRef} className="space-y-4 mb-8">
         <h2 className="section-header">{pricing.header}</h2>
         <p className="section-subtitle">{pricing.intro}</p>
@@ -29,13 +29,23 @@ export default function PricingSection() {
 
       {/* Tab Navigation */}
       <div className="flex justify-center mb-8">
-        <div className="inline-flex bg-glass-light rounded-full p-1 border border-medium">
+        <div
+          className="inline-flex bg-glass-light rounded-full p-1 border border-medium"
+          role="tablist"
+          aria-label="Pricing information tabs"
+        >
           {(Object.keys(pricing.tabs) as TabKey[]).map((key) => (
             <button
               key={key}
+              role="tab"
+              aria-selected={activeTab === key}
+              aria-controls={`tabpanel-${key}`}
+              id={`tab-${key}`}
               onClick={() => setActiveTab(key)}
               className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
-                activeTab === key ? 'bg-white text-black' : 'text-white-60 hover:text-white-90'
+                activeTab === key
+                  ? 'bg-white text-black border border-white/20 shadow-sm'
+                  : 'text-white-60 hover:text-white-90'
               }`}
             >
               {pricing.tabs[key]}
@@ -48,41 +58,24 @@ export default function PricingSection() {
       {activeTab === 'pricing' && (
         <div
           ref={tiersRef}
+          id="tabpanel-pricing"
+          role="tabpanel"
+          aria-labelledby="tab-pricing"
           className="grid grid-cols-1 md:grid-cols-3 gap-4 md:items-center relative"
         >
-          {/* Decorative backdrop orb behind center card */}
-          <div
-            className="pricing-orb pointer-events-none absolute left-1/2 transform -translate-x-1/2 -translate-y-6"
-            aria-hidden="true"
-          />
-          {/* Soft gold accent orb */}
-          <div className="pricing-orb-gold pointer-events-none" aria-hidden="true" />
-          {/* Subtle blue accent orb */}
-          <div className="pricing-orb-blue pointer-events-none" aria-hidden="true" />
-          {/* Up-light (squashed oval at very bottom of section) */}
-          <div
-            className="pricing-up-light pointer-events-none absolute left-1/2 transform -translate-x-1/2"
-            aria-hidden="true"
-          />
-          {/* Very faint volumetric shimmers (dust in spotlight) */}
-          <div
-            className="pricing-shimmers pointer-events-none absolute inset-0"
-            aria-hidden="true"
-          />
-
           {pricing.tiers.map((tier, i) => {
             const isFeatured = tier.badge === 'Most Popular';
             const isMiddle = i === Math.floor(pricing.tiers.length / 2);
             const baseClass = isFeatured
-              ? 'glass-card-featured md:scale-105 md:z-10'
+              ? 'glass-card-featured md:scale-[1.02] md:z-10'
               : 'glass-card';
             // If a tier is the featured one, force it into the center column on
             // medium+ screens. This ensures the "Most Popular" card is visually
             // centered even when transforms are applied for emphasis.
             const middleModifiers = isFeatured
-              ? ' pricing-highlight md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured md:col-start-2 md:col-span-1'
+              ? ' pricing-highlight md:scale-105 md:-translate-y-2 md:p-8 md:z-20 md:shadow-glass-featured md:col-start-2 md:col-span-1'
               : isMiddle
-                ? ' pricing-highlight md:scale-110 md:-translate-y-3 md:p-8 md:z-20 md:shadow-glass-featured'
+                ? ' pricing-highlight md:scale-105 md:-translate-y-2 md:p-8 md:z-20 md:shadow-glass-featured'
                 : '';
             return (
               <div
@@ -117,7 +110,13 @@ export default function PricingSection() {
 
       {/* Support Tab Content */}
       {activeTab === 'support' && (
-        <div ref={supportRef} className="max-w-3xl mx-auto">
+        <div
+          ref={supportRef}
+          id="tabpanel-support"
+          role="tabpanel"
+          aria-labelledby="tab-support"
+          className="max-w-3xl mx-auto"
+        >
           <div className="glass-card p-8 md:p-10">
             {/* Title & Headline */}
             <div className="text-center mb-8">

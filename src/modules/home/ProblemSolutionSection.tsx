@@ -1,7 +1,7 @@
-import { X, Check } from 'lucide-react';
-import { challengeAndSolutionSection } from '../../content/siteContent';
-import SectionLayout from '../../components/SectionLayout';
-import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
+import { Check, X } from 'lucide-react';
+import { SectionLayout } from '@/components';
+import { challengeAndSolutionSection } from '@/content/siteContent';
+import { useScrollReveal, useStaggerReveal } from '@/hooks';
 
 type ListItem = { header: string; body: string };
 
@@ -47,7 +47,7 @@ export default function ProblemSolutionSection() {
   });
 
   return (
-    <SectionLayout id="challenge-and-solution" lightLeaks="v3" compactTop>
+    <SectionLayout id="challenge-and-solution" compactTop>
       <div ref={headerRef} className="space-y-4 mb-12">
         <h2 className="section-header">{challengeAndSolutionSection.header}</h2>
         <p className="section-subtitle text-gray-300">{challengeAndSolutionSection.intro}</p>

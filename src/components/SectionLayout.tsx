@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
-import { useLenis } from '../core/LenisContext';
-
-type LightLeakVariant = 'v1' | 'v2' | 'v3';
+import { useEffect, useMemo, useRef, type ReactNode } from 'react';
+import { useLenis } from '@/core';
 
 type SectionLayoutProps = {
   id: string;
-  children: React.ReactNode;
-  lightLeaks?: LightLeakVariant;
+  children: ReactNode;
   fullScreen?: boolean;
   compactTop?: boolean; // Reduce top padding to allow overlap with preceding sections
 };
@@ -14,12 +11,10 @@ type SectionLayoutProps = {
 export default function SectionLayout({
   id,
   children,
-  lightLeaks,
   fullScreen,
   compactTop,
 }: SectionLayoutProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const lenis = useLenis();
 
   // When a section mounts (including lazy-loaded ones), let Lenis
@@ -33,43 +28,18 @@ export default function SectionLayout({
     lenis.resize();
   }, [lenis]);
 
-  useEffect(() => {
-    if (!lightLeaks || !sectionRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, [lightLeaks]);
-
   // Memoize class string to avoid recalculating on every render
   const sectionClasses = useMemo(() => {
     const baseClass = fullScreen
       ? compactTop
-        ? 'min-h-screen flex flex-col justify-center py-16 md:py-20'
-        : 'min-h-screen flex flex-col justify-center py-20 md:py-24'
+        ? 'min-h-screen flex flex-col justify-center py-12 md:py-16'
+        : 'min-h-screen flex flex-col justify-center py-16 md:py-24'
       : compactTop
-        ? 'pt-16 md:pt-20 pb-32'
+        ? 'pt-12 md:pt-16 pb-16 md:pb-20'
         : 'py-section-py md:py-section-py-lg';
 
-    if (!lightLeaks) {
-      return `${baseClass} text-text-main`;
-    }
-
-    return (
-      baseClass +
-      ' text-text-main section-light-leaks light-leak-' +
-      lightLeaks +
-      (isVisible ? ' is-visible' : '')
-    );
-  }, [fullScreen, lightLeaks, isVisible, compactTop]);
+    return `${baseClass} text-text-main`;
+  }, [fullScreen, compactTop]);
 
   return (
     <section ref={sectionRef} id={id} className={sectionClasses}>

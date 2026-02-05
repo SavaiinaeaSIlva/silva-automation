@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import CookieBanner from '../components/CookieBanner';
 import { BrowserRouter } from 'react-router-dom';
+import { CookieBanner } from '@/components';
 
 describe('CookieBanner localStorage fallback', () => {
   test('shows banner when localStorage.getItem throws and focuses accept button', async () => {

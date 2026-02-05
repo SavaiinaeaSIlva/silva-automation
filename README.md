@@ -55,8 +55,7 @@ src/
 │       ├── CalculatorSection.tsx
 │       ├── ContactSection.tsx
 │       ├── FAQSection.tsx
-│       ├── ProblemSolutionSection.tsx
-│       └── FeatureHighlights.tsx
+│       └── ProblemSolutionSection.tsx
 ├── pages/              # Top-level route components
 │   ├── HomePage.tsx
 │   └── LegalPage.tsx

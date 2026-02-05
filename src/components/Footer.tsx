@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { siteContent } from '../content/siteContent';
-import silvaIcon from '../assets/icons/silva-icon.png';
+import { siteContent } from '@/content/siteContent';
+import silvaIcon from '@/assets/icons/silva-icon.png';
 
 export default function Footer() {
   const footer = siteContent.footer;

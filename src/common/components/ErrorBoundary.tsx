@@ -1,29 +1,49 @@
-import { Component, ReactNode, ErrorInfo } from 'react';
-import { siteContent } from '../../content/siteContent';
+import { Component, ErrorInfo, type ReactNode } from 'react';
+import { siteContent } from '@/content/siteContent';
 
-interface Props {
+type Props = {
   children: ReactNode;
   fallback?: ReactNode;
-}
+};
 
-interface State {
+type State = {
   hasError: boolean;
   error?: Error;
-}
+  errorKey: number;
+};
 
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, errorKey: 0 };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): Partial<State> {
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // Log error for debugging
     console.error('ErrorBoundary caught an error:', error, errorInfo);
+
+    // TODO: Integrate error tracking service (e.g., Sentry)
+    // if (typeof window !== 'undefined' && window.Sentry) {
+    //   window.Sentry.captureException(error, { extra: errorInfo });
+    // }
   }
+
+  handleRetry = () => {
+    // Reset error state and increment key to force re-render of children
+    this.setState((prevState) => ({
+      hasError: false,
+      error: undefined,
+      errorKey: prevState.errorKey + 1,
+    }));
+  };
+
+  handleRefresh = () => {
+    window.location.reload();
+  };
 
   render() {
     if (this.state.hasError) {
@@ -31,7 +51,8 @@ export default class ErrorBoundary extends Component<Props, State> {
         return this.props.fallback;
       }
 
-      const { title, message, refreshButton, errorDetailsLabel } = siteContent.errorBoundary;
+      const { title, message, refreshButton, retryButton, errorDetailsLabel } =
+        siteContent.errorBoundary;
 
       return (
         <div
@@ -41,9 +62,14 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="max-w-md text-center">
             <h1 className="text-4xl font-bold mb-4">{title}</h1>
             <p className="text-muted mb-6">{message}</p>
-            <button onClick={() => window.location.reload()} className="cta-button-primary">
-              <span className="cta-text">{refreshButton}</span>
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button onClick={this.handleRetry} className="cta-button-secondary">
+                {retryButton || 'Try Again'}
+              </button>
+              <button onClick={this.handleRefresh} className="cta-button-primary">
+                <span className="cta-text">{refreshButton}</span>
+              </button>
+            </div>
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mt-6 text-left">
                 <summary className="cursor-pointer text-sm text-muted hover:text-white transition-colors">
@@ -60,6 +86,6 @@ export default class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    return this.props.children;
+    return <div key={this.state.errorKey}>{this.props.children}</div>;
   }
 }
