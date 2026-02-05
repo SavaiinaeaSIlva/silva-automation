@@ -76,7 +76,7 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       id="hero"
-      className="min-h-screen flex flex-col justify-center py-16 md:py-20 text-text-main relative"
+      className="min-h-screen flex flex-col items-center justify-center py-16 md:py-20 text-text-main relative"
     >
       <div className="hero-parallax-bg" ref={parallaxRef} aria-hidden />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
