@@ -32,6 +32,11 @@ This document provides essential context for AI assistants working on this Vite 
 - No `any` types unless absolutely necessary
 - Run `npm run typecheck` to verify changes
 
+### 6. VCS Workflow (Project Guidelines)
+- **COMMIT POLICY:** All commits must be made directly to the `main` branch. Do not create or use feature branches.
+- **PUSH POLICY:** Do not push to remote (GitHub) without explicit approval from the repository owner.
+- If a contributor needs to work on a feature, coordinate with the owner before creating branches or opening PRs.
+
 ---
 
 ## 📁 Project Structure
@@ -144,17 +149,6 @@ These are complex animations that cannot be utility-ized:
 | `.back-to-top` | Fixed scroll button |
 
 ---
-
-## ✅ Validation Commands
-
-Run these before committing any changes:
-
-```bash
-npm run typecheck    # TypeScript validation
-npm run lint         # ESLint checks
-npm run build        # Production build test
-npm run test         # Unit tests
-```
 
 ---
 
