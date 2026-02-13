@@ -40,10 +40,23 @@
   margin: 0;
 }
 
+/* contact shown under the logo for quick access on mobile */
+.contactMini {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
 .tagline {
-  margin: 0;
-  opacity: 0.9;
-  line-height: 1.6;
+  display: none; /* moved to bottom */
+}
+
+.bottomTagline {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  opacity: 0.6;
+  line-height: 1.4;
 }
 
 .sectionTitle {
@@ -67,7 +80,9 @@
   color: white;
   text-decoration: none;
   opacity: 0.9;
-  transition: color 0.2s, opacity 0.2s;
+  transition:
+    color 0.2s,
+    opacity 0.2s;
 }
 
 /* Ensure hover/focus explicitly keeps links white on dark footer background */
@@ -85,7 +100,7 @@
   color: white;
   opacity: 1;
   outline: none;
-} 
+}
 
 .contact {
   display: flex;
