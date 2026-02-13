@@ -30,6 +30,19 @@ export const Footer = () => {
           </div>
 
           <div className={styles.section}>
+            <h4 className={styles.sectionTitle}>{footer.legalTitle}</h4>
+            <ul className={styles.links}>
+              {footer.legalLinks.map((link, i) => (
+                <li key={i}>
+                  <a href={link.to || link.href} className={styles.link}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.section}>
             <h4 className={styles.sectionTitle}>{footer.getInTouchTitle}</h4>
             <div className={styles.contact}>
               <a href={`mailto:${footer.email}`} className={styles.contactLink}>

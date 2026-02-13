@@ -348,11 +348,16 @@ export interface ContactLabels {
   address: string;
 }
 
+export interface LegalPage {
+  title: string;
+  content: string;
+}
+
 export interface LegalPages {
-  terms: string;
-  privacy: string;
-  cookies: string;
-  refunds: string;
+  terms: LegalPage;
+  privacy: LegalPage;
+  cookies: LegalPage;
+  refunds: LegalPage;
 }
 
 export interface LegalContent {
