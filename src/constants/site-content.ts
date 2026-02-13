@@ -258,7 +258,7 @@ export const siteContent: SiteContent = {
     title: 'Ready to Automate?',
     subtitle:
       'Hawaii service businesses with 5-50 employees. Real estate, contractors, professional services, healthcare.',
-    webhook: 'https://n8n.silvaautomation.com/webhook-test/c0185471-5c05-41c8-b140-124d79f90a38',
+    webhook: 'https://n8n.silvaautomation.com/webhook/c0185471-5c05-41c8-b140-124d79f90a38',
     cta: {
       text: 'Book Free 30-Min Call',
       url: 'https://calendly.com/silvaautomation/consultation',

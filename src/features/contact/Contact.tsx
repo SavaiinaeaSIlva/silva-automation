@@ -24,11 +24,23 @@ export const Contact = () => {
     }
 
     setStatus('submitting');
-    // simulate network request (replace with webhook if desired)
-    setTimeout(() => {
+    try {
+      const res = await fetch(siteContent.contact.webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+
       setStatus('success');
       setForm({ name: '', email: '', message: '' });
-    }, 800);
+    } catch (err) {
+      // keep console error for debugging; UI shows generic message
+      // eslint-disable-next-line no-console
+      console.error('Contact form submit error', err);
+      setStatus('error');
+    }
   };
 
   return (
