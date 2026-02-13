@@ -14,15 +14,6 @@ export const Pricing = () => {
           <p className={styles.intro}>{pricing.intro}</p>
         </div>
 
-        {pricing.foundingOffer.show && (
-          <Card variant="elevated" className={styles.foundingOffer}>
-            <div className={styles.badge}>{pricing.foundingOffer.badge}</div>
-            <h3 className={styles.offerHeadline}>{pricing.foundingOffer.headline}</h3>
-            <p className={styles.offerBody}>{pricing.foundingOffer.body}</p>
-            <p className={styles.spotsRemaining}>{pricing.foundingOffer.spotsRemaining}</p>
-          </Card>
-        )}
-
         <div className={styles.tiers}>
           {pricing.tiers.map((tier, index) => (
             <Card key={index} variant="elevated" padding="large" className={styles.tier}>
@@ -74,6 +65,16 @@ export const Pricing = () => {
             </>
           )}
         </Card>
+
+        {/* Founding offer footnote (moved to bottom of Pricing section) */}
+        {pricing.foundingOffer.show && (
+          <div className={styles.foundingFootnote}>
+            <span className={styles.foundingBadge}>{pricing.foundingOffer.badge}</span>
+            <span className={styles.foundingText}>
+              {pricing.foundingOffer.headline} — {pricing.foundingOffer.spotsRemaining}
+            </span>
+          </div>
+        )}
       </Container>
     </Section>
   );

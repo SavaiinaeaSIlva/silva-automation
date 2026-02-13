@@ -16,6 +16,7 @@ export const siteContent: SiteContent = {
     closeMenu: 'Close menu',
     mobileNavAria: 'Mobile navigation',
     navLinks: [
+      { href: '#why-choose-us', label: 'Why Us' },
       { href: '#services', label: 'What We Do' },
       { href: '#calculator', label: 'Calculator' },
       { href: '#pricing', label: 'Pricing' },
@@ -293,10 +294,29 @@ export const siteContent: SiteContent = {
     searchPlaceholder: 'Search...',
     searchLabelSr: 'Search FAQ',
     searchAriaLabel: 'Search FAQ',
+    searchHint: 'Type a question or keyword to search our FAQ.',
+    popularQuestionsTitle: 'Popular questions',
     seeLess: 'See less',
     seeAllTemplate: 'See all ({{count}})',
     noResults: 'No matches.',
     clearSearch: 'Clear',
+
+    form: {
+      nameLabel: 'Name',
+      namePlaceholder: 'Your name',
+      emailLabel: 'Email',
+      emailPlaceholder: 'you@company.com',
+      questionLabel: 'Question',
+      questionPlaceholder: 'What would you like to know?',
+      submit: 'Send question',
+      submitting: 'Sending...',
+      success: "Thanks — we'll reply soon.",
+      error: 'Failed to send. Try again later.',
+      validation: {
+        required: 'Name, email and question required',
+        emailInvalid: 'Valid email required',
+      },
+    },
 
     categories: {
       process: [

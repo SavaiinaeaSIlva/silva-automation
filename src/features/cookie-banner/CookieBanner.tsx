@@ -1,18 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { siteContent } from '@/constants';
 import { Button } from '@/components/ui';
 import styles from './CookieBanner.module.css';
 
 export const CookieBanner = () => {
   const { cookieBanner } = siteContent;
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const accepted = localStorage.getItem('cookies-accepted');
-    if (!accepted) {
-      setIsVisible(true);
-    }
-  }, []);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !localStorage.getItem('cookies-accepted');
+  });
 
   const handleAccept = () => {
     localStorage.setItem('cookies-accepted', 'true');

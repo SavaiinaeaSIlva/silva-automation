@@ -14,9 +14,9 @@ export const WhyChooseUs = () => {
           <p className={styles.subtitle}>{whyChooseUs.subtitle}</p>
         </div>
 
-        <div className={styles.grid}>
+        <div className={styles.grid} data-reveal-group>
           {whyChooseUs.reasons.map((reason, index) => (
-            <Card key={index} variant="elevated" className={styles.card}>
+            <Card key={index} variant="elevated" className={styles.card} data-reveal-item>
               <div className={styles.checkmarkWrapper}>
                 <span className={styles.checkmark}>✓</span>
               </div>

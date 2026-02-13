@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import styles from './Section.module.css';
 
@@ -16,10 +17,34 @@ export const Section = ({
   background = 'white',
   padding = 'large',
 }: SectionProps) => {
+  const ref = useRef<HTMLElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof window === 'undefined') return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <section
       id={id}
-      className={`${styles.section} ${styles[background]} ${styles[padding]} ${className}`}
+      ref={ref}
+      className={`${styles.section} ${styles[background]} ${styles[padding]} ${inView ? styles.inView : styles.scrollHidden} ${className}`}
     >
       {children}
     </section>

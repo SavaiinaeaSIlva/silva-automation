@@ -69,6 +69,31 @@
   color: white;
 }
 
+/* Active / current section */
+.active {
+  color: var(--color-primary);
+  font-weight: 700;
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-primary);
+  bottom: -8px;
+  border-radius: 2px;
+}
+
+/* Ensure mobile active link is visually distinct */
+.mobileNavLink.active,
+.mobileNavLink:hover {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
 /* Mobile Menu Button */
 .menuButton {
   display: flex;

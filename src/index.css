@@ -28,9 +28,12 @@
   --color-warning: #f59e0b;
 
   /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-heading-h1: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading-h2: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Prefer Zalando Sans if available; fall back to Inter/system fonts */
+  --font-family: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading-h1:
+    'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading-h2:
+    'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Font Rendering */
   font-synthesis: none;
@@ -90,7 +93,9 @@ p {
 
 a {
   color: var(--color-secondary);
-  transition: color 0.2s, opacity 0.2s;
+  transition:
+    color 0.2s,
+    opacity 0.2s;
 }
 
 a:hover {
@@ -144,5 +149,25 @@ a:hover {
 @media (min-width: 768px) {
   .container {
     padding: 0 40px;
+  }
+}
+
+/* TEMP: visual-scale preview — remove after review
+   Applies a reversible, site-wide scale so you can preview "one size smaller" quickly.
+   Uses `zoom` where available, falls back to `transform: scale()` in browsers that
+   don't support `zoom`. */
+@media (min-width: 0px) {
+  @supports (zoom: 1) {
+    body.preview-scale {
+      zoom: 0.95;
+    }
+  }
+  @supports not (zoom: 1) {
+    body.preview-scale {
+      transform: scale(0.95);
+      transform-origin: 0 0;
+      /* compensate width so layout stays full-bleed */
+      width: calc(100% / 0.95);
+    }
   }
 }

@@ -10,7 +10,9 @@ export const Footer = () => {
       <Container>
         <div className={styles.content}>
           <div className={styles.section}>
-            <h3 className={styles.brand}>{footer.companyName}</h3>
+            <div className={styles.brandWrap}>
+              <img src="/assets/Union.svg" alt={footer.companyName} className={styles.brandLogo} />
+            </div>
             <p className={styles.tagline}>{footer.tagline}</p>
           </div>
 

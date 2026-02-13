@@ -17,6 +17,23 @@
   gap: 16px;
 }
 
+.brandWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandLogo {
+  width: 56px; /* increased for better visibility */
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .brandLogo {
+    width: 48px;
+  }
+}
+
 .brand {
   font-size: 24px;
   font-weight: 700;

@@ -20,17 +20,29 @@ export const Services = () => {
               <h3 className={styles.blockTitle}>{block.title}</h3>
 
               <div className={styles.section}>
-                <h4 className={styles.sectionTitle}>The Problem:</h4>
+                <h4 className={styles.sectionTitle}>
+                  <span className={`${styles.statusIcon} ${styles.problemIcon}`} aria-hidden>
+                    ✕
+                  </span>
+                  The Problem
+                </h4>
                 <p className={styles.problem}>{block.problem}</p>
               </div>
 
               <div className={styles.section}>
-                <h4 className={styles.sectionTitle}>The Solution:</h4>
+                <h4 className={styles.sectionTitle}>
+                  <span className={`${styles.statusIcon} ${styles.solutionIcon}`} aria-hidden>
+                    ✓
+                  </span>
+                  The Solution
+                </h4>
                 <p className={styles.solution}>{block.solution}</p>
               </div>
 
               <div className={styles.section}>
-                <h4 className={styles.sectionTitle}>Examples:</h4>
+                <h4 className={styles.sectionTitle}>
+                  <span className={styles.exampleHighlight}>Examples</span>
+                </h4>
                 <ul className={styles.examples}>
                   {block.examples.map((example, i) => (
                     <li key={i}>{example}</li>

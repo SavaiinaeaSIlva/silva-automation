@@ -243,6 +243,20 @@ export interface FAQCategories {
   business: FAQItem[];
 }
 
+export interface FAQForm {
+  nameLabel: string;
+  namePlaceholder: string;
+  emailLabel: string;
+  emailPlaceholder: string;
+  questionLabel: string;
+  questionPlaceholder: string;
+  submit: string;
+  submitting: string;
+  success: string;
+  error: string;
+  validation: FormValidation;
+}
+
 export interface FAQContent {
   id: string;
   label: string;
@@ -251,11 +265,14 @@ export interface FAQContent {
   searchPlaceholder: string;
   searchLabelSr: string;
   searchAriaLabel: string;
+  searchHint: string;
+  popularQuestionsTitle: string;
   seeLess: string;
   seeAllTemplate: string;
   noResults: string;
   clearSearch: string;
   categories: FAQCategories;
+  form: FAQForm;
 }
 
 // ============================================================================

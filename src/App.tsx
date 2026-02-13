@@ -6,7 +6,6 @@ import { Services } from '@/features/services';
 import { Calculator } from '@/features/calculator';
 import { Pricing } from '@/features/pricing';
 import { Contact } from '@/features/contact';
-import { FAQ } from '@/features/faq';
 import { Footer } from '@/features/footer';
 import { CookieBanner } from '@/features/cookie-banner';
 import { BackToTop } from '@/components/ui';
@@ -23,7 +22,6 @@ function App() {
         <Calculator />
         <Pricing />
         <Contact />
-        <FAQ />
       </main>
 
       <Footer />

@@ -36,7 +36,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .block:hover {
@@ -64,6 +66,39 @@
   color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 8px;
+  border: 2px solid transparent;
+}
+
+.statusIcon[aria-hidden] {
+  pointer-events: none;
+}
+
+/* variant modifiers (follow site style used in WhyChooseUs) */
+.problemIcon {
+  color: var(--color-error);
+  border-color: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.solutionIcon {
+  color: var(--color-success);
+  border-color: rgba(16, 185, 129, 0.12);
+  background: rgba(16, 185, 129, 0.04);
 }
 
 .problem,
@@ -74,6 +109,9 @@
   margin: 0;
 }
 
+.exampleHighlight {
+  color: var(--color-primary);
+}
 .examples {
   margin: 0;
   padding-left: 20px;
