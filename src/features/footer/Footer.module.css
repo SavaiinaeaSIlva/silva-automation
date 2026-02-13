@@ -67,12 +67,25 @@
   color: white;
   text-decoration: none;
   opacity: 0.9;
-  transition: opacity 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
 
-.link:hover {
+/* Ensure hover/focus explicitly keeps links white on dark footer background */
+.link:hover,
+.link:focus {
+  color: white;
   opacity: 1;
+  outline: none;
+  text-decoration: underline;
 }
+
+/* keep contact links consistent */
+.contactLink:hover,
+.contactLink:focus {
+  color: white;
+  opacity: 1;
+  outline: none;
+} 
 
 .contact {
   display: flex;

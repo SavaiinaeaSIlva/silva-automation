@@ -51,14 +51,6 @@ export const Footer = () => {
               <a href={footer.phoneHref} className={styles.contactLink}>
                 {footer.phone}
               </a>
-              <a
-                href={footer.bookAssessmentUrl}
-                className={styles.bookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {footer.bookAssessmentText}
-              </a>
             </div>
           </div>
         </div>
