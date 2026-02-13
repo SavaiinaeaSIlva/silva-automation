@@ -13,14 +13,6 @@ export const Footer = () => {
             <div className={styles.brandWrap}>
               <img src="/assets/Union.svg" alt={footer.companyName} className={styles.brandLogo} />
             </div>
-            <div className={styles.contactMini}>
-              <a href={`mailto:${footer.email}`} className={styles.contactLink}>
-                {footer.email}
-              </a>
-              <a href={footer.phoneHref} className={styles.contactLink}>
-                {footer.phone}
-              </a>
-            </div>
           </div>
 
           <div className={styles.section}>
@@ -46,6 +38,22 @@ export const Footer = () => {
                   </a>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div className={styles.section}>
+            <h4 className={styles.sectionTitle}>{footer.getInTouchTitle}</h4>
+            <ul className={styles.links}>
+              <li>
+                <a href={`mailto:${footer.email}`} className={styles.link}>
+                  {footer.email}
+                </a>
+              </li>
+              <li>
+                <a href={footer.phoneHref} className={styles.link}>
+                  {footer.phone}
+                </a>
+              </li>
             </ul>
           </div>
 
