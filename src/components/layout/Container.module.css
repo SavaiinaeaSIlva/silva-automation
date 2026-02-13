@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.small {
+  max-width: 640px;
+}
+
+.medium {
+  max-width: 768px;
+}
+
+.large {
+  max-width: 1200px;
+}
+
+.full {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

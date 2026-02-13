@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run format:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir /b \"c:\\\\Users\\\\silva\\\\sav2\\\\public\")",
+      "Bash(copy \"c:\\\\Users\\\\silva\\\\sav2\\\\node.svg\" \"c:\\\\Users\\\\silva\\\\sav2\\\\public\\\\node.svg\")"
+    ]
+  }
+}

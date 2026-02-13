@@ -1,0 +1,57 @@
+import { siteContent } from '@/constants';
+import { Container } from '@/components/layout';
+import styles from './Footer.module.css';
+
+export const Footer = () => {
+  const { footer } = siteContent;
+
+  return (
+    <footer className={styles.footer}>
+      <Container>
+        <div className={styles.content}>
+          <div className={styles.section}>
+            <h3 className={styles.brand}>{footer.companyName}</h3>
+            <p className={styles.tagline}>{footer.tagline}</p>
+          </div>
+
+          <div className={styles.section}>
+            <h4 className={styles.sectionTitle}>{footer.quickLinksTitle}</h4>
+            <ul className={styles.links}>
+              {footer.quickLinks.map((link, index) => (
+                <li key={index}>
+                  <a href={link.href} className={styles.link}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.section}>
+            <h4 className={styles.sectionTitle}>{footer.getInTouchTitle}</h4>
+            <div className={styles.contact}>
+              <a href={`mailto:${footer.email}`} className={styles.contactLink}>
+                {footer.email}
+              </a>
+              <a href={footer.phoneHref} className={styles.contactLink}>
+                {footer.phone}
+              </a>
+              <a
+                href={footer.bookAssessmentUrl}
+                className={styles.bookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {footer.bookAssessmentText}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.bottom}>
+          <p className={styles.copyright}>{footer.copyright}</p>
+        </div>
+      </Container>
+    </footer>
+  );
+};

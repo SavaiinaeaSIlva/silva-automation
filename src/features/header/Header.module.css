@@ -1,0 +1,170 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--color-text-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+}
+
+.skipLink:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+  background: var(--color-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  height: 40px;
+  width: auto;
+  transition: opacity 0.2s;
+}
+
+.logoImage:hover {
+  opacity: 0.8;
+}
+
+/* Desktop Navigation */
+.navLinks {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 32px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: opacity 0.2s;
+  opacity: 0.9;
+}
+
+.navLink:hover {
+  opacity: 1;
+  color: white;
+}
+
+/* Mobile Menu Button */
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger {
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+.hamburger.open {
+  background: transparent;
+}
+
+.hamburger.open::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburger.open::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobileNavLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  transition: opacity 0.2s;
+  opacity: 0.9;
+}
+
+.mobileNavLink:hover {
+  opacity: 1;
+  color: white;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .navLinks {
+    display: flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .mobileNav {
+    display: none;
+  }
+}

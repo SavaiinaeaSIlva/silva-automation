@@ -1,0 +1,266 @@
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-primary);
+  margin: 16px auto 0;
+}
+
+.intro {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.foundingOffer {
+  text-align: center;
+  margin-bottom: 48px;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.badge {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.offerHeadline {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.offerBody {
+  font-size: 18px;
+  margin: 0 0 12px 0;
+}
+
+.spotsRemaining {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tier:nth-child(1),
+.tier:nth-child(3) {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
+.tier:nth-child(1):hover,
+.tier:nth-child(3):hover {
+  transform: scale(0.95) translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tier:nth-child(2) {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tier:nth-child(2):hover {
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 968px) {
+  .tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tierBadge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--color-primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tierName {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  justify-content: center;
+}
+
+.priceAmount {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.originalPrice {
+  font-size: 20px;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+.description {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.included {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.included li {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.bestFor {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.afterSupport {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  border: none !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.afterSupport:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.afterTitle,
+.afterHeadline {
+  margin: 0 0 12px 0;
+  color: var(--color-text-primary);
+}
+
+.afterIntro {
+  margin: 0 0 32px 0;
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 32px;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+.benefit {
+  text-align: center;
+}
+
+.benefitLabel {
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: var(--color-primary);
+}
+
+.benefitDetail {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.coversTitle {
+  margin: 32px 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.covers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .covers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.covers li {
+  font-size: 15px;
+  padding: 12px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
