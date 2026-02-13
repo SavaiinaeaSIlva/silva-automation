@@ -6,9 +6,17 @@
 
 .content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* fixed 4-column layout on wide screens, collapses on smaller viewports */
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   gap: 48px;
   margin-bottom: 48px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
 }
 
 .section {
@@ -40,14 +48,7 @@
   margin: 0;
 }
 
-/* contact shown under the logo for quick access on mobile */
-.contactMini {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 8px;
-}
-
+/* tagline moved to small bottom text */
 .tagline {
   display: none; /* moved to bottom */
 }
