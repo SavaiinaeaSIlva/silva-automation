@@ -56,8 +56,6 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-
-
         </div>
 
         <div className={styles.bottom}>

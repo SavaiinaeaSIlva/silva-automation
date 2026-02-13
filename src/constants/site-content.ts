@@ -386,7 +386,6 @@ export const siteContent: SiteContent = {
       { label: 'Calculator', href: '#calculator' },
       { label: 'Pricing', href: '#pricing' },
       { label: 'Contact', href: '#contact' },
-      { label: 'FAQ', href: '#faq' },
     ],
     legalLinks: [
       { label: 'Terms', to: '/terms' },

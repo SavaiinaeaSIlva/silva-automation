@@ -14,7 +14,9 @@ import { BackToTop } from '@/components/ui';
 import { Terms, Privacy, Cookies, Refunds, Logo } from '@/pages';
 
 function App() {
-  const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const rawPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+  // normalize trailing slash (so "/terms/" === "/terms")
+  const path = rawPath === '/' ? rawPath : rawPath.replace(/\/$/, '');
   const isLegal = ['/terms', '/privacy', '/cookies', '/refunds'].includes(path);
   const isLogoPage = path === '/logo';
   const showHeader = !isLegal && !isLogoPage;
