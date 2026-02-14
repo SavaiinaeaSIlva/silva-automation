@@ -1,6 +1,6 @@
 import { Container } from '@/components/layout';
 import { siteContent } from '@/constants';
-import styles from './Refunds.module.css';
+import styles from './Legal.module.css';
 
 export const Refunds = () => {
   const { legalLayout, legal } = siteContent;

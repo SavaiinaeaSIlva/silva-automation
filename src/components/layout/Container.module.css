@@ -2,8 +2,8 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
 }
 
 .small {
@@ -24,7 +24,7 @@
 
 @media (min-width: 768px) {
   .container {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: var(--space-10);
+    padding-right: var(--space-10);
   }
 }

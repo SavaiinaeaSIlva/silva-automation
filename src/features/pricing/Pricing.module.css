@@ -4,9 +4,9 @@
 }
 
 .title {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  margin: 0 0 16px 0;
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-4) 0;
 }
 
 .title::after {
@@ -19,10 +19,11 @@
 }
 
 .intro {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: var(--text-lg);
   color: var(--color-text-secondary);
   max-width: 700px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 /* foundingOffer card converted to a small footnote */
 .foundingFootnote {
@@ -63,11 +64,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
   text-align: center;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform var(--transition-slow),
+    box-shadow var(--transition-slow);
 }
 
 .tier:nth-child(1),
@@ -84,12 +85,12 @@
 
 .tier:nth-child(2) {
   transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
 }
 
 .tier:nth-child(2):hover {
   transform: scale(1.05) translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
 }
 
 @media (max-width: 968px) {
@@ -111,8 +112,8 @@
 }
 
 .tierName {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--heading-2);
+  font-weight: var(--font-weight-bold);
   margin: 0;
 }
 
@@ -171,15 +172,15 @@
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-  border: none !important;
+  border: none;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform var(--transition-slow),
+    box-shadow var(--transition-slow);
 }
 
 .afterSupport:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
 }
 
 .afterTitle,

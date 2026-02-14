@@ -1,0 +1,113 @@
+/* Shared styles for all legal pages (Terms, Privacy, Cookies, Refunds) */
+
+.page {
+  padding: 72px 0 88px;
+  background: var(--color-bg-secondary);
+}
+
+.top {
+  margin-bottom: var(--space-5);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+  transition: all var(--transition-base);
+}
+
+.back:hover {
+  background: var(--color-bg-secondary);
+}
+
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-lg);
+}
+
+.content {
+  color: var(--color-text-primary);
+  line-height: 1.8;
+}
+
+/* Typography hierarchy for legal content */
+.content h1 {
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-6) 0;
+  color: var(--color-text-primary);
+}
+
+.content h2 {
+  font-size: var(--heading-2);
+  font-weight: var(--font-weight-semibold);
+  margin: var(--space-8) 0 var(--space-4) 0;
+  color: var(--color-text-primary);
+}
+
+.content h3 {
+  font-size: var(--heading-3);
+  font-weight: var(--font-weight-semibold);
+  margin: var(--space-6) 0 var(--space-3) 0;
+  color: var(--color-text-primary);
+}
+
+.content h4 {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  margin: var(--space-4) 0 var(--space-2) 0;
+  color: var(--color-text-primary);
+}
+
+.content p {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+}
+
+.content ul,
+.content ol {
+  margin: 0 0 var(--space-4) var(--space-6);
+}
+
+.content li {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.content a:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 56px 0 72px;
+  }
+
+  .card {
+    padding: var(--space-5);
+  }
+
+  .content h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .content h2 {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
