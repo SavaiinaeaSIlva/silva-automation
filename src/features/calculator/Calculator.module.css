@@ -1,12 +1,12 @@
 .header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: var(--space-12);
 }
 
 .title {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  margin: 0 0 16px 0;
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-4) 0;
 }
 
 .title::after {
@@ -15,21 +15,22 @@
   width: 60px;
   height: 3px;
   background: var(--color-primary);
-  margin: 16px auto 0;
+  margin: var(--space-4) auto 0;
 }
 
 .subtitle {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: var(--text-lg);
   color: var(--color-text-secondary);
   max-width: 700px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 .calculator {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  max-width: 1200px;
+  gap: var(--space-8);
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -37,26 +38,28 @@
 .resultsCard {
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform var(--transition-slow),
+    box-shadow var(--transition-slow);
 }
 
 .inputCard:hover,
 .resultsCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
 }
 
 .cardTitle {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 20px 0;
+  font-size: var(--heading-3);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-5) 0;
 }
 
 .inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
   flex-grow: 1;
 }
 
@@ -69,35 +72,35 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-5);
 }
 
 .results {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: var(--space-3);
   flex-grow: 1;
 }
 
 .result {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 16px;
+  gap: var(--space-1);
+  padding: var(--space-4);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 
 .resultLabel {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
 }
 
 .resultValue {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--color-secondary);
 }
 

@@ -1,20 +1,83 @@
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Button } from '@/components/ui';
 import styles from './Hero.module.css';
 
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 export const Hero = () => {
   const { hero } = siteContent;
+  const heroRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const workflowRef = useRef<HTMLDivElement>(null);
+
+  // Initial text reveal animation
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const ctx = gsap.context(() => {
+      // Animate title, subtitle, and button with stagger
+      const tl = gsap.timeline({ delay: 0.2 });
+
+      tl.fromTo(
+        content.querySelector('h1'),
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+      )
+        .fromTo(
+          content.querySelector('p'),
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+          '-=0.5'
+        )
+        .fromTo(
+          content.querySelector('button'),
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+          '-=0.4'
+        );
+    }, content);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Parallax scrolling effect for workflow SVG
+  useEffect(() => {
+    const workflow = workflowRef.current;
+    const heroEl = heroRef.current;
+    if (!workflow || !heroEl) return;
+
+    const ctx = gsap.context(() => {
+      // Workflow moves slightly slower (appears to float)
+      gsap.to(workflow, {
+        y: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroEl,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      });
+    }, heroEl);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleCTAClick = () => {
     document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <Section id="hero" background="dark" padding="large">
+    <Section id="hero" background="dark" padding="large" noReveal>
       <Container>
-        <div className={styles.hero}>
-          <div className={styles.content}>
+        <div className={styles.hero} ref={heroRef}>
+          <div className={styles.content} ref={contentRef}>
             <h1 className={styles.title}>{hero.title}</h1>
 
             <p className={styles.subtitle}>
@@ -27,7 +90,7 @@ export const Hero = () => {
             </Button>
           </div>
 
-          <div className={styles.workflow}>
+          <div className={styles.workflow} ref={workflowRef}>
             <svg
               className={styles.workflowSvg}
               viewBox="0 0 800 240"

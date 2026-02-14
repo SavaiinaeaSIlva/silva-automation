@@ -2,21 +2,6 @@
   width: 100%;
 }
 
-/* Scroll reveal (subtle fade + lift) */
-.scrollHidden {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 520ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1);
-  will-change: opacity, transform;
-}
-
-.inView {
-  opacity: 1;
-  transform: none;
-}
-
 /* Background */
 .white {
   background-color: var(--color-bg-primary);
@@ -38,11 +23,11 @@
 
 /* Padding */
 .small {
-  padding: 40px 0;
+  padding: var(--space-10) 0;
 }
 
 .medium {
-  padding: 60px 0;
+  padding: var(--space-16) 0;
 }
 
 .large {
@@ -51,11 +36,11 @@
 
 @media (min-width: 768px) {
   .small {
-    padding: 60px 0;
+    padding: var(--space-16) 0;
   }
 
   .medium {
-    padding: 80px 0;
+    padding: var(--space-20) 0;
   }
 
   .large {

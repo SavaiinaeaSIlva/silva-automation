@@ -1,7 +1,7 @@
 .card {
-  background: white;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-slow);
 }
 
 /* Variants */
@@ -24,13 +24,13 @@
 
 /* Padding */
 .small {
-  padding: 16px;
+  padding: var(--space-4);
 }
 
 .medium {
-  padding: 24px;
+  padding: var(--space-6);
 }
 
 .large {
-  padding: 32px;
+  padding: var(--space-8);
 }

@@ -1,6 +1,6 @@
 import { Container } from '@/components/layout';
 import { siteContent } from '@/constants';
-import styles from './Terms.module.css';
+import styles from './Legal.module.css';
 
 export const Terms = () => {
   const { legalLayout, legal } = siteContent;

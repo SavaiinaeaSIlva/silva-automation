@@ -1,13 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import styles from './Contact.module.css';
 
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 export const Contact = () => {
   const { contact } = siteContent;
+  const headerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
   type FormState = { name: string; email: string; message: string };
   const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  // Scroll reveal animation for header
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        header.children,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: header,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, header);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Scroll reveal animation for form content
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        content,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: content,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, content);
+
+    return () => ctx.revert();
+  }, []);
 
   const validateEmail = (v: string) => /\S+@\S+\.\S+/.test(v);
 
@@ -44,14 +105,14 @@ export const Contact = () => {
   };
 
   return (
-    <Section id={contact.id} background="dark" padding="large">
+    <Section id={contact.id} background="dark" padding="large" noReveal>
       <Container size="medium">
-        <div className={styles.header}>
+        <div className={styles.header} ref={headerRef}>
           <h2 className={styles.title}>{contact.title}</h2>
           <p className={styles.subtitle}>{contact.subtitle}</p>
         </div>
 
-        <div className={styles.content}>
+        <div className={styles.content} ref={contentRef}>
           <div className={styles.cta}>
             <a
               href={contact.cta.url}

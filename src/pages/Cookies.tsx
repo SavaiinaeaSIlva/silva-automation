@@ -1,6 +1,6 @@
 import { Container } from '@/components/layout';
 import { siteContent } from '@/constants';
-import styles from './Cookies.module.css';
+import styles from './Legal.module.css';
 
 export const Cookies = () => {
   const { legalLayout, legal } = siteContent;
