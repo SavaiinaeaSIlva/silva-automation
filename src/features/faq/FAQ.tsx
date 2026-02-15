@@ -1,9 +1,19 @@
+import { useState, useCallback } from 'react';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
+import type { FAQItem } from '@/types';
 import styles from './FAQ.module.css';
 
 export const FAQ = () => {
   const { faq } = siteContent;
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const allItems: FAQItem[] = [...faq.categories.process, ...faq.categories.business];
+
+  const toggle = useCallback((index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  }, []);
+
   return (
     <Section id={faq.id} background="gray" padding="large">
       <Container size="medium">
@@ -12,17 +22,31 @@ export const FAQ = () => {
           {faq.intro && <p className={styles.intro}>{faq.intro}</p>}
         </div>
 
-        <div className={styles.searchResults}>
-          <div className={styles.noResults}>
-            <p>
-              FAQ entries have been removed. If you have a question, please use the contact form on
-              the Contact section.
-            </p>
-            <p style={{ marginTop: 12 }}>
-              <a href="#contact">Go to contact form →</a>
-            </p>
-          </div>
-        </div>
+        <dl className={styles.list}>
+          {allItems.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <div key={i} className={`${styles.item} ${isOpen ? styles.itemOpen : ''}`}>
+                <dt>
+                  <button
+                    type="button"
+                    className={styles.question}
+                    onClick={() => toggle(i)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{item.q}</span>
+                    <span className={styles.icon} aria-hidden="true">
+                      {isOpen ? '−' : '+'}
+                    </span>
+                  </button>
+                </dt>
+                <dd className={styles.answer} hidden={!isOpen}>
+                  <p>{item.a}</p>
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
       </Container>
     </Section>
   );

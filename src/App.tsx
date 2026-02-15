@@ -4,6 +4,7 @@ import { Hero } from '@/features/hero';
 import { Workflow } from '@/features/workflow';
 import { Calculator } from '@/features/calculator';
 import { Pricing } from '@/features/pricing';
+import { FAQ } from '@/features/faq';
 import { Contact } from '@/features/contact';
 import { Footer } from '@/features/footer';
 import { CookieBanner } from '@/features/cookie-banner';
@@ -44,6 +45,7 @@ function App() {
             <Workflow />
             <Calculator />
             <Pricing />
+            <FAQ />
             <Contact />
           </>
         )}

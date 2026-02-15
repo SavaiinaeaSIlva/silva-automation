@@ -256,8 +256,9 @@ export const siteContent: SiteContent = {
   contact: {
     id: 'contact',
     label: 'Contact',
-    title: 'Questions?',
-    subtitle: '',
+    title: 'Contact Us',
+    subtitle:
+      'Have a question? Want to see if automation is a fit for your business? Get in touch.',
     webhook: 'https://n8n.silvaautomation.com/webhook/c0185471-5c05-41c8-b140-124d79f90a38',
     cta: {
       text: 'Book a 30-Minute Strategy Audit',
@@ -274,7 +275,7 @@ export const siteContent: SiteContent = {
       emailPlaceholder: 'you@company.com',
       emailSr: 'Enter your corporate email',
       messageLabel: 'Inquiry',
-      messagePlaceholder: 'Describe the repetitive process you want to automate',
+      messagePlaceholder: 'Message or question',
       submit: 'Send',
       submitting: 'Sending...',
       success: 'All inquiries receive a response within one business day.',

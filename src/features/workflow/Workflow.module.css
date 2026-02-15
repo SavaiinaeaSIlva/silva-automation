@@ -63,7 +63,7 @@
 /* ── Click hint ── */
 .clickHint {
   text-align: center;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 174, 0, 0.863);
   font-size: var(--text-sm);
   margin: 0 0 var(--space-4) 0;
   letter-spacing: 0.03em;
