@@ -16,133 +16,133 @@ export const siteContent: SiteContent = {
     closeMenu: 'Close menu',
     mobileNavAria: 'Mobile navigation',
     navLinks: [
-      { href: '#why-choose-us', label: 'Why Us' },
-      { href: '#services', label: 'What We Do' },
+      { href: '#workflow', label: 'Solutions' },
       { href: '#calculator', label: 'Calculator' },
-      { href: '#pricing', label: 'Pricing' },
+      { href: '#pricing', label: 'Investment' },
       { href: '#contact', label: 'Contact' },
     ],
+    bookingCta: {
+      text: 'Book Strategy Call',
+      url: 'https://calendly.com/silvaautomation/consultation',
+    },
   },
 
   hero: {
-    title: 'Admin Work Should Run Itself',
-    titleLine1Highlight: 'Admin Work',
+    title: 'Scale Your Operations, Not Your Overhead.',
+    titleLine1Highlight: 'Scale Your Operations,',
     titleLine1Rest: '',
-    titleLine2Highlight: 'Should Run Itself',
+    titleLine2Highlight: 'Not Your Overhead.',
     titleLine2Rest: '',
-    subtitle: 'Custom automation for Hawaii service businesses. One flat fee. You own it forever.',
-    cta: 'See What It Costs',
+    subtitle:
+      'Workflow automation for Hawaii service businesses. One fixed project fee. Client-owned infrastructure. No recurring software subscriptions.',
+    cta: 'Calculate Your Savings',
+    bookingCta: {
+      text: 'Book a 30-Minute Strategy Audit',
+      url: 'https://calendly.com/silvaautomation/consultation',
+    },
     benefits: [
-      { label: 'Pay once', icon: 'DollarSign' },
-      { label: 'You own it', icon: 'Key' },
-      { label: 'Hawaii based', icon: 'MapPin' },
-      { label: 'Built custom', icon: 'Wrench' },
-      { label: 'Live in 4-6 weeks', icon: 'Zap' },
+      { label: 'Fixed-Fee Projects', icon: 'DollarSign' },
+      { label: '100% Asset Ownership', icon: 'Key' },
+      { label: 'Hawaii-Based Engineering', icon: 'MapPin' },
+      { label: '5-Phase Lifecycle', icon: 'Zap' },
     ],
-    workflowSteps: ['Task comes in', 'Auto-processed', 'Delivered', 'Repeat'],
+    workflowSteps: ['Discovery', 'Design', 'Build/Test', 'Deploy/Train', 'Support'],
   },
 
-  whyChooseUs: {
-    id: 'why-choose-us',
-    label: 'Why Us',
-    header: 'No Monthly Fees. Ever.',
-    subtitle: 'Pay once. Own everything. We build it, train your team, then hand over the keys.',
-    reasons: [
+  workflow: {
+    id: 'workflow',
+    label: 'Workflow',
+    title: "Built for Hawaii's Service Firms",
+    subtitle:
+      'Silva Automation designs and delivers custom workflows for established Hawaii businesses. Professional services, real estate, and healthcare. Each solution is implemented directly in your cloud environment using platforms such as n8n and Oracle Cloud, so your team retains full control and ownership of every asset.',
+    inputs: [
       {
-        icon: 'DollarSign',
-        title: 'One Flat Fee',
-        body: 'Pay once upfront. No subscriptions, no retainers. 90 days of support included, then you only pay when you need changes.',
+        icon: 'database',
+        title: 'Database Sync',
+        subtitle: 'Oracle Cloud',
+        backInfo:
+          'Syncs customer records, orders, and inventory in real time from your database into your core tools via n8n running in your Oracle Cloud.',
       },
       {
-        icon: 'Key',
-        title: 'You Own Everything',
-        body: 'Code, infrastructure, documentation—all yours. If we disappear tomorrow, your automation keeps running.',
+        icon: 'zap',
+        title: 'Forms & Events',
+        subtitle: 'Webhook',
+        backInfo:
+          'Captures form submissions, payments, and upstream system events, then pushes clean data into your CRM, billing, or practice software.',
       },
       {
-        icon: 'MapPin',
-        title: 'Hawaii Based',
-        body: 'Same timezone, same market. We get how service businesses work here.',
-      },
-      {
-        icon: 'Clock',
-        title: 'Built in 4-6 Weeks',
-        body: 'You approve the plan. We build it. No surprises.',
-      },
-    ],
-  },
-
-  services: {
-    id: 'services',
-    label: 'Services',
-    header: 'Built for Real Estate & Contractors',
-    intro: "You're juggling 5 different tools. We make them talk to each other.",
-
-    blocks: [
-      {
-        type: 'real-estate',
-        title: 'Real Estate Agents',
-        problem:
-          'Lead comes in from Zillow. You manually copy it to your CRM. Type it into your email tool. Add a calendar reminder. Update your pipeline.',
-        solution:
-          'Lead comes in → CRM updated → follow-up email sent → showing scheduled. Zero manual work.',
-        examples: [
-          'Zillow lead → auto-added to CRM + follow-up sent',
-          'Showing booked → calendar synced + reminders sent',
-          'Deal closed → referral request triggered',
-        ],
-      },
-      {
-        type: 'contractors',
-        title: 'General Contractors',
-        problem:
-          'Customer approves estimate. You create the job in your scheduler. Add it to QuickBooks. Update your materials list. Email your crew.',
-        solution:
-          'Estimate approved → job created → crew scheduled → materials ordered. Zero manual steps.',
-        examples: [
-          'Estimate approved → job scheduled + materials ordered',
-          'Job done → invoice sent automatically',
-          'Payment received → QuickBooks updated',
-        ],
+        icon: 'folder',
+        title: 'Documents',
+        subtitle: 'Cloud Storage',
+        backInfo:
+          'Ingests uploaded PDFs, images, and CSVs stored in your cloud, preparing them for automated routing and downstream workflows.',
       },
     ],
-
-    otherIndustries:
-      'Also work with: dental offices, law firms, property managers, anyone drowning in admin.',
+    engine: {
+      icon: 'cpu',
+      title: 'Workflow Engine',
+      subtitle: 'AI',
+      backInfo:
+        'Routes, transforms, and enriches data in your Oracle Cloud using n8n workflows and AI where needed. Applies business rules so every record lands in the right system, in the right format, automatically.',
+    },
+    outputs: [
+      {
+        icon: 'bar-chart',
+        title: 'Analytics',
+        subtitle: 'Dashboard',
+        backInfo:
+          'Analytics dashboard surfaces real-time KPIs so principals can monitor workload, revenue, and bottlenecks without manual reporting.',
+      },
+      {
+        icon: 'bell',
+        title: 'Notifications',
+        subtitle: 'Slack/Email',
+        backInfo:
+          'Slack/email alerts fire only when action is required, reducing noise while keeping teams on top of critical events.',
+      },
+      {
+        icon: 'clipboard',
+        title: 'Logs',
+        subtitle: 'Audit Trail',
+        backInfo:
+          'Centralized logs in your cloud environment support audit trails, compliance needs, and rapid troubleshooting.',
+      },
+    ],
   },
 
   calculator: {
     id: 'calculator',
     label: 'Calculator',
-    title: 'What Does Manual Work Cost You?',
-    subtitle: 'Most businesses lose $30K-$80K/year on admin that should be automated',
+    title: 'Quantify Your Administrative Load',
+    subtitle: 'Estimate the annual cost of manual, repetitive work inside your firm.',
     inputsTitle: 'Your Numbers',
-    resultsTitle: "What You're Losing",
+    resultsTitle: 'Cost of Manual Work',
     fields: [
       {
-        label: 'People doing admin work',
+        label: 'Total Administrative Headcount',
         placeholder: 'e.g., 10',
-        srDescription: 'Number of team members doing admin (1-50)',
+        srDescription: 'Number of administrative staff (1-50)',
         min: 1,
         max: 50,
       },
       {
-        label: 'Hours per week (per person)',
+        label: 'Average Weekly Admin Hours (Per Person)',
         placeholder: 'e.g., 15',
-        srDescription: 'Hours per week on admin (1-40)',
+        srDescription: 'Average weekly admin hours per person (1-40)',
         min: 1,
         max: 40,
       },
       {
-        label: 'Cost per hour',
+        label: 'Hourly Labor Rate',
         placeholder: 'e.g., 45',
-        srDescription: 'Average hourly cost ($20-$200)',
+        srDescription: 'Average hourly labor rate ($20-$200)',
         min: 20,
         max: 200,
       },
       {
-        label: 'Automation cost',
+        label: 'Estimated Automation Project Price',
         placeholder: 'e.g., 6000',
-        srDescription: 'Estimated automation cost',
+        srDescription: 'Estimated automation project price',
         min: 0,
         max: undefined,
       },
@@ -163,88 +163,89 @@ export const siteContent: SiteContent = {
 
   pricing: {
     id: 'pricing',
-    label: 'Pricing',
-    header: 'Pay Once. Own Forever.',
-    intro: 'One flat fee. 90 days of support included. After that, pay only when you need us.',
+    label: 'Investment',
+    header: 'Fixed-Fee Projects. No Retainers.',
+    intro:
+      'Silva Automation operates on a project-based model. Each engagement is scoped and priced as a one-time fixed fee, with no ongoing retainers required for the automation to continue running.',
 
     foundingOffer: {
-      show: true,
-      badge: 'Founding Client Special',
-      headline: '50% Off — First 5 Clients',
-      body: 'Get 50% off any package. Help us build our portfolio, lock in founding pricing.',
-      spotsRemaining: '3 spots left',
+      show: false,
+      badge: '',
+      headline: '',
+      body: '',
+      spotsRemaining: '',
     },
 
     tiers: [
       {
-        name: 'Single Workflow',
-        price: '$5,000',
-        originalPrice: '$10,000',
-        foundingPrice: '$5,000',
-        description: 'Automate One Process',
-        included: [
-          'One custom automation',
-          'Connect 1-2 tools',
-          'Team training',
-          'Complete documentation',
-        ],
-        badge: '50% Off',
-        bestFor: 'Test automation before going all-in',
-      },
-
-      {
-        name: 'Multi-Workflow',
+        name: 'Starter Workflow',
         price: '$6,000',
-        originalPrice: '$12,000',
+        originalPrice: '$6,000',
         foundingPrice: '$6,000',
-        description: 'Automate 2-3 Processes',
+        description: 'One core workflow (e.g., lead intake, basic billing, or scheduling)',
         included: [
-          '2-3 connected automations',
-          'Connect 2-3 tools',
-          'Team training',
-          'Complete documentation',
+          'Discovery & workflow design',
+          'Build, testing, and integrations',
+          'Implemented in your cloud using n8n and Oracle Cloud',
+          'Staff training and documentation',
+          '90 days of post-launch support',
         ],
-        badge: '50% Off — Most Popular',
-        bestFor: 'Teams using multiple tools daily',
+        badge: 'Fixed Fee',
+        bestFor: 'First automation project or a single high-impact process',
       },
-
       {
-        name: 'Advanced',
-        price: '$7,000+',
-        originalPrice: '$14,000+',
-        foundingPrice: '$7,000+',
-        description: 'Complex Multi-Step Automation',
+        name: 'Founding Client Bundle',
+        price: '$5,000',
+        originalPrice: '$6,000',
+        foundingPrice: '$5,000',
+        description: 'One end-to-end workflow with higher-touch discovery and refinement',
         included: [
-          '3+ automations with logic',
-          'Connect 4+ tools',
-          'Advanced reporting',
-          'Team training + docs',
+          'Deep-dive discovery and process mapping',
+          'Custom workflow design and implementation',
+          'Deployed in your Oracle Cloud, orchestrated by n8n',
+          'Staff training and handover',
+          '90 days of complimentary support',
+          'Priority updates for your case study',
         ],
-        badge: '50% Off',
-        bestFor: '20+ employees or complex workflows',
+        badge: 'Founding Client Rate',
+        bestFor:
+          'Early-adopter firms willing to be featured in case studies — limited availability',
+      },
+      {
+        name: 'Growth Workflow Suite',
+        price: '$7,500–$8,000',
+        originalPrice: '$7,500–$8,000',
+        foundingPrice: '$7,500–$8,000',
+        description: 'Two to three connected workflows (e.g., intake → delivery → invoicing)',
+        included: [
+          'Multi-process discovery and design',
+          'Complex workflow build and integrations',
+          'Multi-workflow automation using n8n and Oracle Cloud',
+          'Staff training for each workflow',
+          '90 days of post-launch support',
+        ],
+        badge: 'Fixed Fee',
+        bestFor: 'Firms ready to automate multiple related processes',
       },
     ],
 
-    tabs: {
-      pricing: 'Pricing',
-      support: 'After 90 Days',
-    },
     afterSupport: {
       title: 'After 90 Days:',
-      headline: 'No Monthly Fees',
-      intro: 'You own it. Need changes later?',
+      headline: 'No Retainer Required',
+      intro:
+        'You may either manage the workflows internally or engage Silva Automation for optional maintenance on an as-needed basis.',
       benefits: [
         {
-          label: 'Pay per project',
-          detail: 'No minimums',
+          label: 'Self-managed',
+          detail: 'Run it yourself with full documentation',
         },
         {
-          label: 'Billed quarterly',
-          detail: 'Only for work done',
+          label: 'On-demand support',
+          detail: 'Engage us only when needed',
         },
         {
-          label: '15-min increments',
-          detail: 'Transparent billing',
+          label: 'Project or hourly',
+          detail: 'Flexible engagement options',
         },
       ],
       coversTitle: '',
@@ -255,29 +256,28 @@ export const siteContent: SiteContent = {
   contact: {
     id: 'contact',
     label: 'Contact',
-    title: 'Ready to Automate?',
-    subtitle:
-      'Hawaii service businesses with 5-50 employees. Real estate, contractors, professional services, healthcare.',
+    title: 'Questions?',
+    subtitle: '',
     webhook: 'https://n8n.silvaautomation.com/webhook/c0185471-5c05-41c8-b140-124d79f90a38',
     cta: {
-      text: 'Book Free 30-Min Call',
+      text: 'Book a 30-Minute Strategy Audit',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
 
     form: {
-      title: 'Questions?',
-      subtitle: 'Text or call (808) 726-6422',
-      nameLabel: 'Name',
-      namePlaceholder: 'Your name',
-      nameSr: 'Enter your name',
-      emailLabel: 'Email',
+      title: 'Get in Touch',
+      subtitle: 'Call or Text (808) 726-6422',
+      nameLabel: 'Full Name',
+      namePlaceholder: 'Your full name',
+      nameSr: 'Enter your full name',
+      emailLabel: 'Corporate Email',
       emailPlaceholder: 'you@company.com',
-      emailSr: 'Enter your email',
-      messageLabel: 'Message',
-      messagePlaceholder: 'What do you want to automate?',
+      emailSr: 'Enter your corporate email',
+      messageLabel: 'Inquiry',
+      messagePlaceholder: 'Describe the repetitive process you want to automate',
       submit: 'Send',
       submitting: 'Sending...',
-      success: "Got it. We'll reply within 24 hours.",
+      success: 'All inquiries receive a response within one business day.',
       error: 'Failed. Call us instead.',
       validation: {
         required: 'Name and email required',
@@ -321,57 +321,32 @@ export const siteContent: SiteContent = {
     categories: {
       process: [
         {
-          q: 'How long does it take?',
-          a: '4-6 weeks. Depends on complexity and how fast you give us access to your tools.',
+          q: 'How long does a typical project take?',
+          a: 'Most projects follow a standardized five-phase lifecycle (Discovery, Design, Build/Test, Deploy/Train, Support). Timelines are set during the proposal phase based on scope, with expectations documented in the fixed-price agreement.',
         },
         {
-          q: 'Do I need to know code?',
-          a: "No. It runs automatically. We'll show you how to monitor it.",
+          q: 'Do I need technical or coding knowledge?',
+          a: 'No. Silva Automation delivers a finished solution and trains your team on how to use it.',
         },
         {
-          q: 'Can I change it myself?',
-          a: 'Yes. You own it. Full documentation included. Most clients handle small tweaks themselves.',
+          q: 'Who owns the workflows?',
+          a: 'You do. All workflows are deployed into your Oracle Cloud or existing cloud environment using n8n, and you retain full control of the assets.',
         },
         {
-          q: 'Why not hire an admin?',
-          a: "Admin = $35K-$50K/year + benefits. Automation = $5K-$7K once. Plus it doesn't call in sick.",
+          q: 'What happens after 90 days of support?',
+          a: 'You can continue running the automations without any retainer. If you want changes or new features, you can engage Silva Automation on a project or hourly basis.',
         },
         {
-          q: 'Why not use Zapier?',
-          a: "Zapier works for simple stuff. Complex logic, error handling, 4+ tools—you need custom code. That's what we build.",
+          q: 'How does this compare to hiring an admin?',
+          a: 'Many Hawaii firms cannot justify a full-time in-house IT specialist, and administrative roles often end up performing repetitive, low-leverage tasks. A one-time automation project replaces that manual workload with a system that runs 24/7 without adding headcount.',
         },
         {
-          q: 'Is the 50% offer real?',
-          a: 'Yes. First 5 clients get 50% off to help us build our portfolio. After that, full price.',
+          q: 'How do you control scope risk?',
+          a: 'Each project is governed by a written, fixed-price scope of work. Any additional requests are handled via formal change orders, and "Project Abandonment" protections help keep timelines on track.',
         },
       ],
 
-      business: [
-        {
-          q: 'What size businesses?',
-          a: '5-50 employees. Using 3+ software tools. Spending 10+ hours/month on repetitive tasks.',
-        },
-        {
-          q: 'Work outside Hawaii?',
-          a: "Hawaii-focused, but we take mainland clients if it's a good fit.",
-        },
-        {
-          q: 'What industries?',
-          a: 'Real estate, contractors, law firms, medical/dental, property managers. Any service business with too much admin.',
-        },
-        {
-          q: 'How do you handle our data?',
-          a: 'Runs in your cloud. You control security. We never store sensitive data.',
-        },
-        {
-          q: 'Refunds?',
-          a: "No refunds after we start. But you approve everything first. If we can't solve it, we tell you in week 1—before you pay.",
-        },
-        {
-          q: 'What if you go out of business?',
-          a: 'You own everything—code, infrastructure, docs. It keeps running. Any developer can maintain it.',
-        },
-      ],
+      business: [],
     },
   },
 
@@ -380,11 +355,11 @@ export const siteContent: SiteContent = {
     legalTitle: 'Legal',
     getInTouchTitle: 'Contact',
     companyName: 'Silva Automation',
-    tagline: 'Automation for Hawaii service businesses. One price, no monthly fees.',
+    tagline:
+      'Workflow automation for Hawaii service businesses. One fixed project fee. No recurring subscriptions.',
     quickLinks: [
-      { label: 'What We Do', href: '#services' },
-      { label: 'Calculator', href: '#calculator' },
-      { label: 'Pricing', href: '#pricing' },
+      { label: 'Solutions', href: '#workflow' },
+      { label: 'Investment', href: '#pricing' },
       { label: 'Contact', href: '#contact' },
     ],
     legalLinks: [
@@ -396,7 +371,7 @@ export const siteContent: SiteContent = {
     email: 'contact@silvaautomation.com',
     phone: '(808) 726-6422',
     phoneHref: 'tel:+18087266422',
-    bookAssessmentText: 'Book Free Call',
+    bookAssessmentText: 'Book Strategy Call',
     bookAssessmentUrl: 'https://calendly.com/silvaautomation/consultation',
     copyright: '© 2026 Silva Automation LLC | Waipahu, Hawaii',
   },
@@ -415,10 +390,6 @@ export const siteContent: SiteContent = {
     refreshButton: 'Refresh',
     retryButton: 'Try Again',
     errorDetailsLabel: 'Error details',
-  },
-
-  loader: {
-    loadingText: 'Loading...',
   },
 
   legalLayout: {

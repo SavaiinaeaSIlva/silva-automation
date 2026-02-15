@@ -1,8 +1,7 @@
 import { ErrorBoundary } from '@/features/error-boundary';
 import { Header } from '@/features/header';
 import { Hero } from '@/features/hero';
-import { WhyChooseUs } from '@/features/why-choose-us';
-import { Services } from '@/features/services';
+import { Workflow } from '@/features/workflow';
 import { Calculator } from '@/features/calculator';
 import { Pricing } from '@/features/pricing';
 import { Contact } from '@/features/contact';
@@ -42,8 +41,7 @@ function App() {
         ) : (
           <>
             <Hero />
-            <WhyChooseUs />
-            <Services />
+            <Workflow />
             <Calculator />
             <Pricing />
             <Contact />

@@ -42,17 +42,6 @@
   }
 }
 
-.brand {
-  font-size: var(--heading-2);
-  font-weight: var(--font-weight-bold);
-  margin: 0;
-}
-
-/* tagline moved to small bottom text */
-.tagline {
-  display: none; /* moved to bottom */
-}
-
 .bottomTagline {
   margin: 8px 0 0 0;
   font-size: 12px;
@@ -93,48 +82,6 @@
   opacity: 1;
   outline: none;
   text-decoration: underline;
-}
-
-/* keep contact links consistent */
-.contactLink:hover,
-.contactLink:focus {
-  color: var(--color-text-on-dark);
-  opacity: 1;
-  outline: none;
-}
-
-.contact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.contactLink {
-  color: var(--color-text-on-dark);
-  text-decoration: none;
-  opacity: 0.9;
-  transition: opacity var(--transition-base);
-}
-
-.contactLink:hover {
-  opacity: 1;
-}
-
-.bookLink {
-  display: inline-block;
-  padding: var(--space-3) var(--space-6);
-  background: var(--color-primary);
-  color: var(--color-text-on-dark);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  text-align: center;
-  transition: all var(--transition-base);
-  margin-top: var(--space-2);
-}
-
-.bookLink:hover {
-  opacity: 0.85;
 }
 
 .bottom {

@@ -25,13 +25,14 @@ export interface IconLabel {
   icon: string;
 }
 
-export interface IconLabelDetail extends IconLabel {
-  detail?: string;
-}
-
 // ============================================================================
 // Header Section
 // ============================================================================
+
+export interface BookingCTA {
+  text: string;
+  url: string;
+}
 
 export interface HeaderContent {
   skipToMainContent: string;
@@ -41,6 +42,7 @@ export interface HeaderContent {
   closeMenu: string;
   mobileNavAria: string;
   navLinks: NavLink[];
+  bookingCta: BookingCTA;
 }
 
 // ============================================================================
@@ -55,47 +57,9 @@ export interface HeroContent {
   titleLine2Rest: string;
   subtitle: string;
   cta: string;
+  bookingCta: BookingCTA;
   benefits: IconLabel[];
   workflowSteps: string[];
-}
-
-// ============================================================================
-// Why Choose Us Section
-// ============================================================================
-
-export interface WhyChooseUsReason {
-  icon: string;
-  title: string;
-  body: string;
-}
-
-export interface WhyChooseUsContent {
-  id: string;
-  label: string;
-  header: string;
-  subtitle: string;
-  reasons: WhyChooseUsReason[];
-}
-
-// ============================================================================
-// Services Section
-// ============================================================================
-
-export interface ServiceBlock {
-  type: string;
-  title: string;
-  problem: string;
-  solution: string;
-  examples: string[];
-}
-
-export interface ServicesContent {
-  id: string;
-  label: string;
-  header: string;
-  intro: string;
-  blocks: ServiceBlock[];
-  otherIndustries: string;
 }
 
 // ============================================================================
@@ -171,11 +135,6 @@ export interface AfterSupport {
   covers: string[];
 }
 
-export interface PricingTabs {
-  pricing: string;
-  support: string;
-}
-
 export interface PricingContent {
   id: string;
   label: string;
@@ -183,7 +142,6 @@ export interface PricingContent {
   intro: string;
   foundingOffer: FoundingOffer;
   tiers: PricingTier[];
-  tabs: PricingTabs;
   afterSupport: AfterSupport;
 }
 
@@ -320,14 +278,6 @@ export interface ErrorBoundaryContent {
 }
 
 // ============================================================================
-// Loader
-// ============================================================================
-
-export interface LoaderContent {
-  loadingText: string;
-}
-
-// ============================================================================
 // Legal Layout
 // ============================================================================
 
@@ -370,14 +320,34 @@ export interface LegalContent {
 }
 
 // ============================================================================
+// Workflow Section
+// ============================================================================
+
+export interface WorkflowNode {
+  icon: string;
+  title: string;
+  subtitle: string;
+  backInfo?: string;
+}
+
+export interface WorkflowContent {
+  id: string;
+  label: string;
+  title: string;
+  subtitle: string;
+  inputs: WorkflowNode[];
+  engine: WorkflowNode;
+  outputs: WorkflowNode[];
+}
+
+// ============================================================================
 // Main Site Content Interface
 // ============================================================================
 
 export interface SiteContent {
   header: HeaderContent;
   hero: HeroContent;
-  whyChooseUs: WhyChooseUsContent;
-  services: ServicesContent;
+  workflow: WorkflowContent;
   calculator: CalculatorContent;
   pricing: PricingContent;
   contact: ContactContent;
@@ -385,7 +355,6 @@ export interface SiteContent {
   footer: FooterContent;
   cookieBanner: CookieBannerContent;
   errorBoundary: ErrorBoundaryContent;
-  loader: LoaderContent;
   legalLayout: LegalLayoutContent;
   legal: LegalContent;
 }

@@ -113,17 +113,6 @@ export const Contact = () => {
         </div>
 
         <div className={styles.content} ref={contentRef}>
-          <div className={styles.cta}>
-            <a
-              href={contact.cta.url}
-              className={styles.ctaButton}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {contact.cta.text}
-            </a>
-          </div>
-
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <label className={styles.label} htmlFor="contact-name">
               {contact.form.nameLabel}
