@@ -19,6 +19,7 @@ export const siteContent: SiteContent = {
       { href: '#workflow', label: 'Solutions' },
       { href: '#calculator', label: 'Calculator' },
       { href: '#pricing', label: 'Investment' },
+      { href: '#faq', label: 'FAQ' },
       { href: '#contact', label: 'Contact' },
     ],
     bookingCta: {

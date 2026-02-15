@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
@@ -143,21 +143,37 @@ interface ActiveNode {
   backInfo?: string;
 }
 
+interface Point {
+  x: number;
+  y: number;
+}
+
+interface DiagramPaths {
+  input: string[];
+  output: string[];
+  inputDots: Point[];
+  outputDots: Point[];
+  engineDot: Point | null;
+}
+
 export const Workflow = () => {
   const { workflow } = siteContent;
   const sectionRef = useRef<HTMLDivElement>(null);
+  const diagramRef = useRef<HTMLDivElement>(null);
   const [activeNode, setActiveNode] = useState<ActiveNode | null>(null);
+  const [diagramSize, setDiagramSize] = useState({ width: 1000, height: 500 });
+  const [diagramPaths, setDiagramPaths] = useState<DiagramPaths>({
+    input: [],
+    output: [],
+    inputDots: [],
+    outputDots: [],
+    engineDot: null,
+  });
 
   // Flat ordered list of all nodes for prev/next navigation
-  const allNodes: ActiveNode[] = [
-    ...workflow.inputs,
-    workflow.engine,
-    ...workflow.outputs,
-  ];
+  const allNodes: ActiveNode[] = [...workflow.inputs, workflow.engine, ...workflow.outputs];
 
-  const activeIndex = activeNode
-    ? allNodes.findIndex((n) => n.title === activeNode.title)
-    : -1;
+  const activeIndex = activeNode ? allNodes.findIndex((n) => n.title === activeNode.title) : -1;
 
   const goNext = () => {
     if (activeIndex < 0) return;
@@ -170,6 +186,54 @@ export const Workflow = () => {
   };
 
   const ctxRef = useRef<ReturnType<typeof gsap.context> | null>(null);
+
+  const updateDiagramGeometry = useCallback(() => {
+    const diagramEl = diagramRef.current;
+    if (!diagramEl) return;
+
+    const rect = diagramEl.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    setDiagramSize((prev) =>
+      prev.width === rect.width && prev.height === rect.height
+        ? prev
+        : { width: rect.width, height: rect.height }
+    );
+
+    const getCenter = (el: Element): Point => {
+      const r = el.getBoundingClientRect();
+      return {
+        x: r.left - rect.left + r.width / 2,
+        y: r.top - rect.top + r.height / 2,
+      };
+    };
+
+    const engineEl = diagramEl.querySelector('[data-node="engine"]');
+    const inputEls = Array.from(diagramEl.querySelectorAll('[data-node^="input-"]'));
+    const outputEls = Array.from(diagramEl.querySelectorAll('[data-node^="output-"]'));
+
+    if (!engineEl || inputEls.length === 0 || outputEls.length === 0) return;
+
+    const engine = getCenter(engineEl);
+    const inputs = inputEls.map(getCenter);
+    const outputs = outputEls.map(getCenter);
+
+    const makeCurve = (start: Point, end: Point) => {
+      const dx = end.x - start.x;
+      const controlOffset = Math.max(Math.abs(dx) * 0.45, 60);
+      const c1x = start.x + Math.sign(dx) * controlOffset;
+      const c2x = end.x - Math.sign(dx) * controlOffset;
+      return `M ${start.x} ${start.y} C ${c1x} ${start.y}, ${c2x} ${end.y}, ${end.x} ${end.y}`;
+    };
+
+    setDiagramPaths({
+      input: inputs.map((start) => makeCurve(start, engine)),
+      output: outputs.map((end) => makeCurve(engine, end)),
+      inputDots: inputs,
+      outputDots: outputs,
+      engineDot: engine,
+    });
+  }, []);
 
   const runAnimations = () => {
     const el = sectionRef.current;
@@ -254,6 +318,18 @@ export const Workflow = () => {
     };
   }, []);
 
+  useEffect(() => {
+    updateDiagramGeometry();
+
+    const diagramEl = diagramRef.current;
+    if (!diagramEl || typeof ResizeObserver === 'undefined') return;
+
+    const observer = new ResizeObserver(() => updateDiagramGeometry());
+    observer.observe(diagramEl);
+
+    return () => observer.disconnect();
+  }, [updateDiagramGeometry]);
+
   return (
     <Section id={workflow.id} background="dark" padding="large" noReveal>
       <div className={styles.wrapper} ref={sectionRef}>
@@ -288,208 +364,199 @@ export const Workflow = () => {
         <p className={styles.clickHint}>Click any node to learn more</p>
 
         {/* Diagram area (lines + grid) */}
-        <div className={styles.diagram}>
-        <svg
-          className={styles.lines}
-          viewBox="0 0 1000 500"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {/* Glow filter for orbs */}
-          <defs>
-            <filter id="orb-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
+        <div className={styles.diagram} ref={diagramRef}>
+          <svg
+            className={styles.lines}
+            viewBox={`0 0 ${diagramSize.width} ${diagramSize.height}`}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {/* Glow filter for orbs */}
+            <defs>
+              <filter id="orb-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-          {/* Input lines: each input → engine center */}
-          <path
-            id="path-in-top"
-            data-workflow-line
-            d="M 183 85 C 300 85, 390 250, 460 250"
-            strokeDasharray="300"
-          />
-          <path
-            id="path-in-mid"
-            data-workflow-line
-            d="M 183 250 L 460 250"
-            strokeDasharray="300"
-          />
-          <path
-            id="path-in-bot"
-            data-workflow-line
-            d="M 183 415 C 300 415, 390 250, 460 250"
-            strokeDasharray="300"
-          />
+            {/* Input lines: each input → engine center */}
+            {diagramPaths.input.map((d, i) => (
+              <path
+                key={`path-in-${i}`}
+                id={`path-in-${i}`}
+                data-workflow-line
+                d={d}
+                strokeDasharray="500"
+              />
+            ))}
 
-          {/* Output lines: engine center → each output */}
-          <path
-            id="path-out-top"
-            data-workflow-line
-            d="M 540 250 C 610 250, 700 85, 817 85"
-            strokeDasharray="300"
-          />
-          <path
-            id="path-out-mid"
-            data-workflow-line
-            d="M 540 250 L 817 250"
-            strokeDasharray="300"
-          />
-          <path
-            id="path-out-bot"
-            data-workflow-line
-            d="M 540 250 C 610 250, 700 415, 817 415"
-            strokeDasharray="300"
-          />
+            {/* Output lines: engine center → each output */}
+            {diagramPaths.output.map((d, i) => (
+              <path
+                key={`path-out-${i}`}
+                id={`path-out-${i}`}
+                data-workflow-line
+                d={d}
+                strokeDasharray="500"
+              />
+            ))}
 
-          {/* Junction dots at engine */}
-          <circle data-workflow-dot cx="460" cy="250" r="4" />
-          <circle data-workflow-dot cx="540" cy="250" r="4" />
+            {/* Junction dot at engine */}
+            {diagramPaths.engineDot && (
+              <circle
+                data-workflow-dot
+                cx={diagramPaths.engineDot.x}
+                cy={diagramPaths.engineDot.y}
+                r="4"
+              />
+            )}
 
-          {/* Endpoint dots (inputs) */}
-          <circle data-workflow-dot cx="183" cy="85" r="3.5" />
-          <circle data-workflow-dot cx="183" cy="250" r="3.5" />
-          <circle data-workflow-dot cx="183" cy="415" r="3.5" />
+            {/* Endpoint dots (inputs) */}
+            {diagramPaths.inputDots.map((point, i) => (
+              <circle key={`input-dot-${i}`} data-workflow-dot cx={point.x} cy={point.y} r="3.5" />
+            ))}
 
-          {/* Endpoint dots (outputs) */}
-          <circle data-workflow-dot cx="817" cy="85" r="3.5" />
-          <circle data-workflow-dot cx="817" cy="250" r="3.5" />
-          <circle data-workflow-dot cx="817" cy="415" r="3.5" />
+            {/* Endpoint dots (outputs) */}
+            {diagramPaths.outputDots.map((point, i) => (
+              <circle key={`output-dot-${i}`} data-workflow-dot cx={point.x} cy={point.y} r="3.5" />
+            ))}
 
-          {/* Traveling orbs — input paths (node → engine) */}
-          {['path-in-top', 'path-in-mid', 'path-in-bot'].map((id, i) => (
-            <circle
-              key={id}
-              r="5"
-              fill="rgba(255, 82, 27, 0.8)"
-              filter="url(#orb-glow)"
-            >
-              <animateMotion
-                dur={`${2.5 + i * 0.4}s`}
-                repeatCount="indefinite"
-                keyPoints="0;1"
-                keyTimes="0;1"
+            {/* Traveling orbs — input paths (node → engine) */}
+            {diagramPaths.input.map((_, i) => (
+              <circle
+                key={`orb-in-${i}`}
+                r="5"
+                fill="rgba(255, 82, 27, 0.8)"
+                filter="url(#orb-glow)"
               >
-                <mpath href={`#${id}`} />
-              </animateMotion>
-            </circle>
-          ))}
+                <animateMotion
+                  dur={`${2.5 + i * 0.4}s`}
+                  repeatCount="indefinite"
+                  keyPoints="0;1"
+                  keyTimes="0;1"
+                >
+                  <mpath href={`#path-in-${i}`} />
+                </animateMotion>
+              </circle>
+            ))}
 
-          {/* Traveling orbs — output paths (engine → node) */}
-          {['path-out-top', 'path-out-mid', 'path-out-bot'].map((id, i) => (
-            <circle
-              key={id}
-              r="5"
-              fill="rgba(255, 82, 27, 0.8)"
-              filter="url(#orb-glow)"
-            >
-              <animateMotion
-                dur={`${2.5 + i * 0.4}s`}
-                repeatCount="indefinite"
-                keyPoints="0;1"
-                keyTimes="0;1"
+            {/* Traveling orbs — output paths (engine → node) */}
+            {diagramPaths.output.map((_, i) => (
+              <circle
+                key={`orb-out-${i}`}
+                r="5"
+                fill="rgba(255, 82, 27, 0.8)"
+                filter="url(#orb-glow)"
               >
-                <mpath href={`#${id}`} />
-              </animateMotion>
-            </circle>
-          ))}
-        </svg>
+                <animateMotion
+                  dur={`${2.5 + i * 0.4}s`}
+                  repeatCount="indefinite"
+                  keyPoints="0;1"
+                  keyTimes="0;1"
+                >
+                  <mpath href={`#path-out-${i}`} />
+                </animateMotion>
+              </circle>
+            ))}
+          </svg>
 
-        {/* Node grid */}
-        <div className={styles.grid}>
-          {/* Input column */}
-          <div className={styles.column}>
-            {workflow.inputs.map((node, i) => (
+          {/* Node grid */}
+          <div className={styles.grid}>
+            {/* Input column */}
+            <div className={styles.column}>
+              {workflow.inputs.map((node, i) => (
+                <div
+                  key={i}
+                  className={styles.nodeCard}
+                  data-workflow-node
+                  data-node={`input-${i}`}
+                  onClick={() => setActiveNode(node)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveNode(node);
+                    }
+                  }}
+                  aria-label={`${node.title} — click for details`}
+                >
+                  <span className={styles.nodeIcon}>
+                    <NodeIcon type={node.icon} />
+                  </span>
+                  <div className={styles.nodeText}>
+                    <span className={styles.nodeTitle}>{node.title}</span>
+                    <span className={styles.nodeSubtitle}>{node.subtitle}</span>
+                  </div>
+                  <span className={styles.infoHint}>ⓘ</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Center engine */}
+            <div className={styles.center}>
               <div
-                key={i}
-                className={styles.nodeCard}
+                className={styles.engineWrapper}
                 data-workflow-node
-                onClick={() => setActiveNode(node)}
+                data-node="engine"
+                onClick={() => setActiveNode(workflow.engine)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    setActiveNode(node);
+                    setActiveNode(workflow.engine);
                   }
                 }}
-                aria-label={`${node.title} — click for details`}
+                aria-label={`${workflow.engine.title} — click for details`}
               >
-                <span className={styles.nodeIcon}>
-                  <NodeIcon type={node.icon} />
-                </span>
-                <div className={styles.nodeText}>
-                  <span className={styles.nodeTitle}>{node.title}</span>
-                  <span className={styles.nodeSubtitle}>{node.subtitle}</span>
+                <div className={styles.engineFront}>
+                  <div className={styles.engineGlow} data-engine-glow />
+                  <span className={styles.engineIcon}>
+                    <NodeIcon type={workflow.engine.icon} />
+                  </span>
+                  <span className={styles.engineTitle}>{workflow.engine.title}</span>
+                  <span className={styles.engineSubtitle}>{workflow.engine.subtitle}</span>
+                  <span className={styles.infoHint}>ⓘ</span>
                 </div>
-                <span className={styles.infoHint}>ⓘ</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Center engine */}
-          <div className={styles.center}>
-            <div
-              className={styles.engineWrapper}
-              data-workflow-node
-              onClick={() => setActiveNode(workflow.engine)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setActiveNode(workflow.engine);
-                }
-              }}
-              aria-label={`${workflow.engine.title} — click for details`}
-            >
-              <div className={styles.engineFront}>
-                <div className={styles.engineGlow} data-engine-glow />
-                <span className={styles.engineIcon}>
-                  <NodeIcon type={workflow.engine.icon} />
-                </span>
-                <span className={styles.engineTitle}>{workflow.engine.title}</span>
-                <span className={styles.engineSubtitle}>{workflow.engine.subtitle}</span>
-                <span className={styles.infoHint}>ⓘ</span>
               </div>
             </div>
-          </div>
 
-          {/* Output column */}
-          <div className={styles.column}>
-            {workflow.outputs.map((node, i) => (
-              <div
-                key={i}
-                className={styles.nodeCard}
-                data-workflow-node
-                onClick={() => setActiveNode(node)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setActiveNode(node);
-                  }
-                }}
-                aria-label={`${node.title} — click for details`}
-              >
-                <span className={styles.nodeIcon}>
-                  <NodeIcon type={node.icon} />
-                </span>
-                <div className={styles.nodeText}>
-                  <span className={styles.nodeTitle}>{node.title}</span>
-                  <span className={styles.nodeSubtitle}>{node.subtitle}</span>
+            {/* Output column */}
+            <div className={styles.column}>
+              {workflow.outputs.map((node, i) => (
+                <div
+                  key={i}
+                  className={styles.nodeCard}
+                  data-workflow-node
+                  data-node={`output-${i}`}
+                  onClick={() => setActiveNode(node)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveNode(node);
+                    }
+                  }}
+                  aria-label={`${node.title} — click for details`}
+                >
+                  <span className={styles.nodeIcon}>
+                    <NodeIcon type={node.icon} />
+                  </span>
+                  <div className={styles.nodeText}>
+                    <span className={styles.nodeTitle}>{node.title}</span>
+                    <span className={styles.nodeSubtitle}>{node.subtitle}</span>
+                  </div>
+                  <span className={styles.infoHint}>ⓘ</span>
                 </div>
-                <span className={styles.infoHint}>ⓘ</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
         </div>
 
         {/* Detail modal */}
@@ -520,7 +587,16 @@ export const Workflow = () => {
                 onClick={goPrev}
                 aria-label="Previous node"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
               </button>
@@ -532,7 +608,16 @@ export const Workflow = () => {
                 onClick={goNext}
                 aria-label="Next node"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="9 6 15 12 9 18" />
                 </svg>
               </button>

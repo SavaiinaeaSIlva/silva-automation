@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/constants';
 import { Container } from '@/components/layout';
 import styles from './Header.module.css';
@@ -7,12 +7,20 @@ export const Header = () => {
   const { header } = siteContent;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
+  const observerLockUntil = useRef(0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const updateActiveId = (nextId: string) => {
+    setActiveId((current) => (current === nextId ? current : nextId));
+  };
+
   const handleNavClick = (href?: string) => {
     setIsMenuOpen(false);
-    if (href) setActiveId(href);
+    if (href) {
+      observerLockUntil.current = Date.now() + 700;
+      updateActiveId(href);
+    }
   };
 
   useEffect(() => {
@@ -23,10 +31,12 @@ export const Header = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (Date.now() < observerLockUntil.current) return;
+
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveId(`#${visible.target.id}`);
+        if (visible) updateActiveId(`#${visible.target.id}`);
       },
       { root: null, rootMargin: '-40% 0px -40% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
     );
