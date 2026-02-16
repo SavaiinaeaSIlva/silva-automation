@@ -26,6 +26,17 @@
   box-shadow: var(--shadow-lg);
 }
 
+.backToTop.inverted {
+  background: var(--color-text-on-dark);
+  color: var(--color-primary);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.backToTop.inverted:hover {
+  background: var(--color-text-on-dark);
+  color: var(--color-primary-dark);
+}
+
 .backToTop.visible {
   opacity: 1;
   visibility: visible;

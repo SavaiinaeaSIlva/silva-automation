@@ -70,7 +70,6 @@
   outline-offset: 2px;
 }
 
-
 @media (min-width: 768px) {
   .hero {
     min-height: calc(100vh - 280px);
