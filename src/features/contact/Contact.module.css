@@ -1,6 +1,6 @@
 .header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: var(--space-12);
 }
 
 .title {
@@ -16,7 +16,7 @@
   width: 60px;
   height: 3px;
   background: var(--color-primary);
-  margin: 16px auto 0;
+  margin: var(--space-4) auto 0;
 }
 
 .subtitle {
@@ -38,28 +38,20 @@
   position: relative;
 }
 
-:global(#contact)::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.6px, transparent 1.6px);
-  background-size: 14px 14px;
-  opacity: 0.65;
-  z-index: 1;
-  mix-blend-mode: screen;
-  transform: translateZ(0);
+.formCard {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .cta {
   text-align: center;
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* inputs closer together */
+  gap: var(--space-4);
 }
 
 .ctaButton {
@@ -69,7 +61,7 @@
   color: var(--color-text-on-dark);
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-lg);
   cursor: pointer;
   font-family: inherit;
@@ -84,21 +76,27 @@
   color: var(--color-text-on-dark);
   border-color: var(--color-primary);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-on-dark);
 }
 
 .textarea {
-  padding: 12px 16px;
-  font-size: 16px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
   font-family: inherit;
   border: 2px solid var(--color-border);
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
   resize: vertical;
   width: 100%;
   background: var(--color-bg-secondary);
@@ -107,20 +105,20 @@
 
 .textarea:focus {
   outline: none;
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 3px rgba(235, 235, 235, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 127, 7, 0.15);
 }
 
 .success {
-  color: green;
-  font-weight: 600;
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
   margin: 0;
   text-align: center;
 }
 
 .error {
   color: var(--color-error);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   margin: 0;
   text-align: center;
 }

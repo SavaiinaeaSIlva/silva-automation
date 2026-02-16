@@ -20,7 +20,7 @@ export const siteContent: SiteContent = {
       { href: '#calculator', label: 'Calculator' },
       { href: '#pricing', label: 'Investment' },
       { href: '#faq', label: 'FAQ' },
-      { href: '#contact', label: 'Contact' },
+      { href: '#contact', label: 'Contact Us' },
     ],
     bookingCta: {
       text: 'Book Strategy Call',

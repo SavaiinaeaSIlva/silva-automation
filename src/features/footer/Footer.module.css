@@ -78,10 +78,15 @@
 /* Ensure hover/focus explicitly keeps links white on dark footer background */
 .link:hover,
 .link:focus {
-  color: var(--color-text-on-dark);
+  color: var(--color-primary);
   opacity: 1;
   outline: none;
   text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .bottom {

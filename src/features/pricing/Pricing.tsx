@@ -78,40 +78,8 @@ export const Pricing = () => {
           <p className={styles.intro}>{pricing.intro}</p>
         </div>
 
-        <div className={styles.tiers} ref={tiersRef}>
-          {pricing.tiers.map((tier, index) => (
-            <Card
-              key={index}
-              variant="elevated"
-              padding="large"
-              className={styles.tier}
-              data-pricing-tier
-            >
-              {tier.badge && <div className={styles.tierBadge}>{tier.badge}</div>}
-              <h3 className={styles.tierName}>{tier.name}</h3>
-              <div className={styles.price}>
-                <span className={styles.priceAmount}>{tier.foundingPrice}</span>
-                {tier.originalPrice !== tier.foundingPrice && (
-                  <span className={styles.originalPrice}>{tier.originalPrice}</span>
-                )}
-              </div>
-              <p className={styles.description}>{tier.description}</p>
-
-              <ul className={styles.included}>
-                {tier.included.map((item, i) => (
-                  <li key={i}>✓ {item}</li>
-                ))}
-              </ul>
-
-              <p className={styles.bestFor}>
-                <strong>Best for:</strong> {tier.bestFor}
-              </p>
-            </Card>
-          ))}
-        </div>
-
         <div ref={supportRef}>
-          <Card variant="bordered" padding="large" className={styles.afterSupport}>
+          <Card variant="bordered" padding="medium" className={styles.afterSupport}>
             <h3 className={styles.afterTitle}>{pricing.afterSupport.title}</h3>
             <h4 className={styles.afterHeadline}>{pricing.afterSupport.headline}</h4>
             <p className={styles.afterIntro}>{pricing.afterSupport.intro}</p>
@@ -136,6 +104,38 @@ export const Pricing = () => {
               </>
             )}
           </Card>
+        </div>
+
+        <div className={styles.tiers} ref={tiersRef}>
+          {pricing.tiers.map((tier, index) => (
+            <Card
+              key={index}
+              variant="elevated"
+              padding="medium"
+              className={styles.tier}
+              data-pricing-tier
+            >
+              {tier.badge && <div className={styles.tierBadge}>{tier.badge}</div>}
+              <h3 className={styles.tierName}>{tier.name}</h3>
+              <div className={styles.price}>
+                <span className={styles.priceAmount}>{tier.foundingPrice}</span>
+                {tier.originalPrice !== tier.foundingPrice && (
+                  <span className={styles.originalPrice}>{tier.originalPrice}</span>
+                )}
+              </div>
+              <p className={styles.description}>{tier.description}</p>
+
+              <ul className={styles.included}>
+                {tier.included.map((item, i) => (
+                  <li key={i}>✓ {item}</li>
+                ))}
+              </ul>
+
+              <p className={styles.bestFor}>
+                <strong>Best for:</strong> {tier.bestFor}
+              </p>
+            </Card>
+          ))}
         </div>
 
         {/* Founding offer footnote (moved to bottom of Pricing section) */}

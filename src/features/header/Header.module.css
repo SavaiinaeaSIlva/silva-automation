@@ -38,7 +38,7 @@
 }
 
 .logoImage {
-  height: 40px;
+  height: 36px;
   width: auto;
   transition: opacity var(--transition-base);
 }
@@ -60,18 +60,24 @@
   text-decoration: none;
   color: var(--color-text-on-dark);
   font-weight: 600;
-  transition: opacity var(--transition-base);
+  transition: color var(--transition-base), opacity var(--transition-base);
   opacity: 0.9;
 }
 
 .navLink:hover {
   opacity: 1;
-  color: var(--color-text-on-dark);
+  color: var(--color-primary);
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Active / current section */
 .active {
   color: var(--color-primary);
+  opacity: 1;
   position: relative;
 }
 
@@ -81,7 +87,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--color-primary);
+  background: linear-gradient(90deg, var(--color-primary), rgba(255, 127, 7, 0.5));
   bottom: -8px;
   border-radius: 2px;
 }
@@ -109,8 +115,15 @@
 }
 
 .bookingCta:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 127, 7, 0.3);
   color: var(--color-text-on-dark);
+}
+
+.bookingCta:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Mobile Menu Button */
@@ -123,8 +136,19 @@
   height: 40px;
   background: transparent;
   border: none;
+  border-radius: var(--radius-md);
   cursor: pointer;
   padding: 0;
+  transition: background var(--transition-base);
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .hamburger {
@@ -171,6 +195,18 @@
 .mobileNav {
   padding: var(--space-5) 0;
   border-top: 1px solid var(--color-border-light);
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobileNavLinks {
@@ -189,13 +225,18 @@
   color: var(--color-text-on-dark);
   font-weight: 500;
   font-size: var(--font-size-lg);
-  transition: opacity var(--transition-base);
+  transition: color var(--transition-base), opacity var(--transition-base);
   opacity: 0.9;
 }
 
 .mobileNavLink:hover {
   opacity: 1;
-  color: var(--color-text-on-dark);
+  color: var(--color-primary);
+}
+
+.mobileNavLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Mobile Booking CTA */
@@ -215,8 +256,15 @@
 }
 
 .mobileBookingCta:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 127, 7, 0.3);
   color: var(--color-text-on-dark);
+}
+
+.mobileBookingCta:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Desktop */

@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
+import { Card } from '@/components/ui';
 import styles from './Contact.module.css';
 
 // Register ScrollTrigger
@@ -113,55 +114,57 @@ export const Contact = () => {
         </div>
 
         <div className={styles.content} ref={contentRef}>
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <label className={styles.label} htmlFor="contact-name">
-              {contact.form.nameLabel}
-            </label>
-            <input
-              id="contact-name"
-              className={styles.textarea}
-              value={form.name}
-              onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
-              placeholder={contact.form.namePlaceholder}
-              aria-required
-            />
+          <Card variant="default" padding="large" className={styles.formCard}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
+              <label className={styles.label} htmlFor="contact-name">
+                {contact.form.nameLabel}
+              </label>
+              <input
+                id="contact-name"
+                className={styles.textarea}
+                value={form.name}
+                onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
+                placeholder={contact.form.namePlaceholder}
+                aria-required
+              />
 
-            <label className={styles.label} htmlFor="contact-email">
-              {contact.form.emailLabel}
-            </label>
-            <input
-              id="contact-email"
-              className={styles.textarea}
-              value={form.email}
-              onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
-              placeholder={contact.form.emailPlaceholder}
-              aria-required
-            />
+              <label className={styles.label} htmlFor="contact-email">
+                {contact.form.emailLabel}
+              </label>
+              <input
+                id="contact-email"
+                className={styles.textarea}
+                value={form.email}
+                onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
+                placeholder={contact.form.emailPlaceholder}
+                aria-required
+              />
 
-            <label className={styles.label} htmlFor="contact-message">
-              {contact.form.messageLabel}
-            </label>
-            <textarea
-              id="contact-message"
-              className={styles.textarea}
-              value={form.message}
-              onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
-              placeholder={contact.form.messagePlaceholder}
-              rows={5}
-              aria-required
-            />
+              <label className={styles.label} htmlFor="contact-message">
+                {contact.form.messageLabel}
+              </label>
+              <textarea
+                id="contact-message"
+                className={styles.textarea}
+                value={form.message}
+                onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
+                placeholder={contact.form.messagePlaceholder}
+                rows={5}
+                aria-required
+              />
 
-            <div className={styles.cta}>
-              <button type="submit" className={styles.ctaButton} disabled={status === 'submitting'}>
-                {status === 'submitting' ? contact.form.submitting : contact.form.submit}
-              </button>
-            </div>
+              <div className={styles.cta}>
+                <button type="submit" className={styles.ctaButton} disabled={status === 'submitting'}>
+                  {status === 'submitting' ? contact.form.submitting : contact.form.submit}
+                </button>
+              </div>
 
-            {status === 'error' && (
-              <p className={styles.error}>{contact.form.validation.required}</p>
-            )}
-            {status === 'success' && <p className={styles.success}>{contact.form.success}</p>}
-          </form>
+              {status === 'error' && (
+                <p className={styles.error}>{contact.form.validation.required}</p>
+              )}
+              {status === 'success' && <p className={styles.success}>{contact.form.success}</p>}
+            </form>
+          </Card>
         </div>
       </Container>
     </Section>

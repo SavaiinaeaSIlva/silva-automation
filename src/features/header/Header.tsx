@@ -55,7 +55,7 @@ export const Header = () => {
         <nav className={styles.nav} aria-label="Main navigation">
           <div className={styles.logo}>
             <a href="#" aria-label={header.logoAlt}>
-              <img src="/assets/Union.svg" alt={header.logoAlt} className={styles.logoImage} />
+              <img src="/assets/logo.png" alt={header.logoAlt} className={styles.logoImage} />
             </a>
           </div>
 

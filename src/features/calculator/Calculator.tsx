@@ -48,7 +48,7 @@ Yearly Savings: ${formatCurrency(results.yearlySavings)}
         </div>
 
         <div className={styles.calculator}>
-          <Card variant="bordered" padding="large" className={styles.inputCard}>
+          <Card variant="elevated" padding="medium" className={styles.inputCard}>
             <h3 className={styles.cardTitle}>{calculator.inputsTitle}</h3>
             <div className={styles.inputs}>
               <Input
@@ -95,7 +95,7 @@ Yearly Savings: ${formatCurrency(results.yearlySavings)}
             </Button>
           </Card>
 
-          <Card variant="bordered" padding="large" className={styles.resultsCard}>
+          <Card variant="elevated" padding="medium" className={styles.resultsCard}>
             <div className={styles.resultsHeader}>
               <h3 className={styles.cardTitle}>{calculator.resultsTitle}</h3>
               <Button

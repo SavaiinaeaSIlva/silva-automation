@@ -60,26 +60,16 @@
 }
 
 .bookingCta:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 127, 7, 0.35);
 }
 
-/* dotted canvas overlay applied across the entire Section#hero (covers padding) */
-:global(#hero) {
-  position: relative;
+.bookingCta:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-:global(#hero)::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.6px, transparent 1.6px);
-  background-size: 14px 14px;
-  opacity: 0.65;
-  z-index: 1;
-  mix-blend-mode: screen;
-  transform: translateZ(0);
-}
 
 @media (min-width: 768px) {
   .hero {

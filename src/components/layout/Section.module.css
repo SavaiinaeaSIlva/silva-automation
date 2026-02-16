@@ -9,7 +9,7 @@
 }
 
 .gray {
-  background-color: var(--color-bg-secondary);
+  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, #e8e8e8 100%);
 }
 
 .primary {
@@ -18,7 +18,7 @@
 }
 
 .dark {
-  background-color: var(--color-text-primary);
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
   color: white;
 }
 

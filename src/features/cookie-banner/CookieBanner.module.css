@@ -5,7 +5,7 @@
   right: 0;
   background: var(--color-bg-primary);
   border-top: 1px solid var(--color-border);
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   z-index: 1000;
   padding: var(--space-5);
 }

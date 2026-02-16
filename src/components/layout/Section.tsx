@@ -53,12 +53,14 @@ export const Section = ({
           trigger: el,
           start,
           toggleActions: 'play none none none',
+          once: true,
         },
       });
     }, el);
 
     return () => ctx.revert();
-  }, [noReveal, revealOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [noReveal]);
 
   return (
     <section
