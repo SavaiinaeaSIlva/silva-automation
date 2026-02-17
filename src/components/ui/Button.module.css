@@ -22,6 +22,11 @@
   outline-offset: 2px;
 }
 
+/* Shared hover lift */
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
 /* Sizes */
 .small {
   padding: var(--space-2) var(--space-4);
@@ -46,7 +51,6 @@
 
 .primary:hover:not(:disabled) {
   opacity: 0.9;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 127, 7, 0.3);
 }
 
@@ -57,7 +61,6 @@
 
 .secondary:hover:not(:disabled) {
   opacity: 0.9;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -69,7 +72,6 @@
 
 .outline:hover:not(:disabled) {
   background: rgba(255, 127, 7, 0.08);
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 127, 7, 0.15);
 }
 
@@ -83,6 +85,5 @@
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-text-on-dark);
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 127, 7, 0.3);
 }

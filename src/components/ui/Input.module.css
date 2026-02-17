@@ -23,6 +23,10 @@
   color: var(--color-text-primary);
 }
 
+.input:hover:not(:focus) {
+  border-color: var(--color-text-secondary);
+}
+
 .input:focus {
   outline: none;
   border-color: var(--color-primary);

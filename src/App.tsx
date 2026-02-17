@@ -51,7 +51,7 @@ function App() {
         )}
       </main>
 
-      <Footer />
+      {!isLegal && <Footer />}
       <CookieBanner />
       <BackToTop />
     </ErrorBoundary>

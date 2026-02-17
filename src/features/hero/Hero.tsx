@@ -50,10 +50,7 @@ export const Hero = () => {
           <div className={styles.content} ref={contentRef}>
             <h1 className={styles.title}>{hero.title}</h1>
 
-            <p className={styles.subtitle}>
-              Custom automation for Hawaii service businesses. <em>One flat fee.</em>{' '}
-              <em>You own it forever.</em>
-            </p>
+            <p className={styles.subtitle}>{hero.subtitle}</p>
 
             <div className={styles.ctaGroup}>
               <a

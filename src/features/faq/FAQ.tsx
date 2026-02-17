@@ -40,8 +40,10 @@ export const FAQ = () => {
                     </span>
                   </button>
                 </dt>
-                <dd className={styles.answer} hidden={!isOpen}>
-                  <p>{item.a}</p>
+                <dd className={`${styles.answerWrapper} ${isOpen ? styles.answerWrapperOpen : ''}`}>
+                  <div className={`${styles.answer} ${isOpen ? styles.answerOpen : ''}`}>
+                    <p>{item.a}</p>
+                  </div>
                 </dd>
               </div>
             );

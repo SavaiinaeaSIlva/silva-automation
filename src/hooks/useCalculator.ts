@@ -16,25 +16,22 @@ export interface CalculatorResults {
   yearlySavings: number;
 }
 
+const DEFAULT_INPUTS: CalculatorInputs = {
+  people: 10,
+  hoursPerWeek: 15,
+  costPerHour: 45,
+  automationCost: 6000,
+};
+
 export const useCalculator = () => {
-  const [inputs, setInputs] = useState<CalculatorInputs>({
-    people: 10,
-    hoursPerWeek: 15,
-    costPerHour: 45,
-    automationCost: 6000,
-  });
+  const [inputs, setInputs] = useState<CalculatorInputs>(DEFAULT_INPUTS);
 
   const updateInput = (field: keyof CalculatorInputs, value: number) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
   };
 
   const reset = () => {
-    setInputs({
-      people: 10,
-      hoursPerWeek: 15,
-      costPerHour: 45,
-      automationCost: 6000,
-    });
+    setInputs(DEFAULT_INPUTS);
   };
 
   const calculateResults = (): CalculatorResults => {

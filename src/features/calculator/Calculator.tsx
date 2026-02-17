@@ -3,26 +3,13 @@ import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Input, Button, Card } from '@/components/ui';
 import { useCalculator } from '@/hooks';
+import { formatCurrency, formatNumber } from '@/utils';
 import styles from './Calculator.module.css';
 
 export const Calculator = () => {
   const { calculator } = siteContent;
   const { inputs, updateInput, reset, results } = useCalculator();
   const [copied, setCopied] = useState(false);
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
-  const formatNumber = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      maximumFractionDigits: 1,
-    }).format(value);
-  };
 
   const handleCopy = () => {
     const text = `

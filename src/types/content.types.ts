@@ -16,8 +16,7 @@ export interface NavLink {
 
 export interface LinkItem {
   label: string;
-  href?: string;
-  to?: string;
+  href: string;
 }
 
 export interface IconLabel {

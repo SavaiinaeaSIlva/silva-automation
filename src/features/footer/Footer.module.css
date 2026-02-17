@@ -13,9 +13,10 @@
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .content {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-8);
   }
 }
 

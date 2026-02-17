@@ -85,14 +85,44 @@
   text-align: center;
 }
 
+.answerWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-slow);
+  overflow: hidden;
+}
+
+.answerWrapperOpen {
+  grid-template-rows: 1fr;
+}
+
 .answer {
   margin: 0;
-  padding: 0 var(--space-5) var(--space-5);
+  min-height: 0;
+  padding: 0 var(--space-5);
   color: var(--color-text-secondary);
   line-height: 1.7;
   font-size: var(--text-sm);
+  opacity: 0;
+  transition:
+    opacity var(--transition-base),
+    padding var(--transition-slow);
+}
+
+.answerOpen {
+  padding: 0 var(--space-5) var(--space-5);
+  opacity: 1;
 }
 
 .answer p {
   margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answerWrapper {
+    transition: none;
+  }
+  .answer {
+    transition: none;
+  }
 }

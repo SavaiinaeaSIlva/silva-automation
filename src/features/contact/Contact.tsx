@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Card } from '@/components/ui';
+import { validateEmail } from '@/utils';
 import styles from './Contact.module.css';
 
 // Register ScrollTrigger
@@ -14,8 +15,13 @@ export const Contact = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  type FormState = { name: string; email: string; message: string };
-  const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
+  type FormState = { firstName: string; email: string; message: string; lastName: string };
+  const [form, setForm] = useState<FormState>({
+    firstName: '',
+    email: '',
+    message: '',
+    lastName: '',
+  });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   // Scroll reveal animation for header
@@ -71,12 +77,18 @@ export const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const validateEmail = (v: string) => /\S+@\S+\.\S+/.test(v);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { name, email, message } = form;
-    if (!name || !email || !message) {
+    const { firstName, email, message, lastName } = form;
+
+    // Honeypot check - if filled, silently reject (bots fill hidden fields)
+    if (lastName) {
+      setStatus('success');
+      setForm({ firstName: '', email: '', message: '', lastName: '' });
+      return;
+    }
+
+    if (!firstName || !email || !message) {
       setStatus('error');
       return;
     }
@@ -90,13 +102,13 @@ export const Contact = () => {
       const res = await fetch(siteContent.contact.webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name: firstName, email, message }),
       });
 
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
       setStatus('success');
-      setForm({ name: '', email: '', message: '' });
+      setForm({ firstName: '', email: '', message: '', lastName: '' });
     } catch (err) {
       // keep console error for debugging; UI shows generic message
       // eslint-disable-next-line no-console
@@ -116,16 +128,31 @@ export const Contact = () => {
         <div className={styles.content} ref={contentRef}>
           <Card variant="default" padding="large" className={styles.formCard}>
             <form className={styles.form} onSubmit={handleSubmit} noValidate>
-              <label className={styles.label} htmlFor="contact-name">
+              {/* Honeypot field - hidden from humans, bots see "Last Name" and fill it */}
+              <div className={styles.honeypot} aria-hidden="true">
+                <label htmlFor="contact-lastname">Last Name</label>
+                <input
+                  type="text"
+                  id="contact-lastname"
+                  name="lastName"
+                  value={form.lastName}
+                  onChange={(e) => setForm((s) => ({ ...s, lastName: e.target.value }))}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              <label className={styles.label} htmlFor="contact-firstname">
                 {contact.form.nameLabel}
               </label>
               <input
-                id="contact-name"
-                className={styles.textarea}
-                value={form.name}
-                onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
+                id="contact-firstname"
+                name="firstName"
+                className={styles.input}
+                value={form.firstName}
+                onChange={(e) => setForm((s) => ({ ...s, firstName: e.target.value }))}
                 placeholder={contact.form.namePlaceholder}
-                aria-required
+                required
               />
 
               <label className={styles.label} htmlFor="contact-email">
@@ -133,11 +160,11 @@ export const Contact = () => {
               </label>
               <input
                 id="contact-email"
-                className={styles.textarea}
+                className={styles.input}
                 value={form.email}
                 onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
                 placeholder={contact.form.emailPlaceholder}
-                aria-required
+                required
               />
 
               <label className={styles.label} htmlFor="contact-message">
@@ -145,16 +172,20 @@ export const Contact = () => {
               </label>
               <textarea
                 id="contact-message"
-                className={styles.textarea}
+                className={styles.input}
                 value={form.message}
                 onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
                 placeholder={contact.form.messagePlaceholder}
                 rows={5}
-                aria-required
+                required
               />
 
               <div className={styles.cta}>
-                <button type="submit" className={styles.ctaButton} disabled={status === 'submitting'}>
+                <button
+                  type="submit"
+                  className={styles.ctaButton}
+                  disabled={status === 'submitting'}
+                >
                   {status === 'submitting' ? contact.form.submitting : contact.form.submit}
                 </button>
               </div>

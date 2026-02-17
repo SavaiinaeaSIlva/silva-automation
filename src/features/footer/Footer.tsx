@@ -33,7 +33,7 @@ export const Footer = () => {
             <ul className={styles.links}>
               {footer.legalLinks.map((link, i) => (
                 <li key={i}>
-                  <a href={link.to || link.href} className={styles.link}>
+                  <a href={link.href} className={styles.link}>
                     {link.label}
                   </a>
                 </li>

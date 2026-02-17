@@ -38,7 +38,7 @@ export const siteContent: SiteContent = {
       'Workflow automation for Hawaii service businesses. One fixed project fee. Client-owned infrastructure. No recurring software subscriptions.',
     cta: 'Calculate Your Savings',
     bookingCta: {
-      text: 'Book a 30-Minute Strategy Audit',
+      text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
     benefits: [
@@ -262,7 +262,7 @@ export const siteContent: SiteContent = {
       'Have a question? Want to see if automation is a fit for your business? Get in touch.',
     webhook: 'https://n8n.silvaautomation.com/webhook/c0185471-5c05-41c8-b140-124d79f90a38',
     cta: {
-      text: 'Book a 30-Minute Strategy Audit',
+      text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
 
@@ -365,10 +365,10 @@ export const siteContent: SiteContent = {
       { label: 'Contact', href: '#contact' },
     ],
     legalLinks: [
-      { label: 'Terms', to: '/terms' },
-      { label: 'Privacy', to: '/privacy' },
-      { label: 'Cookies', to: '/cookies' },
-      { label: 'Refunds', to: '/refunds' },
+      { label: 'Terms', href: '/terms' },
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Cookies', href: '/cookies' },
+      { label: 'Refunds', href: '/refunds' },
     ],
     email: 'contact@silvaautomation.com',
     phone: '(808) 726-6422',

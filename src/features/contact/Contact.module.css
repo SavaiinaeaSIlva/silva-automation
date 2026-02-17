@@ -90,7 +90,7 @@
   color: var(--color-text-on-dark);
 }
 
-.textarea {
+.input {
   padding: var(--space-3) var(--space-4);
   font-size: var(--text-base);
   font-family: inherit;
@@ -103,7 +103,7 @@
   color: var(--color-text-primary);
 }
 
-.textarea:focus {
+.input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(255, 127, 7, 0.15);
@@ -121,4 +121,15 @@
   font-weight: var(--font-weight-semibold);
   margin: 0;
   text-align: center;
+}
+
+/* Honeypot - invisible to humans, catches bots */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
