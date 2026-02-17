@@ -8,6 +8,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
   const observerLockUntil = useRef(0);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -15,11 +16,24 @@ export const Header = () => {
     setActiveId((current) => (current === nextId ? current : nextId));
   };
 
-  const handleNavClick = (href?: string) => {
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href?: string) => {
     setIsMenuOpen(false);
-    if (href) {
+    if (!href) return;
+
+    if (href.startsWith('#')) {
+      event.preventDefault();
       observerLockUntil.current = Date.now() + 700;
       updateActiveId(href);
+
+      const targetId = href.replace('#', '');
+      const target = document.getElementById(targetId);
+      if (target) {
+        const headerOffset = headerRef.current?.getBoundingClientRect().height ?? 0;
+        const targetTop = Math.max(target.getBoundingClientRect().top + window.scrollY - headerOffset, 0);
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+        window.history.pushState(null, '', href);
+      }
+      return;
     }
   };
 
@@ -46,7 +60,7 @@ export const Header = () => {
   }, [header.navLinks]);
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} ref={headerRef}>
       <a href="#main" className={styles.skipLink}>
         {header.skipToMainContent}
       </a>
@@ -69,7 +83,7 @@ export const Header = () => {
                     href={link.href}
                     className={`${styles.navLink} ${isActive ? styles.active : ''}`}
                     aria-current={isActive ? 'page' : undefined}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(event) => handleNavClick(event, link.href)}
                   >
                     {link.label}
                   </a>
@@ -110,7 +124,7 @@ export const Header = () => {
                     <a
                       href={link.href}
                       className={`${styles.mobileNavLink} ${isActive ? styles.active : ''}`}
-                      onClick={() => handleNavClick(link.href)}
+                      onClick={(event) => handleNavClick(event, link.href)}
                       aria-current={isActive ? 'page' : undefined}
                     >
                       {link.label}
