@@ -27,8 +27,14 @@ Yearly Savings: ${formatCurrency(results.yearlySavings)}
   };
 
   return (
-    <Section id={calculator.id} background="gray" padding="large">
-      <Container>
+    <Section id={calculator.id} background="gray" padding="large" className={styles.section}>
+      <img
+        src="/assets/back.svg"
+        alt=""
+        className={styles.backgroundDecor}
+        aria-hidden="true"
+      />
+      <Container className={styles.content}>
         <div className={styles.header}>
           <h2 className={styles.title}>{calculator.title}</h2>
           <p className={styles.subtitle}>{calculator.subtitle}</p>
