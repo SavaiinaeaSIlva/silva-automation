@@ -1,5 +1,6 @@
 import { siteContent } from '@/constants';
 import { Container } from '@/components/layout';
+import logo from '@/assets/logo.svg';
 import styles from './Footer.module.css';
 
 export const Footer = () => {
@@ -11,7 +12,7 @@ export const Footer = () => {
         <div className={styles.content}>
           <div className={styles.section}>
             <div className={styles.brandWrap}>
-              <img src="/assets/Union.svg" alt={footer.companyName} className={styles.brandLogo} />
+              <img src={logo} alt={footer.companyName} className={styles.brandLogo} />
             </div>
           </div>
 

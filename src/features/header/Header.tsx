@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/constants';
 import { Container } from '@/components/layout';
+import logo from '@/assets/logo.svg';
 import styles from './Header.module.css';
 
 export const Header = () => {
@@ -69,7 +70,7 @@ export const Header = () => {
         <nav className={styles.nav} aria-label="Main navigation">
           <div className={styles.logo}>
             <a href="#" aria-label={header.logoAlt}>
-              <img src="/assets/logo.png" alt={header.logoAlt} className={styles.logoImage} />
+              <img src={logo} alt={header.logoAlt} className={styles.logoImage} />
             </a>
           </div>
 

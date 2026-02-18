@@ -3,37 +3,32 @@ import { gsap } from 'gsap';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Button } from '@/components/ui';
+import { RollingText } from './RollingText';
 import styles from './Hero.module.css';
 
 export const Hero = () => {
   const { hero } = siteContent;
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Initial text reveal animation
+  // Animate subtitle and CTA after title animation
   useEffect(() => {
     const content = contentRef.current;
     if (!content) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+      const tl = gsap.timeline({ delay: 1.4 });
 
       tl.fromTo(
-        content.querySelector('h1'),
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-      )
-        .fromTo(
-          content.querySelector('p'),
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
-          '-=0.5'
-        )
-        .fromTo(
-          content.querySelector(`.${styles.ctaGroup}`),
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
-          '-=0.4'
-        );
+        content.querySelector('p'),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+        '-=0.4'
+      ).fromTo(
+        content.querySelector(`.${styles.ctaGroup}`),
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+        '-=0.4'
+      );
     }, content);
 
     return () => ctx.revert();
@@ -48,7 +43,24 @@ export const Hero = () => {
       <Container>
         <div className={styles.hero}>
           <div className={styles.content} ref={contentRef}>
-            <h1 className={styles.title}>{hero.title}</h1>
+            <h1 className={styles.title}>
+              Reclaim Your
+              <br />
+              <RollingText
+                words={[
+                  'Business',
+                  'Efficiency',
+                  'Workflow',
+                  'Revenue',
+                  'Freedom',
+                  'Profits',
+                  'Growth',
+                  'Impact',
+                  'Focus',
+                  'Time',
+                ]}
+              />
+            </h1>
 
             <p className={styles.subtitle}>{hero.subtitle}</p>
 

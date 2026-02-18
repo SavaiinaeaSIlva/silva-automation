@@ -7,7 +7,7 @@ export const Logo = () => {
       <Container>
         <div className={styles.wrap}>
           {/* Page intended for email embedding — expects /assets/logo.png in public folder */}
-          <img src="/assets/logo.png" alt="Silva Automation logo" className={styles.logo} />
+          <img src="/assets/logo.svg" alt="Silva Automation logo" className={styles.logo} />
         </div>
       </Container>
     </main>

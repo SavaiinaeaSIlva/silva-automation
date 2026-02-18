@@ -11,7 +11,7 @@
   width: 65%;
   height: auto;
   max-height: 100%;
-  opacity: 0.1; /* subtle */
+  opacity: 0.15;
   pointer-events: none;
   z-index: 0;
 }
