@@ -47,7 +47,7 @@ src/
 - `FeatureName.module.css` - Scoped CSS Module
 - `index.ts` - Barrel export: `export { FeatureName } from './FeatureName'`
 
-**Example:**
+**Examples:**
 
 ```
 features/calculator/
@@ -56,6 +56,13 @@ features/calculator/
 ├── useCalculator.ts      # Feature-specific hook
 ├── Input.tsx             # Feature-specific sub-component
 ├── Input.module.css
+└── index.ts
+
+features/hero/
+├── Hero.tsx              # Main component (includes globe/sphere visual)
+├── Hero.module.css       # Scoped styles (sphere, orbit, dot-pattern overlay)
+├── RollingText.tsx       # Sub-component for animated word cycling
+├── RollingText.module.css
 └── index.ts
 ```
 
@@ -248,6 +255,7 @@ export { NewComponent } from './NewComponent';
 - 📘 TypeScript 5 (strict mode)
 - ⚡ Vite 7
 - 🎨 CSS Modules (scoped styling)
+- 🎬 GSAP 3 + @gsap/react (animations: hero globe spin, orbit light, rolling text, scroll reveals)
 - 🔍 ESLint + Prettier
 
 **DO NOT install:**

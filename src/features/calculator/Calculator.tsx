@@ -28,7 +28,7 @@ ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings
   };
 
   return (
-    <Section id={calculator.id} background="gray" padding="large" className={styles.section}>
+    <Section id={calculator.id} background="white" padding="large" className={styles.section}>
       <img src="/assets/back.svg" alt="" className={styles.backgroundDecor} aria-hidden="true" />
       <Container className={styles.content}>
         <div className={styles.header}>

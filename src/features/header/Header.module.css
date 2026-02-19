@@ -60,7 +60,9 @@
   text-decoration: none;
   color: var(--color-text-on-dark);
   font-weight: 600;
-  transition: color var(--transition-base), opacity var(--transition-base);
+  transition:
+    color var(--transition-base),
+    opacity var(--transition-base);
   opacity: 0.9;
 }
 
@@ -225,7 +227,9 @@
   color: var(--color-text-on-dark);
   font-weight: 500;
   font-size: var(--font-size-lg);
-  transition: color var(--transition-base), opacity var(--transition-base);
+  transition:
+    color var(--transition-base),
+    opacity var(--transition-base);
   opacity: 0.9;
 }
 

@@ -15,7 +15,7 @@ export const FAQ = () => {
   }, []);
 
   return (
-    <Section id={faq.id} background="gray" padding="large">
+    <Section id={faq.id} background="white" padding="large">
       <Container size="medium">
         <div className={styles.header}>
           <h2 className={styles.title}>{faq.title}</h2>

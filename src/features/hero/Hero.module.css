@@ -1,3 +1,21 @@
+.heroSection {
+  position: relative;
+  overflow: hidden;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.6px, transparent 1.6px);
+  background-size: 14px 14px;
+  opacity: 0.4;
+  z-index: 0;
+  mix-blend-mode: screen;
+  transform: translateZ(0);
+}
+
 .hero {
   position: relative;
   display: flex;
@@ -5,7 +23,6 @@
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 200px);
-  overflow: hidden;
 }
 
 .content {
@@ -15,11 +32,83 @@
   z-index: 2;
 }
 
+.sphereCol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sphere {
+  position: relative;
+  width: min(420px, 50vw);
+  height: min(420px, 50vw);
+  border-radius: 50%;
+  z-index: 1;
+  background: #000000;
+  box-shadow:
+    0 0 15px 2px rgba(255, 200, 150, 0.22),
+    0 0 40px 8px rgba(255, 175, 120, 0.13),
+    0 0 80px 16px rgba(255, 220, 180, 0.07);
+  pointer-events: none;
+}
+
+.globeLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.globeLines circle,
+.globeLines ellipse,
+.globeLines line {
+  stroke: rgb(255, 180, 100);
+  stroke-opacity: 0.15;
+  stroke-width: 0.8;
+  fill: none;
+}
+
+.orbitTrack {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.orbitLight {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: rgba(255, 200, 120, 0.85);
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 35%,
+    black 50%,
+    rgba(0, 0, 0, 0.3) 65%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 35%,
+    black 50%,
+    rgba(0, 0, 0, 0.3) 65%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 6px rgba(255, 160, 50, 0.55))
+    drop-shadow(0 0 14px rgba(255, 140, 30, 0.3));
+}
+
 .icon {
   display: block;
   width: 64px;
   height: 64px;
-  margin: 0 auto var(--space-5);
+  margin: 0 0 var(--space-5) 0;
 }
 
 .title {
@@ -80,6 +169,25 @@
 
 @media (min-width: 768px) {
   .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-16);
     min-height: calc(100vh - 280px);
+  }
+
+  .content {
+    text-align: left;
+    flex: 1;
+    max-width: 550px;
+  }
+
+  .ctaGroup {
+    justify-content: flex-start;
+  }
+
+  .sphereCol {
+    flex: 1;
+    max-width: 480px;
   }
 }

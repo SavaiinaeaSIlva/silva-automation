@@ -30,7 +30,10 @@ export const Header = () => {
       const target = document.getElementById(targetId);
       if (target) {
         const headerOffset = headerRef.current?.getBoundingClientRect().height ?? 0;
-        const targetTop = Math.max(target.getBoundingClientRect().top + window.scrollY - headerOffset, 0);
+        const targetTop = Math.max(
+          target.getBoundingClientRect().top + window.scrollY - headerOffset,
+          0
+        );
         window.scrollTo({ top: targetTop, behavior: 'smooth' });
         window.history.pushState(null, '', href);
       }
@@ -123,7 +126,6 @@ export const Header = () => {
                   </li>
                 );
               })}
-
             </ul>
           </div>
         )}

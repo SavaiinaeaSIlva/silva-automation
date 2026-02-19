@@ -13,7 +13,7 @@ sav2/
 ├── src/                       # Source code
 │   ├── features/             # Feature-based modules
 │   │   ├── header/           # Navigation header
-│   │   ├── hero/             # Hero section + RollingText
+│   │   ├── hero/             # Hero section + RollingText + globe/sphere visual
 │   │   ├── workflow/         # Workflow diagram section
 │   │   ├── calculator/       # ROI Calculator (+ Input, useCalculator)
 │   │   ├── pricing/          # Pricing tiers
@@ -59,19 +59,21 @@ sav2/
 │   │   ├── Logo.tsx
 │   │   └── index.ts
 │   │
+│   ├── assets/              # Static assets imported by components
+│   │   ├── icon.svg         # Brand icon (used in Hero + Header)
+│   │   └── logo.svg         # Full logo
+│   │
 │   ├── App.tsx              # Root component
 │   ├── App.css              # App-level styles
 │   ├── index.css            # Global CSS variables & resets
 │   └── main.tsx             # Entry point
 │
 ├── public/                   # Static assets
-│   ├── images/
-│   ├── fonts/
-│   └── favicon.ico
+│   └── icon.svg             # Favicon (SVG)
 │
 ├── .editorconfig            # Editor configuration
 ├── .env.example             # Environment variables template
-├── .eslintrc.json           # ESLint configuration
+├── eslint.config.js         # ESLint configuration (flat config)
 ├── .gitignore               # Git ignore rules
 ├── .prettierrc              # Prettier configuration
 ├── .prettierignore          # Prettier ignore rules
@@ -80,10 +82,12 @@ sav2/
 ├── tsconfig.json            # TypeScript config (base)
 ├── tsconfig.app.json        # TypeScript config (app)
 ├── tsconfig.node.json       # TypeScript config (node)
+├── vercel.json              # Vercel deployment config
 ├── vite.config.ts           # Vite configuration
-├── CONTRIBUTING.md          # Contribution guidelines
-├── README.md                # Project documentation
-└── STRUCTURE.md             # This file
+└── context/                 # Project docs & coding standards
+    ├── CLAUDE.md            # Coding rules & conventions
+    ├── README.md            # Project documentation
+    └── STRUCTURE.md         # This file
 ```
 
 ## Architecture Patterns
@@ -100,7 +104,22 @@ features/calculator/
 ├── Input.tsx                   # Feature-specific sub-component
 ├── Input.module.css            # Sub-component styles
 └── index.ts                    # Public exports
+
+features/hero/
+├── Hero.tsx                    # Main component (title, CTA, globe/sphere)
+├── Hero.module.css             # Scoped styles (sphere, orbit, dot-pattern)
+├── RollingText.tsx             # Animated word-cycling sub-component
+├── RollingText.module.css      # RollingText styles
+└── index.ts                    # Public exports
 ```
+
+**Hero globe/sphere:**
+The hero section includes an interactive 3D-style globe built with inline SVG
+(longitude/latitude lines) and GSAP animations:
+
+- Longitude ellipses spin via GSAP `onUpdate` callback
+- An orbiting light follows the cursor on mousemove, auto-rotates otherwise
+- A radial dot-pattern overlay is applied via `::before` on `.heroSection`
 
 **Benefits:**
 
@@ -156,7 +175,6 @@ Types (Structure)
 // ✅ Good - Use path aliases
 import { siteContent } from '@/constants';
 import { Button } from '@/components/ui';
-import { useCalculator } from '@/hooks';
 
 // ❌ Bad - Relative paths
 import { siteContent } from '../../../constants/site-content';

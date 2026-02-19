@@ -34,12 +34,26 @@
   z-index: 2; /* ensure content sits above dotted overlay */
 }
 
-:global(#contact) {
+.contactSection {
   position: relative;
+  overflow: hidden;
+}
+
+.contactSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.6px, transparent 1.6px);
+  background-size: 14px 14px;
+  opacity: 0.4;
+  z-index: 0;
+  mix-blend-mode: screen;
+  transform: translateZ(0);
 }
 
 .formCard {
-  background: rgba(255, 255, 255, 0.05);
+  background: #111111;
   border-color: rgba(255, 255, 255, 0.1);
 }
 

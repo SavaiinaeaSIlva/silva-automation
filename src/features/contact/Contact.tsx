@@ -118,7 +118,13 @@ export const Contact = () => {
   };
 
   return (
-    <Section id={contact.id} background="dark" padding="large" noReveal>
+    <Section
+      id={contact.id}
+      background="dark"
+      padding="large"
+      noReveal
+      className={styles.contactSection}
+    >
       <Container size="medium">
         <div className={styles.header} ref={headerRef}>
           <h2 className={styles.title}>{contact.title}</h2>

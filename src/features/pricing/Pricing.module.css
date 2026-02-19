@@ -5,14 +5,19 @@
 }
 
 .pricingSection {
-  background-color: var(--color-primary);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 127, 7, 0.5) 0%,
+    rgba(255, 127, 7, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .title {
-  font-size: var(--heading-2);
+  font-size: var(--heading-1);
   font-weight: var(--font-weight-bold);
   margin: 0 0 var(--space-3) 0;
-  color: var(--color-text-on-dark);
+  color: var(--color-text-primary);
 }
 
 .title::after {
@@ -20,13 +25,13 @@
   display: block;
   width: 60px;
   height: 3px;
-  background: var(--color-text-on-dark);
+  background: var(--color-primary);
   margin: var(--space-4) auto 0;
 }
 
 .intro {
   font-size: var(--text-sm);
-  color: var(--color-text-on-dark);
+  color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto var(--space-6);
   line-height: 1.6;
