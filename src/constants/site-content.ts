@@ -12,6 +12,7 @@ export const siteContent: SiteContent = {
     skipToMainContent: 'Skip to main content',
     logoAlt: 'Silva Automation',
     backToTopAria: 'Back to top',
+    mainNavAria: 'Main navigation',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     mobileNavAria: 'Mobile navigation',
@@ -283,7 +284,6 @@ export const siteContent: SiteContent = {
     title: 'Contact Us',
     subtitle:
       'Have a question? Want to see if automation is a fit for your business? Get in touch.',
-    webhook: 'https://n8n.silvaautomation.com/webhook/c0185471-5c05-41c8-b140-124d79f90a38',
     cta: {
       text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',

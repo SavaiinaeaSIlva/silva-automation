@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Button, Card } from '@/components/ui';
@@ -11,8 +11,17 @@ export const Calculator = () => {
   const { calculator } = siteContent;
   const { inputs, updateInput, reset, results } = useCalculator();
   const [copied, setCopied] = useState(false);
+  const copyResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleCopy = () => {
+  useEffect(() => {
+    return () => {
+      if (copyResetTimeoutRef.current) {
+        clearTimeout(copyResetTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopy = async () => {
     const text = `
 ${calculator.resultLabels.monthlyAdminCost}: ${formatCurrency(results.monthlyAdminCost)}
 ${calculator.resultLabels.yearlyRevenueLeak}: ${formatCurrency(results.yearlyRevenueLeak)}
@@ -22,9 +31,18 @@ ${calculator.resultLabels.firstYearRoi}: ${formatNumber(results.firstYearRoi)}${
 ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings)}
     `.trim();
 
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      if (copyResetTimeoutRef.current) {
+        clearTimeout(copyResetTimeoutRef.current);
+      }
+      copyResetTimeoutRef.current = setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
@@ -41,9 +59,11 @@ ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings
             <h3 className={styles.cardTitle}>{calculator.inputsTitle}</h3>
             <div className={styles.inputs}>
               <Input
+                id="calculator-people"
                 type="number"
                 label={calculator.fields[0].label}
                 placeholder={calculator.fields[0].placeholder}
+                helperText={calculator.fields[0].srDescription}
                 value={inputs.people}
                 onChange={(e) => updateInput('people', Number(e.target.value))}
                 min={calculator.fields[0].min}
@@ -51,9 +71,11 @@ ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings
               />
 
               <Input
+                id="calculator-hours-per-week"
                 type="number"
                 label={calculator.fields[1].label}
                 placeholder={calculator.fields[1].placeholder}
+                helperText={calculator.fields[1].srDescription}
                 value={inputs.hoursPerWeek}
                 onChange={(e) => updateInput('hoursPerWeek', Number(e.target.value))}
                 min={calculator.fields[1].min}
@@ -61,9 +83,11 @@ ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings
               />
 
               <Input
+                id="calculator-cost-per-hour"
                 type="number"
                 label={calculator.fields[2].label}
                 placeholder={calculator.fields[2].placeholder}
+                helperText={calculator.fields[2].srDescription}
                 value={inputs.costPerHour}
                 onChange={(e) => updateInput('costPerHour', Number(e.target.value))}
                 min={calculator.fields[2].min}
@@ -71,9 +95,11 @@ ${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings
               />
 
               <Input
+                id="calculator-automation-cost"
                 type="number"
                 label={calculator.fields[3].label}
                 placeholder={calculator.fields[3].placeholder}
+                helperText={calculator.fields[3].srDescription}
                 value={inputs.automationCost}
                 onChange={(e) => updateInput('automationCost', Number(e.target.value))}
                 min={calculator.fields[3].min}

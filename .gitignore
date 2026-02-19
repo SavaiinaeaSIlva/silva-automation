@@ -43,3 +43,7 @@ coverage
 .cache
 .temp
 *.tsbuildinfo
+
+# AI-local docs
+/Chapter_01
+context/Chapter_01

@@ -1,10 +1,12 @@
 import { Container } from '@/components/layout';
 import { siteContent } from '@/constants';
+import DOMPurify from 'dompurify';
 import styles from './Legal.module.css';
 
 export const Privacy = () => {
   const { legalLayout, legal, footer } = siteContent;
   const page = legal.pages.privacy;
+  const sanitizedContent = DOMPurify.sanitize(page.content);
 
   return (
     <main className={styles.page} id="main">
@@ -29,7 +31,7 @@ export const Privacy = () => {
 
         <article className={styles.card}>
           <h1 className={styles.pageTitle}>{page.title}</h1>
-          <div className={styles.content} dangerouslySetInnerHTML={{ __html: page.content }} />
+          <div className={styles.content} dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </article>
       </Container>
     </main>

@@ -8,7 +8,8 @@ export const Header = () => {
   const { header } = siteContent;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
-  const observerLockUntil = useRef(0);
+  const observerLocked = useRef(false);
+  const observerUnlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -23,7 +24,14 @@ export const Header = () => {
 
     if (href.startsWith('#')) {
       event.preventDefault();
-      observerLockUntil.current = Date.now() + 700;
+      observerLocked.current = true;
+      if (observerUnlockTimer.current) {
+        clearTimeout(observerUnlockTimer.current);
+      }
+      observerUnlockTimer.current = setTimeout(() => {
+        observerLocked.current = false;
+        observerUnlockTimer.current = null;
+      }, 700);
       updateActiveId(href);
 
       const targetId = href.replace('#', '');
@@ -49,7 +57,7 @@ export const Header = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (Date.now() < observerLockUntil.current) return;
+        if (observerLocked.current) return;
 
         const visible = entries
           .filter((e) => e.isIntersecting)
@@ -60,7 +68,12 @@ export const Header = () => {
     );
 
     elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (observerUnlockTimer.current) {
+        clearTimeout(observerUnlockTimer.current);
+      }
+    };
   }, [header.navLinks]);
 
   return (
@@ -70,7 +83,7 @@ export const Header = () => {
       </a>
 
       <Container>
-        <nav className={styles.nav} aria-label="Main navigation">
+        <nav className={styles.nav} aria-label={header.mainNavAria}>
           <div className={styles.logo}>
             <a href="#" aria-label={header.logoAlt}>
               <img src={logo} alt={header.logoAlt} className={styles.logoImage} />

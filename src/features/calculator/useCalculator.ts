@@ -12,7 +12,8 @@ export const useCalculator = () => {
   const [inputs, setInputs] = useState<CalculatorInputs>(DEFAULT_INPUTS);
 
   const updateInput = (field: keyof CalculatorInputs, value: number) => {
-    setInputs((prev) => ({ ...prev, [field]: value }));
+    const safeValue = Number.isFinite(value) ? Math.max(value, 0) : 0;
+    setInputs((prev) => ({ ...prev, [field]: safeValue }));
   };
 
   const reset = () => {
@@ -27,8 +28,9 @@ export const useCalculator = () => {
     const yearlyRevenueLeak = weeklyAdminCost * 52;
     const yearlyHoursSaved = people * hoursPerWeek * 52;
     const yearlySavings = yearlyRevenueLeak;
-    const paybackPeriod = automationCost / monthlyAdminCost;
-    const firstYearRoi = ((yearlySavings - automationCost) / automationCost) * 100;
+    const paybackPeriod = monthlyAdminCost > 0 ? automationCost / monthlyAdminCost : 0;
+    const firstYearRoi =
+      automationCost > 0 ? ((yearlySavings - automationCost) / automationCost) * 100 : 0;
 
     return {
       monthlyAdminCost,

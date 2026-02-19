@@ -14,6 +14,7 @@ export const Contact = () => {
   const { contact } = siteContent;
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const webhookUrl = import.meta.env.VITE_CONTACT_WEBHOOK_URL ?? import.meta.env.VITE_WEBHOOK_URL;
 
   type FormState = { firstName: string; email: string; message: string; lastName: string };
   const [form, setForm] = useState<FormState>({
@@ -23,6 +24,7 @@ export const Contact = () => {
     lastName: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState(contact.form.validation.required);
 
   // Scroll reveal animation for header
   useEffect(() => {
@@ -89,17 +91,24 @@ export const Contact = () => {
     }
 
     if (!firstName || !email || !message) {
+      setErrorMessage(contact.form.validation.required);
       setStatus('error');
       return;
     }
     if (!validateEmail(email)) {
+      setErrorMessage(contact.form.validation.emailInvalid);
+      setStatus('error');
+      return;
+    }
+    if (!webhookUrl) {
+      setErrorMessage(contact.form.error);
       setStatus('error');
       return;
     }
 
     setStatus('submitting');
     try {
-      const res = await fetch(siteContent.contact.webhook, {
+      const res = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: firstName, email, message }),
@@ -110,8 +119,7 @@ export const Contact = () => {
       setStatus('success');
       setForm({ firstName: '', email: '', message: '', lastName: '' });
     } catch (err) {
-      // keep console error for debugging; UI shows generic message
-      // eslint-disable-next-line no-console
+      setErrorMessage(contact.form.error);
       console.error('Contact form submit error', err);
       setStatus('error');
     }
@@ -158,6 +166,7 @@ export const Contact = () => {
                 value={form.firstName}
                 onChange={(e) => setForm((s) => ({ ...s, firstName: e.target.value }))}
                 placeholder={contact.form.namePlaceholder}
+                autoComplete="name"
                 required
               />
 
@@ -166,10 +175,13 @@ export const Contact = () => {
               </label>
               <input
                 id="contact-email"
+                type="email"
+                name="email"
                 className={styles.input}
                 value={form.email}
                 onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
                 placeholder={contact.form.emailPlaceholder}
+                autoComplete="email"
                 required
               />
 
@@ -178,6 +190,7 @@ export const Contact = () => {
               </label>
               <textarea
                 id="contact-message"
+                name="message"
                 className={styles.input}
                 value={form.message}
                 onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
@@ -196,9 +209,7 @@ export const Contact = () => {
                 </button>
               </div>
 
-              {status === 'error' && (
-                <p className={styles.error}>{contact.form.validation.required}</p>
-              )}
+              {status === 'error' && <p className={styles.error}>{errorMessage}</p>}
               {status === 'success' && <p className={styles.success}>{contact.form.success}</p>}
             </form>
           </Card>

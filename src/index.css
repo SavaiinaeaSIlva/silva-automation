@@ -257,23 +257,3 @@ a:focus-visible {
     padding: 0 40px;
   }
 }
-
-/* TEMP: visual-scale preview — remove after review
-   Applies a reversible, site-wide scale so you can preview "one size smaller" quickly.
-   Uses `zoom` where available, falls back to `transform: scale()` in browsers that
-   don't support `zoom`. */
-@media (min-width: 0px) {
-  @supports (zoom: 1) {
-    body.preview-scale {
-      zoom: 0.95;
-    }
-  }
-  @supports not (zoom: 1) {
-    body.preview-scale {
-      transform: scale(0.95);
-      transform-origin: 0 0;
-      /* compensate width so layout stays full-bleed */
-      width: calc(100% / 0.95);
-    }
-  }
-}

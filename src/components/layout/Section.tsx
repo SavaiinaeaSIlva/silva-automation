@@ -33,25 +33,26 @@ export const Section = ({
   revealOptions = {},
 }: SectionProps) => {
   const ref = useRef<HTMLElement | null>(null);
+  const revealY = revealOptions.y ?? 30;
+  const revealDuration = revealOptions.duration ?? 0.8;
+  const revealStart = revealOptions.start ?? 'top 85%';
 
   useEffect(() => {
     const el = ref.current;
     if (!el || noReveal) return;
 
-    const { y = 30, duration = 0.8, start = 'top 85%' } = revealOptions;
-
     // Set initial state
-    gsap.set(el, { opacity: 0, y });
+    gsap.set(el, { opacity: 0, y: revealY });
 
     const ctx = gsap.context(() => {
       gsap.to(el, {
         opacity: 1,
         y: 0,
-        duration,
+        duration: revealDuration,
         ease: 'power2.out',
         scrollTrigger: {
           trigger: el,
-          start,
+          start: revealStart,
           toggleActions: 'play none none none',
           once: true,
         },
@@ -59,8 +60,7 @@ export const Section = ({
     }, el);
 
     return () => ctx.revert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noReveal]);
+  }, [noReveal, revealDuration, revealStart, revealY]);
 
   return (
     <section

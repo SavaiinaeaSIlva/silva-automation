@@ -37,6 +37,7 @@ export interface HeaderContent {
   skipToMainContent: string;
   logoAlt: string;
   backToTopAria: string;
+  mainNavAria: string;
   openMenu: string;
   closeMenu: string;
   mobileNavAria: string;
@@ -186,7 +187,6 @@ export interface ContactContent {
   label: string;
   title: string;
   subtitle: string;
-  webhook: string;
   cta: ContactCTA;
   form: ContactForm;
 }

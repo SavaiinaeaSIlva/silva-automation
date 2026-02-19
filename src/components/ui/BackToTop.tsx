@@ -26,13 +26,15 @@ export const BackToTop = () => {
     if (!pricingSection || !faqSection) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.target === pricingSection) {
-          setIsInPricing(entry.isIntersecting);
-        }
-        if (entry.target === faqSection) {
-          setIsInFaq(entry.isIntersecting);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === pricingSection) {
+            setIsInPricing(entry.isIntersecting);
+          }
+          if (entry.target === faqSection) {
+            setIsInFaq(entry.isIntersecting);
+          }
+        });
       },
       {
         root: null,
