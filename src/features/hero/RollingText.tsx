@@ -1,6 +1,7 @@
 import { useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { siteContent } from '@/constants';
 import styles from './RollingText.module.css';
 
 interface RollingTextProps {
@@ -13,18 +14,8 @@ interface RollingTextProps {
 
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-const DEFAULT_WORDS = [
-  'Business',
-  'Efficiency',
-  'Freedom',
-  'Profits',
-  'Revenue',
-  'Growth',
-  'Focus',
-];
-
 export const RollingText = ({
-  words = DEFAULT_WORDS,
+  words = siteContent.hero.rollingWords,
   className = '',
   rollDuration = 1.0,
   holdDuration = 2.5,
@@ -55,11 +46,9 @@ export const RollingText = ({
             const cell = col.parentElement;
             if (!cell) return;
             if (i < word.length) {
-              cell.style.visibility = 'visible';
-              cell.style.width = '';
+              cell.classList.remove(styles.cellHidden);
             } else {
-              cell.style.visibility = 'hidden';
-              cell.style.width = '0';
+              cell.classList.add(styles.cellHidden);
             }
           });
         });
@@ -127,15 +116,8 @@ export const RollingText = ({
   return (
     <span ref={containerRef} className={`${styles.container} ${className}`}>
       {Array.from({ length: maxLen }).map((_, i) => (
-        <span
-          key={i}
-          className={styles.cell}
-          style={{
-            visibility: i < words[0].length ? 'visible' : 'hidden',
-            width: i < words[0].length ? '' : '0',
-          }}
-        >
-          <span className={styles.column} data-col="" style={{ transform: 'translateY(0%)' }}>
+        <span key={i} className={`${styles.cell} ${i >= words[0].length ? styles.cellHidden : ''}`}>
+          <span className={`${styles.column} ${styles.columnInitial}`} data-col="">
             {tripleChars.map((char, ci) => (
               <span key={ci} className={styles.slot}>
                 {char}

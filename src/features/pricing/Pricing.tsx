@@ -109,7 +109,7 @@ export const Pricing = () => {
               </ul>
 
               <p className={styles.bestFor}>
-                <strong>Best for:</strong> {tier.bestFor}
+                <strong>{pricing.bestForLabel}</strong> {tier.bestFor}
               </p>
             </Card>
           ))}

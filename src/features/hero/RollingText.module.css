@@ -34,3 +34,12 @@
 .spacer {
   width: 0.3em;
 }
+
+.cellHidden {
+  visibility: hidden;
+  width: 0;
+}
+
+.columnInitial {
+  transform: translateY(0%);
+}

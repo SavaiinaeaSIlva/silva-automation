@@ -13,10 +13,9 @@ sav2/
 ├── src/                       # Source code
 │   ├── features/             # Feature-based modules
 │   │   ├── header/           # Navigation header
-│   │   ├── hero/             # Hero section
-│   │   ├── why-choose-us/    # Why Choose Us section
-│   │   ├── services/         # Services showcase
-│   │   ├── calculator/       # ROI Calculator
+│   │   ├── hero/             # Hero section + RollingText
+│   │   ├── workflow/         # Workflow diagram section
+│   │   ├── calculator/       # ROI Calculator (+ Input, useCalculator)
 │   │   ├── pricing/          # Pricing tiers
 │   │   ├── contact/          # Contact form
 │   │   ├── faq/              # FAQ section
@@ -24,16 +23,15 @@ sav2/
 │   │   ├── cookie-banner/    # Cookie consent
 │   │   └── error-boundary/   # Error handling
 │   │
-│   ├── components/           # Reusable components
+│   ├── components/           # Reusable components (3+ features)
 │   │   ├── ui/              # UI primitives
-│   │   │   ├── Button/
-│   │   │   ├── Input/
-│   │   │   ├── Card/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── BackToTop.tsx
 │   │   │   └── index.ts     # Barrel export
 │   │   ├── layout/          # Layout components
-│   │   │   ├── Container/
-│   │   │   ├── Grid/
-│   │   │   ├── Section/
+│   │   │   ├── Container.tsx
+│   │   │   ├── Section.tsx
 │   │   │   └── index.ts     # Barrel export
 │   │   └── index.ts         # Barrel export
 │   │
@@ -45,27 +43,25 @@ sav2/
 │   │   ├── site-content.ts  # All site text/data
 │   │   └── index.ts         # Barrel export
 │   │
-│   ├── hooks/               # Custom React hooks
-│   │   ├── useCalculator.ts
-│   │   ├── useContactForm.ts
+│   ├── hooks/               # Custom shared React hooks
 │   │   └── index.ts         # Barrel export
 │   │
 │   ├── utils/               # Utility functions
-│   │   ├── formatCurrency.ts
+│   │   ├── formatters.ts
 │   │   ├── validation.ts
 │   │   └── index.ts         # Barrel export
 │   │
-│   ├── styles/              # Global styles
-│   │   ├── globals.css
-│   │   └── variables.css
-│   │
 │   ├── pages/               # Page components
-│   │   ├── Home.tsx
 │   │   ├── Terms.tsx
 │   │   ├── Privacy.tsx
+│   │   ├── Cookies.tsx
+│   │   ├── Refunds.tsx
+│   │   ├── Logo.tsx
 │   │   └── index.ts
 │   │
 │   ├── App.tsx              # Root component
+│   ├── App.css              # App-level styles
+│   ├── index.css            # Global CSS variables & resets
 │   └── main.tsx             # Entry point
 │
 ├── public/                   # Static assets
@@ -99,15 +95,15 @@ Each feature is self-contained:
 ```
 features/calculator/
 ├── Calculator.tsx              # Main component
-├── CalculatorInput.tsx         # Input sub-component
-├── CalculatorResults.tsx       # Results sub-component
+├── Calculator.module.css       # Scoped styles
 ├── useCalculator.ts            # Business logic hook
-├── calculator.utils.ts         # Helper functions
-├── calculator.types.ts         # Local types (optional)
+├── Input.tsx                   # Feature-specific sub-component
+├── Input.module.css            # Sub-component styles
 └── index.ts                    # Public exports
 ```
 
 **Benefits:**
+
 - Easy to locate related code
 - Simple to test in isolation
 - Clear boundaries between features
@@ -124,6 +120,7 @@ export { Calculator } from './Calculator';
 ```
 
 **Usage:**
+
 ```typescript
 // Clean import
 import { Calculator } from '@/features/calculator';
@@ -206,6 +203,7 @@ import { Input } from '@/components/ui/Input';
 ### Shared Components
 
 Move to `components/ui/` when:
+
 - Used in 3+ different features
 - Generic and reusable
 - No business logic
@@ -213,6 +211,7 @@ Move to `components/ui/` when:
 ### State Management
 
 For global state (future):
+
 - Add `src/store/` for Redux/Zustand
 - Or use Context in `src/contexts/`
 - Keep feature state local when possible
@@ -220,6 +219,7 @@ For global state (future):
 ### API Integration
 
 When adding API calls:
+
 1. Create `src/services/` folder
 2. Define API client and endpoints
 3. Create hooks in `src/hooks/` for data fetching

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
-import { Input, Button, Card } from '@/components/ui';
-import { useCalculator } from '@/hooks';
+import { Button, Card } from '@/components/ui';
+import { useCalculator } from './useCalculator';
+import { Input } from './Input';
 import { formatCurrency, formatNumber } from '@/utils';
 import styles from './Calculator.module.css';
 
@@ -13,12 +14,12 @@ export const Calculator = () => {
 
   const handleCopy = () => {
     const text = `
-Monthly Admin Cost: ${formatCurrency(results.monthlyAdminCost)}
-Yearly Cost: ${formatCurrency(results.yearlyRevenueLeak)}
-Hours Saved: ${formatNumber(results.yearlyHoursSaved)}
-Payback Period: ${formatNumber(results.paybackPeriod)} months
-First Year ROI: ${formatNumber(results.firstYearRoi)}%
-Yearly Savings: ${formatCurrency(results.yearlySavings)}
+${calculator.resultLabels.monthlyAdminCost}: ${formatCurrency(results.monthlyAdminCost)}
+${calculator.resultLabels.yearlyRevenueLeak}: ${formatCurrency(results.yearlyRevenueLeak)}
+${calculator.resultLabels.yearlyHoursSaved}: ${formatNumber(results.yearlyHoursSaved)}
+${calculator.resultLabels.paybackPeriod}: ${formatNumber(results.paybackPeriod)} ${calculator.monthsUnit}
+${calculator.resultLabels.firstYearRoi}: ${formatNumber(results.firstYearRoi)}${calculator.percentUnit}
+${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings)}
     `.trim();
 
     navigator.clipboard.writeText(text);
@@ -125,13 +126,16 @@ Yearly Savings: ${formatCurrency(results.yearlySavings)}
               <div className={styles.result}>
                 <span className={styles.resultLabel}>{calculator.resultLabels.paybackPeriod}</span>
                 <span className={styles.resultValue}>
-                  {formatNumber(results.paybackPeriod)} months
+                  {formatNumber(results.paybackPeriod)} {calculator.monthsUnit}
                 </span>
               </div>
 
               <div className={styles.result}>
                 <span className={styles.resultLabel}>{calculator.resultLabels.firstYearRoi}</span>
-                <span className={styles.resultValue}>{formatNumber(results.firstYearRoi)}%</span>
+                <span className={styles.resultValue}>
+                  {formatNumber(results.firstYearRoi)}
+                  {calculator.percentUnit}
+                </span>
               </div>
 
               <div className={styles.result}>

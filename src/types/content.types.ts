@@ -50,6 +50,8 @@ export interface HeaderContent {
 
 export interface HeroContent {
   title: string;
+  titlePrefix: string;
+  rollingWords: string[];
   titleLine1Highlight: string;
   titleLine1Rest: string;
   titleLine2Highlight: string;
@@ -94,6 +96,8 @@ export interface CalculatorContent {
   copyButton: string;
   copiedButton: string;
   copyAriaLabel: string;
+  monthsUnit: string;
+  percentUnit: string;
   resultLabels: CalculatorResultLabels;
 }
 
@@ -139,6 +143,7 @@ export interface PricingContent {
   label: string;
   header: string;
   intro: string;
+  bestForLabel: string;
   foundingOffer: FoundingOffer;
   tiers: PricingTier[];
   afterSupport: AfterSupport;
@@ -285,6 +290,7 @@ export interface LegalLayoutContent {
   logoAlt: string;
   lastUpdated: string;
   footerText: string;
+  legalPagesNavAria: string;
 }
 
 // ============================================================================
@@ -334,9 +340,35 @@ export interface WorkflowContent {
   label: string;
   title: string;
   subtitle: string;
+  clickHint: string;
+  replayAnimationAria: string;
+  closeAria: string;
+  previousNodeAria: string;
+  nextNodeAria: string;
+  nodeDetailsSuffix: string;
   inputs: WorkflowNode[];
   engine: WorkflowNode;
   outputs: WorkflowNode[];
+}
+
+// ============================================================================
+// Calculator Hook Types
+// ============================================================================
+
+export interface CalculatorInputs {
+  people: number;
+  hoursPerWeek: number;
+  costPerHour: number;
+  automationCost: number;
+}
+
+export interface CalculatorResults {
+  monthlyAdminCost: number;
+  yearlyRevenueLeak: number;
+  yearlyHoursSaved: number;
+  paybackPeriod: number;
+  firstYearRoi: number;
+  yearlySavings: number;
 }
 
 // ============================================================================

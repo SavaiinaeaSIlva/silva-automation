@@ -1,20 +1,5 @@
 import { useState } from 'react';
-
-export interface CalculatorInputs {
-  people: number;
-  hoursPerWeek: number;
-  costPerHour: number;
-  automationCost: number;
-}
-
-export interface CalculatorResults {
-  monthlyAdminCost: number;
-  yearlyRevenueLeak: number;
-  yearlyHoursSaved: number;
-  paybackPeriod: number;
-  firstYearRoi: number;
-  yearlySavings: number;
-}
+import type { CalculatorInputs, CalculatorResults } from '@/types';
 
 const DEFAULT_INPUTS: CalculatorInputs = {
   people: 10,

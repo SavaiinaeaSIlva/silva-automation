@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { siteContent } from '@/constants';
 import styles from './BackToTop.module.css';
 
 export const BackToTop = () => {
@@ -57,7 +58,7 @@ export const BackToTop = () => {
         isInPricing && !isInFaq ? styles.inverted : ''
       }`}
       onClick={scrollToTop}
-      aria-label="Back to top"
+      aria-label={siteContent.header.backToTopAria}
     >
       ↑
     </button>

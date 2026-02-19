@@ -2,15 +2,8 @@ import { Container } from '@/components/layout';
 import { siteContent } from '@/constants';
 import styles from './Legal.module.css';
 
-const LEGAL_PAGES = [
-  { label: 'Terms', href: '/terms' },
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Cookies', href: '/cookies' },
-  { label: 'Refunds', href: '/refunds' },
-];
-
 export const Cookies = () => {
-  const { legalLayout, legal } = siteContent;
+  const { legalLayout, legal, footer } = siteContent;
   const page = legal.pages.cookies;
 
   return (
@@ -20,8 +13,8 @@ export const Cookies = () => {
           <a href="/" className={styles.back}>
             {legalLayout.backToHome}
           </a>
-          <nav className={styles.legalNav} aria-label="Legal pages">
-            {LEGAL_PAGES.map((link) => (
+          <nav className={styles.legalNav} aria-label={legalLayout.legalPagesNavAria}>
+            {footer.legalLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}

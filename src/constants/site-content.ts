@@ -30,6 +30,19 @@ export const siteContent: SiteContent = {
 
   hero: {
     title: 'Scale Your Operations, Not Your Overhead.',
+    titlePrefix: 'Reclaim Your',
+    rollingWords: [
+      'Business',
+      'Efficiency',
+      'Workflow',
+      'Revenue',
+      'Freedom',
+      'Profits',
+      'Growth',
+      'Impact',
+      'Focus',
+      'Time',
+    ],
     titleLine1Highlight: 'Scale Your Operations,',
     titleLine1Rest: '',
     titleLine2Highlight: 'Not Your Overhead.',
@@ -56,6 +69,12 @@ export const siteContent: SiteContent = {
     title: "Built for Hawaii's Service Firms",
     subtitle:
       'Silva Automation designs and delivers custom workflows for established Hawaii businesses. Professional services, real estate, and healthcare. Each solution is implemented directly in your cloud environment using platforms such as n8n and Oracle Cloud, so your team retains full control and ownership of every asset.',
+    clickHint: 'Click any node to learn more',
+    replayAnimationAria: 'Replay animation',
+    closeAria: 'Close',
+    previousNodeAria: 'Previous node',
+    nextNodeAria: 'Next node',
+    nodeDetailsSuffix: '— click for details',
     inputs: [
       {
         icon: 'database',
@@ -152,6 +171,8 @@ export const siteContent: SiteContent = {
     copyButton: 'Copy',
     copiedButton: 'Copied!',
     copyAriaLabel: 'Copy results',
+    monthsUnit: 'months',
+    percentUnit: '%',
     resultLabels: {
       monthlyAdminCost: 'Monthly cost',
       yearlyRevenueLeak: 'Yearly cost',
@@ -168,6 +189,8 @@ export const siteContent: SiteContent = {
     header: 'Fixed-Fee Projects. No Retainers.',
     intro:
       'Silva Automation operates on a project-based model. Each engagement is scoped and priced as a one-time fixed fee, with no ongoing retainers required for the automation to continue running.',
+
+    bestForLabel: 'Best for:',
 
     foundingOffer: {
       show: false,
@@ -399,6 +422,7 @@ export const siteContent: SiteContent = {
     logoAlt: 'Silva Automation',
     lastUpdated: 'October 7, 2025',
     footerText: 'Silva Automation LLC. All rights reserved.',
+    legalPagesNavAria: 'Legal pages',
   },
 
   legal: {

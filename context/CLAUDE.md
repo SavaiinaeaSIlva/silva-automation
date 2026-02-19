@@ -13,8 +13,7 @@ src/
 ├── features/           # ONE folder per landing page section
 │   ├── header/
 │   ├── hero/
-│   ├── why-choose-us/
-│   ├── services/
+│   ├── workflow/
 │   ├── calculator/
 │   ├── pricing/
 │   ├── contact/
@@ -24,8 +23,8 @@ src/
 │   └── error-boundary/
 │
 ├── components/         # ONLY for reusable components used in 3+ features
-│   ├── ui/            # Button, Input, Card, etc.
-│   └── layout/        # Container, Section, Grid
+│   ├── ui/            # Button, Card, BackToTop
+│   └── layout/        # Container, Section
 │
 ├── types/             # ALL TypeScript types
 │   └── content.types.ts
@@ -33,10 +32,9 @@ src/
 ├── constants/         # ALL site content
 │   └── site-content.ts
 │
-├── hooks/             # Custom React hooks
+├── hooks/             # Custom shared React hooks
 ├── utils/             # Pure utility functions
-├── styles/            # Global styles only
-└── pages/             # Full page components (future routing)
+└── pages/             # Full page components (legal pages, Logo)
 ```
 
 ## MANDATORY Rules
@@ -44,17 +42,20 @@ src/
 ### 1. Feature Organization
 
 **Each feature MUST have its own folder with:**
+
 - `FeatureName.tsx` - Main component
 - `FeatureName.module.css` - Scoped CSS Module
 - `index.ts` - Barrel export: `export { FeatureName } from './FeatureName'`
 
 **Example:**
+
 ```
 features/calculator/
 ├── Calculator.tsx
 ├── Calculator.module.css
-├── useCalculator.ts      # Feature-specific hook (optional)
-├── calculator.utils.ts   # Feature-specific utils (optional)
+├── useCalculator.ts      # Feature-specific hook
+├── Input.tsx             # Feature-specific sub-component
+├── Input.module.css
 └── index.ts
 ```
 
@@ -63,12 +64,14 @@ features/calculator/
 **ALL text/data MUST go in `src/constants/site-content.ts`**
 
 ❌ NEVER hardcode strings in components:
+
 ```typescript
 // WRONG
 <h1>Your Admin Work Should Run Itself</h1>
 ```
 
 ✅ ALWAYS use site content:
+
 ```typescript
 // CORRECT
 const { hero } = siteContent;
@@ -80,6 +83,7 @@ const { hero } = siteContent;
 **ALL content types MUST be defined in `src/types/content.types.ts`**
 
 When adding new content:
+
 1. Add type to `content.types.ts`
 2. Add content to `site-content.ts`
 3. TypeScript will enforce correctness
@@ -96,6 +100,7 @@ import styles from './Component.module.css';
 
 **CSS Variables:**
 Use global CSS variables defined in `src/index.css`:
+
 ```css
 /* Use these in your CSS Modules */
 var(--color-primary)
@@ -107,6 +112,7 @@ var(--color-bg-secondary)
 ### 5. Import Conventions
 
 **ALWAYS use path aliases:**
+
 ```typescript
 // CORRECT
 import { siteContent } from '@/constants';
@@ -117,6 +123,7 @@ import { siteContent } from '../../../constants/site-content';
 ```
 
 **Type imports:**
+
 ```typescript
 // CORRECT (for types)
 import type { ReactNode } from 'react';
@@ -149,7 +156,7 @@ import { useState, ReactNode } from 'react';
 
 **Hook location rules:**
 
-- **Shared hooks** → `src/hooks/` (e.g., `useCalculator.ts`)
+- **Shared hooks** → `src/hooks/` (used by multiple features)
 - **Feature-specific hooks** → Keep in feature folder (e.g., `features/calculator/useCalculator.ts`)
 
 Export shared hooks from `src/hooks/index.ts`
@@ -160,13 +167,14 @@ Export shared hooks from `src/hooks/index.ts`
 
 - Components: `PascalCase.tsx` (e.g., `Calculator.tsx`)
 - Hooks: `camelCase.ts` (e.g., `useCalculator.ts`)
-- Utils: `camelCase.ts` (e.g., `formatCurrency.ts`)
+- Utils: `camelCase.ts` (e.g., `formatters.ts`)
 - Types: `kebab-case.types.ts` (e.g., `content.types.ts`)
 - CSS Modules: `PascalCase.module.css` (e.g., `Calculator.module.css`)
 
 ## DO NOT Create
 
 ❌ DO NOT create these without explicit permission:
+
 - New documentation files (we have README, STRUCTURE, QUICKSTART)
 - New config files
 - New build tools
@@ -235,6 +243,7 @@ export { NewComponent } from './NewComponent';
 ## Technology Stack
 
 **Installed and configured:**
+
 - ⚛️ React 19
 - 📘 TypeScript 5 (strict mode)
 - ⚡ Vite 7
@@ -242,6 +251,7 @@ export { NewComponent } from './NewComponent';
 - 🔍 ESLint + Prettier
 
 **DO NOT install:**
+
 - ❌ Tailwind CSS (we use CSS Modules)
 - ❌ styled-components (we use CSS Modules)
 - ❌ Material-UI or other component libraries
@@ -250,6 +260,7 @@ export { NewComponent } from './NewComponent';
 ## Code Quality Standards
 
 **Before committing:**
+
 ```bash
 npm run lint:fix    # Fix linting issues
 npm run format      # Format code
@@ -257,6 +268,7 @@ npm run build       # Ensure it builds
 ```
 
 **Required for all code:**
+
 - TypeScript types for everything
 - CSS Modules for all styling
 - Proper error handling
@@ -272,6 +284,7 @@ npm run build       # Ensure it builds
 ## Version Control
 
 **When making commits:**
+
 - ALWAYS use feature branches
 - NEVER commit directly to main
 - Follow conventional commits (feat:, fix:, etc.)

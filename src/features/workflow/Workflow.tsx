@@ -342,7 +342,7 @@ export const Workflow = () => {
         {/* Reload icon top-right */}
         <button
           className={styles.reloadBtn}
-          aria-label="Replay animation"
+          aria-label={workflow.replayAnimationAria}
           onClick={() => runAnimations()}
         >
           <svg
@@ -361,7 +361,7 @@ export const Workflow = () => {
         </button>
 
         {/* Click hint */}
-        <p className={styles.clickHint}>Click any node to learn more</p>
+        <p className={styles.clickHint}>{workflow.clickHint}</p>
 
         {/* Diagram area (lines + grid) */}
         <div className={styles.diagram} ref={diagramRef}>
@@ -483,7 +483,7 @@ export const Workflow = () => {
                       setActiveNode(node);
                     }
                   }}
-                  aria-label={`${node.title} — click for details`}
+                  aria-label={`${node.title} ${workflow.nodeDetailsSuffix}`}
                 >
                   <span className={styles.nodeIcon}>
                     <NodeIcon type={node.icon} />
@@ -512,7 +512,7 @@ export const Workflow = () => {
                     setActiveNode(workflow.engine);
                   }
                 }}
-                aria-label={`${workflow.engine.title} — click for details`}
+                aria-label={`${workflow.engine.title} ${workflow.nodeDetailsSuffix}`}
               >
                 <div className={styles.engineFront}>
                   <div className={styles.engineGlow} data-engine-glow />
@@ -543,7 +543,7 @@ export const Workflow = () => {
                       setActiveNode(node);
                     }
                   }}
-                  aria-label={`${node.title} — click for details`}
+                  aria-label={`${node.title} ${workflow.nodeDetailsSuffix}`}
                 >
                   <span className={styles.nodeIcon}>
                     <NodeIcon type={node.icon} />
@@ -575,7 +575,7 @@ export const Workflow = () => {
               <button
                 className={styles.modalClose}
                 onClick={() => setActiveNode(null)}
-                aria-label="Close"
+                aria-label={workflow.closeAria}
               >
                 ✕
               </button>
@@ -585,7 +585,7 @@ export const Workflow = () => {
                 className={styles.modalNav}
                 data-dir="prev"
                 onClick={goPrev}
-                aria-label="Previous node"
+                aria-label={workflow.previousNodeAria}
               >
                 <svg
                   width="20"
@@ -606,7 +606,7 @@ export const Workflow = () => {
                 className={styles.modalNav}
                 data-dir="next"
                 onClick={goNext}
-                aria-label="Next node"
+                aria-label={workflow.nextNodeAria}
               >
                 <svg
                   width="20"

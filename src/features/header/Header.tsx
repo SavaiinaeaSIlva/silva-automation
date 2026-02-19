@@ -91,16 +91,6 @@ export const Header = () => {
                 </li>
               );
             })}
-            <li>
-              <a
-                href={header.bookingCta.url}
-                className={styles.bookingCta}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {header.bookingCta.text}
-              </a>
-            </li>
           </ul>
 
           {/* Mobile Menu Button */}
@@ -133,17 +123,7 @@ export const Header = () => {
                   </li>
                 );
               })}
-              <li>
-                <a
-                  href={header.bookingCta.url}
-                  className={styles.mobileBookingCta}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {header.bookingCta.text}
-                </a>
-              </li>
+
             </ul>
           </div>
         )}

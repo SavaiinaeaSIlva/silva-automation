@@ -38,7 +38,7 @@
 }
 
 .logoImage {
-  height: 36px;
+  height: 28px;
   width: auto;
   transition: opacity var(--transition-base);
 }

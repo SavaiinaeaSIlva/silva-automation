@@ -4,6 +4,7 @@ import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
 import { Button } from '@/components/ui';
 import { RollingText } from './RollingText';
+import iconSvg from '@/assets/icon.svg';
 import styles from './Hero.module.css';
 
 export const Hero = () => {
@@ -43,23 +44,11 @@ export const Hero = () => {
       <Container>
         <div className={styles.hero}>
           <div className={styles.content} ref={contentRef}>
+            <img src={iconSvg} alt="" className={styles.icon} aria-hidden="true" />
             <h1 className={styles.title}>
-              Reclaim Your
+              {hero.titlePrefix}
               <br />
-              <RollingText
-                words={[
-                  'Business',
-                  'Efficiency',
-                  'Workflow',
-                  'Revenue',
-                  'Freedom',
-                  'Profits',
-                  'Growth',
-                  'Impact',
-                  'Focus',
-                  'Time',
-                ]}
-              />
+              <RollingText words={hero.rollingWords} />
             </h1>
 
             <p className={styles.subtitle}>{hero.subtitle}</p>
