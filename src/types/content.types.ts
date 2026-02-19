@@ -19,10 +19,7 @@ export interface LinkItem {
   href: string;
 }
 
-export interface IconLabel {
-  label: string;
-  icon: string;
-}
+
 
 // ============================================================================
 // Header Section
@@ -50,18 +47,11 @@ export interface HeaderContent {
 // ============================================================================
 
 export interface HeroContent {
-  title: string;
   titlePrefix: string;
   rollingWords: string[];
-  titleLine1Highlight: string;
-  titleLine1Rest: string;
-  titleLine2Highlight: string;
-  titleLine2Rest: string;
   subtitle: string;
   cta: string;
   bookingCta: BookingCTA;
-  benefits: IconLabel[];
-  workflowSteps: string[];
 }
 
 // ============================================================================
@@ -205,36 +195,12 @@ export interface FAQCategories {
   business: FAQItem[];
 }
 
-export interface FAQForm {
-  nameLabel: string;
-  namePlaceholder: string;
-  emailLabel: string;
-  emailPlaceholder: string;
-  questionLabel: string;
-  questionPlaceholder: string;
-  submit: string;
-  submitting: string;
-  success: string;
-  error: string;
-  validation: FormValidation;
-}
-
 export interface FAQContent {
   id: string;
   label: string;
   title: string;
   intro: string;
-  searchPlaceholder: string;
-  searchLabelSr: string;
-  searchAriaLabel: string;
-  searchHint: string;
-  popularQuestionsTitle: string;
-  seeLess: string;
-  seeAllTemplate: string;
-  noResults: string;
-  clearSearch: string;
   categories: FAQCategories;
-  form: FAQForm;
 }
 
 // ============================================================================

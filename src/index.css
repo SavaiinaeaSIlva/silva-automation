@@ -257,3 +257,9 @@ a:focus-visible {
     padding: 0 40px;
   }
 }
+
+/* App root container */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

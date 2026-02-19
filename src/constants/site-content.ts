@@ -30,7 +30,6 @@ export const siteContent: SiteContent = {
   },
 
   hero: {
-    title: 'Scale Your Operations, Not Your Overhead.',
     titlePrefix: 'Reclaim Your',
     rollingWords: [
       'Business',
@@ -44,10 +43,6 @@ export const siteContent: SiteContent = {
       'Focus',
       'Time',
     ],
-    titleLine1Highlight: 'Scale Your Operations,',
-    titleLine1Rest: '',
-    titleLine2Highlight: 'Not Your Overhead.',
-    titleLine2Rest: '',
     subtitle:
       'Workflow automation for Hawaii service businesses. One fixed project fee. Client-owned infrastructure. No recurring software subscriptions.',
     cta: 'Calculate Your Savings',
@@ -55,13 +50,6 @@ export const siteContent: SiteContent = {
       text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
-    benefits: [
-      { label: 'Fixed-Fee Projects', icon: 'DollarSign' },
-      { label: '100% Asset Ownership', icon: 'Key' },
-      { label: 'Hawaii-Based Engineering', icon: 'MapPin' },
-      { label: '5-Phase Lifecycle', icon: 'Zap' },
-    ],
-    workflowSteps: ['Discovery', 'Design', 'Build/Test', 'Deploy/Train', 'Support'],
   },
 
   workflow: {
@@ -316,33 +304,6 @@ export const siteContent: SiteContent = {
     label: 'FAQ',
     title: 'Questions',
     intro: '',
-    searchPlaceholder: 'Search...',
-    searchLabelSr: 'Search FAQ',
-    searchAriaLabel: 'Search FAQ',
-    searchHint: 'Type a question or keyword to search our FAQ.',
-    popularQuestionsTitle: 'Popular questions',
-    seeLess: 'See less',
-    seeAllTemplate: 'See all ({{count}})',
-    noResults: 'No matches.',
-    clearSearch: 'Clear',
-
-    form: {
-      nameLabel: 'Name',
-      namePlaceholder: 'Your name',
-      emailLabel: 'Email',
-      emailPlaceholder: 'you@company.com',
-      questionLabel: 'Question',
-      questionPlaceholder: 'What would you like to know?',
-      submit: 'Send question',
-      submitting: 'Sending...',
-      success: "Thanks — we'll reply soon.",
-      error: 'Failed to send. Try again later.',
-      validation: {
-        required: 'Name, email and question required',
-        emailInvalid: 'Valid email required',
-      },
-    },
-
     categories: {
       process: [
         {
