@@ -44,6 +44,7 @@ export const Footer = () => {
 
           <div className={styles.section}>
             <h4 className={styles.sectionTitle}>{footer.getInTouchTitle}</h4>
+            <p className={styles.contactIntro}>{footer.contactIntro}</p>
             <ul className={styles.links}>
               <li>
                 <a href={`mailto:${footer.email}`} className={styles.link}>

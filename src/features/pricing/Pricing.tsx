@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 export const Pricing = () => {
   const { pricing } = siteContent;
   const tiersRef = useRef<HTMLDivElement>(null);
-  const supportRef = useRef<HTMLDivElement>(null);
 
   // Staggered pricing tier reveal animation
   useEffect(() => {
@@ -44,75 +43,53 @@ export const Pricing = () => {
     return () => ctx.revert();
   }, []);
 
-  // After-support card reveal
-  useEffect(() => {
-    const support = supportRef.current;
-    if (!support) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        support,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: support,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    }, support);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <Section id={pricing.id} background="white" padding="large" className={styles.pricingSection}>
+    <Section id={pricing.id} background="dark" padding="large" className={styles.pricingSection}>
       <Container>
         <div className={styles.header}>
+          <span className={styles.eyebrow}>{pricing.label}</span>
           <h2 className={styles.title}>{pricing.header}</h2>
           <p className={styles.intro}>{pricing.intro}</p>
         </div>
 
         <div className={styles.tiers} ref={tiersRef}>
-          {pricing.tiers.map((tier, index) => (
-            <Card
-              key={index}
-              variant="elevated"
-              padding="medium"
-              className={styles.tier}
-              data-pricing-tier
-            >
-              {tier.badge && <div className={styles.tierBadge}>{tier.badge}</div>}
-              <h3 className={styles.tierName}>{tier.name}</h3>
-              <div className={styles.price}>
-                <span className={styles.priceAmount}>{tier.foundingPrice}</span>
-                {tier.originalPrice !== tier.foundingPrice && (
-                  <span className={styles.originalPrice}>{tier.originalPrice}</span>
-                )}
-              </div>
-              <p className={styles.description}>{tier.description}</p>
+          {pricing.tiers.map((tier, index) => {
+            const isFeatured = index === 1;
+            return (
+              <Card
+                key={index}
+                variant="elevated"
+                padding="medium"
+                className={`${styles.tier} ${isFeatured ? styles.tierFeatured : styles.tierSide}`}
+                data-pricing-tier
+              >
+                {tier.badge && <div className={styles.tierBadge}>{tier.badge}</div>}
+                <h3 className={styles.tierName}>{tier.name}</h3>
+                <div className={styles.price}>
+                  <span className={styles.priceAmount}>{tier.foundingPrice}</span>
+                  {tier.originalPrice !== tier.foundingPrice && (
+                    <span className={styles.originalPrice}>{tier.originalPrice}</span>
+                  )}
+                </div>
+                <p className={styles.description}>{tier.description}</p>
 
-              <ul className={styles.included}>
-                {tier.included.map((item, i) => (
-                  <li key={i}>
-                    <span className={styles.checkMark} aria-hidden="true">
-                      ✓
-                    </span>{' '}
-                    {item}
-                  </li>
-                ))}
-              </ul>
+                <ul className={styles.included}>
+                  {tier.included.map((item, i) => (
+                    <li key={i}>
+                      <span className={styles.checkMark} aria-hidden="true">
+                        {pricing.checkIcon}
+                      </span>{' '}
+                      {item}
+                    </li>
+                  ))}
+                </ul>
 
-              <p className={styles.bestFor}>
-                <strong>{pricing.bestForLabel}</strong> {tier.bestFor}
-              </p>
-            </Card>
-          ))}
+                <p className={styles.bestFor}>
+                  <strong>{pricing.bestForLabel}</strong> {tier.bestFor}
+                </p>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Founding offer footnote (moved to bottom of Pricing section) */}

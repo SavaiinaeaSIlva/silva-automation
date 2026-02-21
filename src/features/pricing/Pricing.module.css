@@ -1,74 +1,86 @@
-.header {
-  text-align: center;
-  margin-bottom: var(--space-12);
-  padding-bottom: var(--space-6);
+﻿.pricingSection {
+  background: var(--color-bg-dark);
 }
 
-.pricingSection {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 127, 7, 0.5) 0%,
-    rgba(255, 127, 7, 0.15) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+/* -- Header: left-aligned, rule-of-thirds positioning -- */
+.header {
+  text-align: left;
+  margin-bottom: var(--space-10);
+  max-width: 60%;
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
 }
 
 .title {
   font-size: var(--heading-1);
   font-weight: var(--font-weight-bold);
   margin: 0 0 var(--space-3) 0;
-  color: var(--color-text-primary);
-}
-
-.title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--color-primary);
-  margin: var(--space-4) auto 0;
+  color: var(--color-text-on-dark);
 }
 
 .intro {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  max-width: 600px;
-  margin: 0 auto var(--space-6);
-  line-height: 1.6;
+  font-size: var(--text-base);
+  color: var(--color-text-on-dark-muted);
+  max-width: 480px;
+  margin: 0;
+  line-height: 1.7;
 }
-/* foundingOffer card converted to a small footnote */
+
+/* -- Founding offer footnote -- */
 .foundingFootnote {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  justify-content: center;
-  color: var(--color-text-secondary);
+  justify-content: flex-start;
+  color: var(--color-text-on-dark-muted);
   font-size: var(--text-sm);
-  margin: var(--space-5) 0 var(--space-8) 0;
+  margin: var(--space-8) 0 var(--space-10) 0;
 }
 
 .foundingBadge {
-  background: rgba(255, 82, 27, 0.08);
+  background: rgba(37, 99, 235, 0.12);
   color: var(--color-primary);
-  border: 1px solid rgba(255, 82, 27, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.25);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-xs);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .foundingText {
   font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-muted);
 }
+
+/* -- Asymmetrical tier grid (rule of thirds) --
+   Featured tier spans full width on top, side tiers sit
+   below as landscape rectangles (wider than tall)
+   ┌──────────────────────────────────────┐
+   │                                      │
+   │   Featured (full width, prominent)   │
+   │                                      │
+   ├──────────────────┬───────────────────┤
+   │  Starter         │  Growth           │
+   └──────────────────┴───────────────────┘
+*/
 .tiers {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
   gap: var(--space-6);
-  margin-bottom: var(--space-8);
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: var(--space-10);
+  max-width: 1060px;
+  align-items: start;
 }
 
 .tier {
@@ -76,163 +88,225 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  text-align: center;
+  text-align: left;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-5);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.22);
   transition:
     transform var(--transition-slow),
-    box-shadow var(--transition-slow);
+    border-color var(--transition-slow),
+    background var(--transition-slow);
 }
 
-.tier:nth-child(1),
-.tier:nth-child(3) {
-  transform: scale(0.95);
+/* Featured tier: full width across both columns */
+.tierFeatured {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0.04));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.22),
+    0 0 24px rgba(37, 99, 235, 0.12);
+}
+
+.tierFeatured:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(255, 255, 255, 0.06));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.22),
+    0 0 32px rgba(37, 99, 235, 0.18);
+}
+
+/* Side tiers: landscape cards, each 1/2 width in row 2 */
+.tierSide {
   opacity: 0.85;
 }
 
-.tier:nth-child(1):hover,
-.tier:nth-child(3):hover {
-  transform: scale(0.97) translateY(-6px);
+.tierSide:hover {
+  transform: translateY(-4px);
   opacity: 1;
-  box-shadow: var(--shadow-lg);
-}
-
-.tier:nth-child(2) {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-lg);
-}
-
-.tier:nth-child(2):hover {
-  transform: scale(1.05) translateY(-6px);
-  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.22),
+    0 0 20px rgba(255, 255, 255, 0.04);
 }
 
 @media (max-width: 968px) {
+  .header {
+    max-width: 100%;
+  }
+
   .tiers {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    max-width: 480px;
+    gap: var(--space-6);
   }
 
-  .tier:nth-child(1),
-  .tier:nth-child(3) {
-    transform: scale(0.97);
+  .tierFeatured {
+    grid-column: 1;
+    grid-row: auto;
   }
 
-  .tier:nth-child(1):hover,
-  .tier:nth-child(3):hover {
-    transform: scale(0.97) translateY(-4px);
+  .tierSide {
+    opacity: 0.9;
   }
 
-  .tier:nth-child(2) {
-    transform: scale(1);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .tier:nth-child(2):hover {
-    transform: scale(1) translateY(-4px);
+  .tierSide:hover {
+    transform: translateY(-4px);
+    opacity: 1;
   }
 }
 
+/* -- Tier badge -- */
 .tierBadge {
   position: absolute;
-  top: -12px;
-  right: var(--space-5);
-  background: var(--color-primary-dark);
+  top: -13px;
+  left: var(--space-5);
+  background: var(--color-primary);
   color: var(--color-text-on-dark);
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-1) var(--space-4);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
+/* -- Tier content -- */
 .tierName {
   font-size: var(--heading-3);
   font-weight: var(--font-weight-bold);
   margin: 0;
+  color: var(--color-text-on-dark);
+  letter-spacing: -0.01em;
 }
 
 .price {
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  justify-content: center;
+  justify-content: flex-start;
+  padding-bottom: var(--space-4);
 }
 
 .priceAmount {
-  font-size: var(--heading-2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-secondary);
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-on-dark);
+  letter-spacing: -0.02em;
 }
 
 .originalPrice {
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark-muted);
   text-decoration: line-through;
+  opacity: 0.6;
 }
 
 .description {
   font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-muted);
   margin: 0;
+  line-height: 1.6;
 }
 
+/* -- Included list -- */
 .included {
   list-style: none;
-  padding: 0;
+  padding: var(--space-4) 0 0 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
   text-align: left;
-  max-width: 260px;
-  margin-left: auto;
-  margin-right: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Featured tier gets 2-column list to use the extra width */
+.tierFeatured .included {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 968px) {
+  .tierFeatured .included {
+    grid-template-columns: 1fr;
+  }
 }
 
 .included li {
   font-size: var(--text-sm);
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--color-text-on-dark-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
 }
 
 .checkMark {
   color: var(--color-primary);
   font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
 }
 
+/* -- Best-for -- */
 .bestFor {
   font-size: var(--text-sm);
-  color: var(--color-primary);
-  margin: 0;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
+  color: rgba(255, 255, 255, 0.55);
+  margin: auto 0 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  line-height: 1.6;
 }
 
+/* -- After-support card -- */
 .afterSupport {
   max-width: 780px;
-  margin: 0 auto var(--space-8) auto;
-  text-align: center;
-  border: none;
+  margin: 0 0 var(--space-10) 0;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.22);
   transition:
     transform var(--transition-slow),
-    box-shadow var(--transition-slow);
+    border-color var(--transition-slow);
 }
 
 .afterSupport:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .afterTitle,
 .afterHeadline {
   margin: 0 0 var(--space-3) 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
 }
 
 .afterIntro {
   margin: 0 0 var(--space-6) 0;
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-muted);
   font-size: var(--text-sm);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--space-6);
+  line-height: 1.7;
 }
 
 .benefits {
@@ -241,8 +315,6 @@
   gap: var(--space-5);
   margin-bottom: var(--space-6);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 @media (max-width: 768px) {
@@ -252,25 +324,26 @@
 }
 
 .benefit {
-  text-align: center;
+  text-align: left;
 }
 
 .benefitLabel {
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-1);
   font-size: var(--text-sm);
-  color: var(--color-primary);
+  color: var(--color-text-on-dark);
 }
 
 .benefitDetail {
   font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-on-dark-muted);
 }
 
 .coversTitle {
   margin: var(--space-6) 0 var(--space-3) 0;
   font-size: var(--text-base);
   font-weight: var(--font-weight-semibold);
+  color: var(--color-text-on-dark);
 }
 
 .covers {
@@ -281,9 +354,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-3);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
@@ -295,7 +366,8 @@
 .covers li {
   font-size: var(--text-sm);
   padding: var(--space-3);
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-md);
+  color: var(--color-text-on-dark-muted);
 }

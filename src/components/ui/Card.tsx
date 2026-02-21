@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, HTMLAttributes } from 'react';
 import styles from './Card.module.css';
 
-export interface CardProps {
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
   variant?: 'default' | 'elevated' | 'bordered';
@@ -13,9 +13,10 @@ export const Card = ({
   className = '',
   variant = 'default',
   padding = 'medium',
+  ...rest
 }: CardProps) => {
   return (
-    <div className={`${styles.card} ${styles[variant]} ${styles[padding]} ${className}`}>
+    <div className={`${styles.card} ${styles[variant]} ${styles[padding]} ${className}`} {...rest}>
       {children}
     </div>
   );

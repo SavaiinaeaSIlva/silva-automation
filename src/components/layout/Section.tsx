@@ -1,74 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Section.module.css';
-
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
 
 export interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  background?: 'white' | 'gray' | 'primary' | 'dark';
+  background?: 'white' | 'gray' | 'primary' | 'dark' | 'darkAlt';
   padding?: 'small' | 'medium' | 'large';
-  /** Disable scroll reveal animation */
-  noReveal?: boolean;
-  /** Custom reveal animation options */
-  revealOptions?: {
-    y?: number;
-    duration?: number;
-    start?: string;
-  };
 }
 
-export const Section = ({
-  children,
-  className = '',
-  id,
-  background = 'white',
-  padding = 'large',
-  noReveal = false,
-  revealOptions = {},
-}: SectionProps) => {
-  const ref = useRef<HTMLElement | null>(null);
-  const revealY = revealOptions.y ?? 30;
-  const revealDuration = revealOptions.duration ?? 0.8;
-  const revealStart = revealOptions.start ?? 'top 85%';
+export const Section = forwardRef<HTMLElement, SectionProps>(
+  ({ children, className = '', id, background = 'white', padding = 'large' }, ref) => {
+    return (
+      <section
+        id={id}
+        ref={ref}
+        className={`${styles.section} ${styles[background]} ${styles[padding]} ${className}`}
+      >
+        {children}
+      </section>
+    );
+  }
+);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || noReveal) return;
-
-    // Set initial state
-    gsap.set(el, { opacity: 0, y: revealY });
-
-    const ctx = gsap.context(() => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: revealDuration,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: revealStart,
-          toggleActions: 'play none none none',
-          once: true,
-        },
-      });
-    }, el);
-
-    return () => ctx.revert();
-  }, [noReveal, revealDuration, revealStart, revealY]);
-
-  return (
-    <section
-      id={id}
-      ref={ref}
-      className={`${styles.section} ${styles[background]} ${styles[padding]} ${className}`}
-    >
-      {children}
-    </section>
-  );
-};
+Section.displayName = 'Section';

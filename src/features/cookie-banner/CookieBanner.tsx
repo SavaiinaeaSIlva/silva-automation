@@ -25,7 +25,6 @@ export const CookieBanner = () => {
           <a href="/cookies" className={styles.link}>
             {cookieBanner.cookiePolicyLinkText}
           </a>
-          .
         </p>
         <Button onClick={handleAccept} size="small">
           {cookieBanner.accept}

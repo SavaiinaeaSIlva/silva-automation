@@ -19,8 +19,6 @@ export interface LinkItem {
   href: string;
 }
 
-
-
 // ============================================================================
 // Header Section
 // ============================================================================
@@ -34,6 +32,7 @@ export interface HeaderContent {
   skipToMainContent: string;
   logoAlt: string;
   backToTopAria: string;
+  backToTopIcon: string;
   mainNavAria: string;
   openMenu: string;
   closeMenu: string;
@@ -51,6 +50,7 @@ export interface HeroContent {
   rollingWords: string[];
   subtitle: string;
   cta: string;
+  opensInNewWindow: string;
   bookingCta: BookingCTA;
 }
 
@@ -58,38 +58,58 @@ export interface HeroContent {
 // Calculator Section
 // ============================================================================
 
-export interface CalculatorField {
+export interface CalculatorRoiInput {
   label: string;
-  placeholder: string;
-  srDescription: string;
-  min: number;
-  max: number | undefined;
-}
-
-export interface CalculatorResultLabels {
-  monthlyAdminCost: string;
-  yearlyRevenueLeak: string;
-  yearlyHoursSaved: string;
-  paybackPeriod: string;
-  firstYearRoi: string;
-  yearlySavings: string;
+  defaultValue: number;
 }
 
 export interface CalculatorContent {
   id: string;
   label: string;
+  eyebrow: string;
   title: string;
   subtitle: string;
-  inputsTitle: string;
-  resultsTitle: string;
-  fields: CalculatorField[];
-  resetButton: string;
-  copyButton: string;
-  copiedButton: string;
-  copyAriaLabel: string;
-  monthsUnit: string;
-  percentUnit: string;
-  resultLabels: CalculatorResultLabels;
+  currencySymbol: string;
+  percentSymbol: string;
+  roiInputs: {
+    hoursPerWeek: CalculatorRoiInput;
+    numEmployees: CalculatorRoiInput;
+    hourlyWage: CalculatorRoiInput;
+    setupFee: CalculatorRoiInput;
+    monthlyRetainer: CalculatorRoiInput;
+  };
+  statLabels: {
+    hoursSaved: string;
+    annualSavings: string;
+    firstYearRoi: string;
+  };
+  units: {
+    hours: string;
+  };
+  chartTitle: string;
+  monthPrefix: string;
+  chartKeys: {
+    manualCost: string;
+    automationCost: string;
+  };
+  downloadButton: string;
+  downloadFilename: string;
+  emailButton: string;
+  emailSubject: string;
+  summaryTitle: string;
+  summaryCurrentProcess: string;
+  summaryPricing: string;
+  summaryResults: string;
+  summaryLabels: {
+    hoursPerWeek: string;
+    numEmployees: string;
+    hourlyWage: string;
+    setupFee: string;
+    monthlyRetainer: string;
+    hoursSaved: string;
+    annualSavings: string;
+    firstYearRoi: string;
+  };
 }
 
 // ============================================================================
@@ -135,50 +155,10 @@ export interface PricingContent {
   header: string;
   intro: string;
   bestForLabel: string;
+  checkIcon: string;
   foundingOffer: FoundingOffer;
   tiers: PricingTier[];
   afterSupport: AfterSupport;
-}
-
-// ============================================================================
-// Contact Section
-// ============================================================================
-
-export interface ContactCTA {
-  text: string;
-  url: string;
-}
-
-export interface FormValidation {
-  required: string;
-  emailInvalid: string;
-}
-
-export interface ContactForm {
-  title: string;
-  subtitle: string;
-  nameLabel: string;
-  namePlaceholder: string;
-  nameSr: string;
-  emailLabel: string;
-  emailPlaceholder: string;
-  emailSr: string;
-  messageLabel: string;
-  messagePlaceholder: string;
-  submit: string;
-  submitting: string;
-  success: string;
-  error: string;
-  validation: FormValidation;
-}
-
-export interface ContactContent {
-  id: string;
-  label: string;
-  title: string;
-  subtitle: string;
-  cta: ContactCTA;
-  form: ContactForm;
 }
 
 // ============================================================================
@@ -200,6 +180,8 @@ export interface FAQContent {
   label: string;
   title: string;
   intro: string;
+  expandIcon: string;
+  collapseIcon: string;
   categories: FAQCategories;
 }
 
@@ -211,6 +193,7 @@ export interface FooterContent {
   quickLinksTitle: string;
   legalTitle: string;
   getInTouchTitle: string;
+  contactIntro: string;
   companyName: string;
   tagline: string;
   quickLinks: LinkItem[];
@@ -322,19 +305,57 @@ export interface WorkflowContent {
 // ============================================================================
 
 export interface CalculatorInputs {
-  people: number;
   hoursPerWeek: number;
-  costPerHour: number;
-  automationCost: number;
+  numEmployees: number;
+  hourlyWage: number;
+  setupFee: number;
+  monthlyRetainer: number;
 }
 
 export interface CalculatorResults {
-  monthlyAdminCost: number;
-  yearlyRevenueLeak: number;
-  yearlyHoursSaved: number;
-  paybackPeriod: number;
-  firstYearRoi: number;
-  yearlySavings: number;
+  manualHoursPerMonth: number;
+  annualNetSavings: number;
+  roiPercentage: string;
+}
+
+export interface CalculatorMonthlyPoint {
+  manualCost: number;
+  automationCost: number;
+}
+
+// ============================================================================
+// Integrations Section
+// ============================================================================
+
+export interface IntegrationTool {
+  name: string;
+  icon: string;
+  category: string;
+}
+
+export interface IntegrationsContent {
+  id: string;
+  label: string;
+  title: string;
+  subtitle: string;
+  tools: IntegrationTool[];
+}
+
+// ============================================================================
+// CTA Section
+// ============================================================================
+
+export interface CTASectionContent {
+  title: string;
+  subtitle: string;
+  primaryCta: {
+    text: string;
+    url: string;
+  };
+  secondaryCta: {
+    text: string;
+    href: string;
+  };
 }
 
 // ============================================================================
@@ -345,9 +366,10 @@ export interface SiteContent {
   header: HeaderContent;
   hero: HeroContent;
   workflow: WorkflowContent;
+  integrations: IntegrationsContent;
   calculator: CalculatorContent;
   pricing: PricingContent;
-  contact: ContactContent;
+  ctaSection: CTASectionContent;
   faq: FAQContent;
   footer: FooterContent;
   cookieBanner: CookieBannerContent;

@@ -1,173 +1,256 @@
-import { useEffect, useRef, useState } from 'react';
-import { siteContent } from '@/constants';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import { Container, Section } from '@/components/layout';
-import { Button, Card } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
+import { siteContent } from '@/constants';
 import { useCalculator } from './useCalculator';
-import { Input } from './Input';
-import { formatCurrency, formatNumber } from '@/utils';
 import styles from './Calculator.module.css';
 
 export const Calculator = () => {
   const { calculator } = siteContent;
-  const { inputs, updateInput, reset, results } = useCalculator();
-  const [copied, setCopied] = useState(false);
-  const copyResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (copyResetTimeoutRef.current) {
-        clearTimeout(copyResetTimeoutRef.current);
-      }
-    };
-  }, []);
+  const initialInputs = {
+    hoursPerWeek: calculator.roiInputs.hoursPerWeek.defaultValue,
+    numEmployees: calculator.roiInputs.numEmployees.defaultValue,
+    hourlyWage: calculator.roiInputs.hourlyWage.defaultValue,
+    setupFee: calculator.roiInputs.setupFee.defaultValue,
+    monthlyRetainer: calculator.roiInputs.monthlyRetainer.defaultValue,
+  };
 
-  const handleCopy = async () => {
-    const text = `
-${calculator.resultLabels.monthlyAdminCost}: ${formatCurrency(results.monthlyAdminCost)}
-${calculator.resultLabels.yearlyRevenueLeak}: ${formatCurrency(results.yearlyRevenueLeak)}
-${calculator.resultLabels.yearlyHoursSaved}: ${formatNumber(results.yearlyHoursSaved)}
-${calculator.resultLabels.paybackPeriod}: ${formatNumber(results.paybackPeriod)} ${calculator.monthsUnit}
-${calculator.resultLabels.firstYearRoi}: ${formatNumber(results.firstYearRoi)}${calculator.percentUnit}
-${calculator.resultLabels.yearlySavings}: ${formatCurrency(results.yearlySavings)}
-    `.trim();
+  const { inputs, updateInput, results, monthlyData } = useCalculator(initialInputs);
 
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      if (copyResetTimeoutRef.current) {
-        clearTimeout(copyResetTimeoutRef.current);
-      }
-      copyResetTimeoutRef.current = setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch {
-      setCopied(false);
-    }
+  const chartData = monthlyData.map((point, i) => ({
+    name: `${calculator.monthPrefix} ${i + 1}`,
+    [calculator.chartKeys.manualCost]: point.manualCost,
+    [calculator.chartKeys.automationCost]: point.automationCost,
+  }));
+
+  const getSummaryText = () =>
+    `${calculator.summaryTitle}\n\n` +
+    `--- ${calculator.summaryCurrentProcess} ---\n` +
+    `${calculator.summaryLabels.hoursPerWeek}: ${inputs.hoursPerWeek}\n` +
+    `${calculator.summaryLabels.numEmployees}: ${inputs.numEmployees}\n` +
+    `${calculator.summaryLabels.hourlyWage}: ${calculator.currencySymbol}${inputs.hourlyWage}\n\n` +
+    `--- ${calculator.summaryPricing} ---\n` +
+    `${calculator.summaryLabels.setupFee}: ${calculator.currencySymbol}${inputs.setupFee}\n` +
+    `${calculator.summaryLabels.monthlyRetainer}: ${calculator.currencySymbol}${inputs.monthlyRetainer}\n\n` +
+    `--- ${calculator.summaryResults} ---\n` +
+    `${calculator.summaryLabels.hoursSaved}: ${results.manualHoursPerMonth.toLocaleString()} ${calculator.units.hours}\n` +
+    `${calculator.summaryLabels.annualSavings}: ${calculator.currencySymbol}${results.annualNetSavings.toLocaleString()}\n` +
+    `${calculator.summaryLabels.firstYearRoi}: ${results.roiPercentage}${calculator.percentSymbol}\n`;
+
+  const handleDownload = () => {
+    const element = document.createElement('a');
+    const file = new Blob([getSummaryText()], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = calculator.downloadFilename;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const handleEmail = () => {
+    const subject = encodeURIComponent(calculator.emailSubject);
+    const body = encodeURIComponent(getSummaryText());
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
   return (
-    <Section id={calculator.id} background="white" padding="large" className={styles.section}>
-      <img src="/assets/back.svg" alt="" className={styles.backgroundDecor} aria-hidden="true" />
+    <Section id={calculator.id} background="dark" padding="large" className={styles.section}>
       <Container className={styles.content}>
         <div className={styles.header}>
+          <span className={styles.eyebrow}>{calculator.eyebrow}</span>
           <h2 className={styles.title}>{calculator.title}</h2>
           <p className={styles.subtitle}>{calculator.subtitle}</p>
         </div>
 
-        <div className={styles.calculator}>
-          <Card variant="elevated" padding="medium" className={styles.inputCard}>
-            <h3 className={styles.cardTitle}>{calculator.inputsTitle}</h3>
-            <div className={styles.inputs}>
-              <Input
-                id="calculator-people"
-                type="number"
-                label={calculator.fields[0].label}
-                placeholder={calculator.fields[0].placeholder}
-                helperText={calculator.fields[0].srDescription}
-                value={inputs.people}
-                onChange={(e) => updateInput('people', Number(e.target.value))}
-                min={calculator.fields[0].min}
-                max={calculator.fields[0].max}
-              />
-
-              <Input
-                id="calculator-hours-per-week"
-                type="number"
-                label={calculator.fields[1].label}
-                placeholder={calculator.fields[1].placeholder}
-                helperText={calculator.fields[1].srDescription}
-                value={inputs.hoursPerWeek}
-                onChange={(e) => updateInput('hoursPerWeek', Number(e.target.value))}
-                min={calculator.fields[1].min}
-                max={calculator.fields[1].max}
-              />
-
-              <Input
-                id="calculator-cost-per-hour"
-                type="number"
-                label={calculator.fields[2].label}
-                placeholder={calculator.fields[2].placeholder}
-                helperText={calculator.fields[2].srDescription}
-                value={inputs.costPerHour}
-                onChange={(e) => updateInput('costPerHour', Number(e.target.value))}
-                min={calculator.fields[2].min}
-                max={calculator.fields[2].max}
-              />
-
-              <Input
-                id="calculator-automation-cost"
-                type="number"
-                label={calculator.fields[3].label}
-                placeholder={calculator.fields[3].placeholder}
-                helperText={calculator.fields[3].srDescription}
-                value={inputs.automationCost}
-                onChange={(e) => updateInput('automationCost', Number(e.target.value))}
-                min={calculator.fields[3].min}
-              />
+        <div className={styles.widget}>
+          {/* Top: Chart (full width) */}
+          <Card
+            variant="elevated"
+            padding="medium"
+            className={`${styles.panel} ${styles.chartPanel}`}
+          >
+            <p className={styles.chartTitle}>{calculator.chartTitle}</p>
+            <div className={styles.chartArea}>
+              <ResponsiveContainer width="100%" height="100%" aria-label={calculator.chartTitle}>
+                <LineChart data={chartData} margin={{ top: 5, right: 8, left: 8, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="name" />
+                  <YAxis tickFormatter={(v) => `${calculator.currencySymbol}${v}`} />
+                  <Tooltip
+                    formatter={(value: number | undefined) => [
+                      `${calculator.currencySymbol}${(value ?? 0).toLocaleString()}`,
+                      undefined,
+                    ]}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={calculator.chartKeys.manualCost}
+                    className={styles.lineManual}
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 4 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={calculator.chartKeys.automationCost}
+                    className={styles.lineAutomation}
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
-            <Button variant="outline" onClick={reset} className={styles.resetButton}>
-              {calculator.resetButton}
-            </Button>
           </Card>
 
-          <Card variant="elevated" padding="medium" className={styles.resultsCard}>
-            <div className={styles.resultsHeader}>
-              <h3 className={styles.cardTitle}>{calculator.resultsTitle}</h3>
-              <Button
-                variant="outline"
-                size="small"
-                onClick={handleCopy}
-                aria-label={calculator.copyAriaLabel}
-              >
-                {copied ? calculator.copiedButton : calculator.copyButton}
-              </Button>
+          {/* Bottom-left: Input Panel */}
+          <Card
+            variant="elevated"
+            padding="medium"
+            className={`${styles.panel} ${styles.inputPanel}`}
+          >
+            <div className={styles.fields}>
+              <div className={styles.fieldGroup}>
+                <label htmlFor="calc-hours-per-week" className={styles.label}>
+                  {calculator.roiInputs.hoursPerWeek.label}
+                </label>
+                <input
+                  id="calc-hours-per-week"
+                  type="number"
+                  min="0"
+                  step="1"
+                  className={styles.input}
+                  value={inputs.hoursPerWeek === 0 ? '' : inputs.hoursPerWeek}
+                  onChange={(e) =>
+                    updateInput('hoursPerWeek', e.target.value === '' ? 0 : Number(e.target.value))
+                  }
+                  aria-label={calculator.roiInputs.hoursPerWeek.label}
+                />
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label htmlFor="calc-num-employees" className={styles.label}>
+                  {calculator.roiInputs.numEmployees.label}
+                </label>
+                <input
+                  id="calc-num-employees"
+                  type="number"
+                  min="1"
+                  step="1"
+                  className={styles.input}
+                  value={inputs.numEmployees === 0 ? '' : inputs.numEmployees}
+                  onChange={(e) =>
+                    updateInput('numEmployees', e.target.value === '' ? 0 : Number(e.target.value))
+                  }
+                  aria-label={calculator.roiInputs.numEmployees.label}
+                />
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label htmlFor="calc-hourly-wage" className={styles.label}>
+                  {calculator.roiInputs.hourlyWage.label}
+                </label>
+                <input
+                  id="calc-hourly-wage"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  className={styles.input}
+                  value={inputs.hourlyWage === 0 ? '' : inputs.hourlyWage}
+                  onChange={(e) =>
+                    updateInput('hourlyWage', e.target.value === '' ? 0 : Number(e.target.value))
+                  }
+                  aria-label={calculator.roiInputs.hourlyWage.label}
+                />
+              </div>
+
+              <div className={`${styles.fieldGroup} ${styles.divider}`}>
+                <label htmlFor="calc-setup-fee" className={styles.label}>
+                  {calculator.roiInputs.setupFee.label}
+                </label>
+                <input
+                  id="calc-setup-fee"
+                  type="number"
+                  min="0"
+                  step="1"
+                  className={styles.input}
+                  value={inputs.setupFee === 0 ? '' : inputs.setupFee}
+                  onChange={(e) =>
+                    updateInput('setupFee', e.target.value === '' ? 0 : Number(e.target.value))
+                  }
+                  aria-label={calculator.roiInputs.setupFee.label}
+                />
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label htmlFor="calc-monthly-retainer" className={styles.label}>
+                  {calculator.roiInputs.monthlyRetainer.label}
+                </label>
+                <input
+                  id="calc-monthly-retainer"
+                  type="number"
+                  min="0"
+                  step="1"
+                  className={styles.input}
+                  value={inputs.monthlyRetainer === 0 ? '' : inputs.monthlyRetainer}
+                  onChange={(e) =>
+                    updateInput(
+                      'monthlyRetainer',
+                      e.target.value === '' ? 0 : Number(e.target.value)
+                    )
+                  }
+                  aria-label={calculator.roiInputs.monthlyRetainer.label}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* Bottom-right: Results Panel */}
+          <Card
+            variant="elevated"
+            padding="medium"
+            className={`${styles.panel} ${styles.resultsPanel}`}
+          >
+            <div className={styles.statsList}>
+              <div className={styles.statCard}>
+                <p className={styles.statLabel}>{calculator.statLabels.hoursSaved}</p>
+                <p className={styles.statValue}>
+                  {results.manualHoursPerMonth.toLocaleString()} {calculator.units.hours}
+                </p>
+              </div>
+              <div className={styles.statCard}>
+                <p className={styles.statLabel}>{calculator.statLabels.annualSavings}</p>
+                <p className={styles.statValue}>
+                  {calculator.currencySymbol}
+                  {results.annualNetSavings.toLocaleString()}
+                </p>
+              </div>
+              <div className={styles.statCard}>
+                <p className={styles.statLabel}>{calculator.statLabels.firstYearRoi}</p>
+                <p className={styles.statValue}>
+                  {results.roiPercentage}
+                  {calculator.percentSymbol}
+                </p>
+              </div>
             </div>
 
-            <div className={styles.results}>
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>
-                  {calculator.resultLabels.monthlyAdminCost}
-                </span>
-                <span className={styles.resultValue}>
-                  {formatCurrency(results.monthlyAdminCost)}
-                </span>
-              </div>
-
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>
-                  {calculator.resultLabels.yearlyRevenueLeak}
-                </span>
-                <span className={styles.resultValue}>
-                  {formatCurrency(results.yearlyRevenueLeak)}
-                </span>
-              </div>
-
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>
-                  {calculator.resultLabels.yearlyHoursSaved}
-                </span>
-                <span className={styles.resultValue}>{formatNumber(results.yearlyHoursSaved)}</span>
-              </div>
-
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>{calculator.resultLabels.paybackPeriod}</span>
-                <span className={styles.resultValue}>
-                  {formatNumber(results.paybackPeriod)} {calculator.monthsUnit}
-                </span>
-              </div>
-
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>{calculator.resultLabels.firstYearRoi}</span>
-                <span className={styles.resultValue}>
-                  {formatNumber(results.firstYearRoi)}
-                  {calculator.percentUnit}
-                </span>
-              </div>
-
-              <div className={styles.result}>
-                <span className={styles.resultLabel}>{calculator.resultLabels.yearlySavings}</span>
-                <span className={styles.resultValue}>{formatCurrency(results.yearlySavings)}</span>
-              </div>
+            {/* Action Buttons */}
+            <div className={styles.actions}>
+              <Button variant="outline" size="medium" onClick={handleDownload}>
+                {calculator.downloadButton}
+              </Button>
+              <Button variant="primary" size="medium" onClick={handleEmail}>
+                {calculator.emailButton}
+              </Button>
             </div>
           </Card>
         </div>

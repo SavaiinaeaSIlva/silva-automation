@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/constants';
-import { Container } from '@/components/layout';
 import logo from '@/assets/logo.svg';
 import styles from './Header.module.css';
 
@@ -8,6 +7,7 @@ export const Header = () => {
   const { header } = siteContent;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
+  const [isScrolled, setIsScrolled] = useState(false);
   const observerLocked = useRef(false);
   const observerUnlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
@@ -76,31 +76,74 @@ export const Header = () => {
     };
   }, [header.navLinks]);
 
+  // Scroll detection for island background transition
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const headerClasses = `${styles.header} ${isScrolled ? styles.scrolled : ''}`;
+
   return (
-    <header className={styles.header} ref={headerRef}>
+    <header className={headerClasses} ref={headerRef}>
       <a href="#main" className={styles.skipLink}>
         {header.skipToMainContent}
       </a>
 
-      <Container>
-        <nav className={styles.nav} aria-label={header.mainNavAria}>
-          <div className={styles.logo}>
-            <a href="#" aria-label={header.logoAlt}>
-              <img src={logo} alt={header.logoAlt} className={styles.logoImage} />
-            </a>
-          </div>
+      <nav className={styles.nav} aria-label={header.mainNavAria}>
+        <div className={styles.logo}>
+          <a href="#" aria-label={header.logoAlt}>
+            <img src={logo} alt={header.logoAlt} className={styles.logoImage} />
+          </a>
+        </div>
 
-          {/* Desktop Navigation */}
-          <ul className={styles.navLinks}>
+        <span className={styles.divider} />
+
+        {/* Desktop Navigation */}
+        <ul className={styles.navLinks}>
+          {header.navLinks.map((link) => {
+            const isActive = activeId === link.href;
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={(event) => handleNavClick(event, link.href)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <button
+          className={styles.menuButton}
+          onClick={toggleMenu}
+          aria-label={isMenuOpen ? header.closeMenu : header.openMenu}
+          aria-expanded={isMenuOpen}
+        >
+          <span className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}></span>
+        </button>
+      </nav>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className={styles.mobileNav} aria-label={header.mobileNavAria}>
+          <ul className={styles.mobileNavLinks}>
             {header.navLinks.map((link) => {
               const isActive = activeId === link.href;
               return (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className={`${styles.navLink} ${isActive ? styles.active : ''}`}
-                    aria-current={isActive ? 'page' : undefined}
+                    className={`${styles.mobileNavLink} ${isActive ? styles.active : ''}`}
                     onClick={(event) => handleNavClick(event, link.href)}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
                   </a>
@@ -108,41 +151,8 @@ export const Header = () => {
               );
             })}
           </ul>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={styles.menuButton}
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? header.closeMenu : header.openMenu}
-            aria-expanded={isMenuOpen}
-          >
-            <span className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}></span>
-          </button>
-        </nav>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className={styles.mobileNav} aria-label={header.mobileNavAria}>
-            <ul className={styles.mobileNavLinks}>
-              {header.navLinks.map((link) => {
-                const isActive = activeId === link.href;
-                return (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className={`${styles.mobileNavLink} ${isActive ? styles.active : ''}`}
-                      onClick={(event) => handleNavClick(event, link.href)}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </Container>
+        </div>
+      )}
     </header>
   );
 };

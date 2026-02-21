@@ -4,46 +4,72 @@
 
 /* Background */
 .white {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
 }
 
 .gray {
-  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, #e8e8e8 100%);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
 }
 
 .primary {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-dark);
 }
 
 .dark {
-  background: #000000;
-  color: white;
+  background: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+  position: relative;
+}
+
+.dark + .dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(255, 255, 255, 0.08) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Slightly lighter than .dark so Hero vs Workflow feel distinct */
+.darkAlt {
+  background: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
 }
 
 /* Padding */
 .small {
-  padding: var(--space-10) 0;
+  padding: var(--space-20) 0;
 }
 
 .medium {
-  padding: var(--space-16) 0;
+  padding: var(--space-24) 0;
 }
 
 .large {
-  padding: 100px 0;
+  padding: var(--space-24) 0;
 }
 
 @media (min-width: 768px) {
   .small {
-    padding: var(--space-16) 0;
+    padding: var(--space-24) 0;
   }
 
   .medium {
-    padding: var(--space-20) 0;
+    padding: var(--space-32) 0;
   }
 
   .large {
-    padding: 140px 0;
+    padding: var(--space-28) 0;
   }
 }

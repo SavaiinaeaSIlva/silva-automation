@@ -29,7 +29,7 @@
 .brandWrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .brandLogo {
@@ -44,8 +44,8 @@
 }
 
 .bottomTagline {
-  margin: 8px 0 0 0;
-  font-size: 12px;
+  margin: var(--space-2) 0 0 0;
+  font-size: var(--text-xs);
   opacity: 0.6;
   line-height: 1.4;
 }
@@ -56,6 +56,13 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.contactIntro {
+  margin: 0;
+  color: var(--color-text-on-dark-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
 }
 
 .links {

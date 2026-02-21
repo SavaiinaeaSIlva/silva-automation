@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
@@ -7,14 +7,13 @@ import styles from './Workflow.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** SVG icon components for the workflow nodes */
 const NodeIcon = ({ type }: { type: string }) => {
   switch (type) {
     case 'database':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -30,8 +29,8 @@ const NodeIcon = ({ type }: { type: string }) => {
     case 'zap':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -45,8 +44,8 @@ const NodeIcon = ({ type }: { type: string }) => {
     case 'folder':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -85,8 +84,8 @@ const NodeIcon = ({ type }: { type: string }) => {
     case 'bar-chart':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -102,8 +101,8 @@ const NodeIcon = ({ type }: { type: string }) => {
     case 'bell':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -118,8 +117,8 @@ const NodeIcon = ({ type }: { type: string }) => {
     case 'clipboard':
       return (
         <svg
-          width="24"
-          height="24"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -136,505 +135,67 @@ const NodeIcon = ({ type }: { type: string }) => {
   }
 };
 
-interface ActiveNode {
-  title: string;
-  subtitle: string;
-  icon: string;
-  backInfo?: string;
-}
-
-interface Point {
-  x: number;
-  y: number;
-}
-
-interface DiagramPaths {
-  input: string[];
-  output: string[];
-  inputDots: Point[];
-  outputDots: Point[];
-  engineDot: Point | null;
-}
-
 export const Workflow = () => {
   const { workflow } = siteContent;
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const diagramRef = useRef<HTMLDivElement>(null);
-  const [activeNode, setActiveNode] = useState<ActiveNode | null>(null);
-  const [diagramSize, setDiagramSize] = useState({ width: 1000, height: 500 });
-  const [diagramPaths, setDiagramPaths] = useState<DiagramPaths>({
-    input: [],
-    output: [],
-    inputDots: [],
-    outputDots: [],
-    engineDot: null,
-  });
+  const pinRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  // Flat ordered list of all nodes for prev/next navigation
-  const allNodes: ActiveNode[] = [...workflow.inputs, workflow.engine, ...workflow.outputs];
-
-  const activeIndex = activeNode ? allNodes.findIndex((n) => n.title === activeNode.title) : -1;
-
-  const goNext = () => {
-    if (activeIndex < 0) return;
-    setActiveNode(allNodes[(activeIndex + 1) % allNodes.length]);
-  };
-
-  const goPrev = () => {
-    if (activeIndex < 0) return;
-    setActiveNode(allNodes[(activeIndex - 1 + allNodes.length) % allNodes.length]);
-  };
-
-  const ctxRef = useRef<ReturnType<typeof gsap.context> | null>(null);
-
-  const updateDiagramGeometry = useCallback(() => {
-    const diagramEl = diagramRef.current;
-    if (!diagramEl) return;
-
-    const rect = diagramEl.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-
-    setDiagramSize((prev) =>
-      prev.width === rect.width && prev.height === rect.height
-        ? prev
-        : { width: rect.width, height: rect.height }
-    );
-
-    const getCenter = (el: Element): Point => {
-      const r = el.getBoundingClientRect();
-      return {
-        x: r.left - rect.left + r.width / 2,
-        y: r.top - rect.top + r.height / 2,
-      };
-    };
-
-    const engineEl = diagramEl.querySelector('[data-node="engine"]');
-    const inputEls = Array.from(diagramEl.querySelectorAll('[data-node^="input-"]'));
-    const outputEls = Array.from(diagramEl.querySelectorAll('[data-node^="output-"]'));
-
-    if (!engineEl || inputEls.length === 0 || outputEls.length === 0) return;
-
-    const engine = getCenter(engineEl);
-    const inputs = inputEls.map(getCenter);
-    const outputs = outputEls.map(getCenter);
-
-    const makeCurve = (start: Point, end: Point) => {
-      const dx = end.x - start.x;
-      const controlOffset = Math.max(Math.abs(dx) * 0.45, 60);
-      const c1x = start.x + Math.sign(dx) * controlOffset;
-      const c2x = end.x - Math.sign(dx) * controlOffset;
-      return `M ${start.x} ${start.y} C ${c1x} ${start.y}, ${c2x} ${end.y}, ${end.x} ${end.y}`;
-    };
-
-    setDiagramPaths({
-      input: inputs.map((start) => makeCurve(start, engine)),
-      output: outputs.map((end) => makeCurve(engine, end)),
-      inputDots: inputs,
-      outputDots: outputs,
-      engineDot: engine,
-    });
-  }, []);
-
-  const runAnimations = () => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    // Kill previous context if replaying
-    if (ctxRef.current) ctxRef.current.revert();
-
-    const nodes = el.querySelectorAll('[data-workflow-node]');
-    const lines = el.querySelectorAll('[data-workflow-line]');
-    const dots = el.querySelectorAll('[data-workflow-dot]');
-    const glow = el.querySelector('[data-engine-glow]');
-
-    ctxRef.current = gsap.context(() => {
-      // Fade in nodes with stagger
-      gsap.fromTo(
-        nodes,
-        { opacity: 0, scale: 0.85 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power2.out',
-        }
-      );
-
-      // Draw lines
-      gsap.fromTo(
-        lines,
-        { strokeDashoffset: 300 },
-        {
-          strokeDashoffset: 0,
-          duration: 1.2,
-          stagger: 0.08,
-          ease: 'power2.inOut',
-        }
-      );
-
-      // Fade in dots
-      gsap.fromTo(
-        dots,
-        { opacity: 0, scale: 0 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.4,
-          stagger: 0.06,
-          ease: 'back.out(2)',
-          delay: 0.6,
-        }
-      );
-
-      // Pulse glow on engine
-      if (glow) {
-        gsap.to(glow, {
-          opacity: 0.4,
-          scale: 1.15,
-          duration: 2,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        });
-      }
-    }, el);
-  };
+  const allNodes = [workflow.engine, ...workflow.inputs, ...workflow.outputs];
 
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
+    const pin = pinRef.current;
+    const track = trackRef.current;
+    if (!pin || !track) return;
 
-    // Run animations on first scroll into view
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => runAnimations(),
-    });
+    // Skip pin on small screens — let native scroll handle it
+    if (window.innerWidth < 768) return;
 
-    return () => {
-      if (ctxRef.current) ctxRef.current.revert();
-    };
+    const ctx = gsap.context(() => {
+      const getScrollAmount = () => -(track.scrollWidth - track.parentElement!.offsetWidth);
+
+      gsap.to(track, {
+        x: getScrollAmount,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: pin,
+          start: 'top top',
+          end: () => `+=${Math.abs(getScrollAmount())}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, pin);
+
+    return () => ctx.revert();
   }, []);
-
-  useEffect(() => {
-    updateDiagramGeometry();
-
-    const diagramEl = diagramRef.current;
-    if (!diagramEl || typeof ResizeObserver === 'undefined') return;
-
-    const observer = new ResizeObserver(() => updateDiagramGeometry());
-    observer.observe(diagramEl);
-
-    return () => observer.disconnect();
-  }, [updateDiagramGeometry]);
 
   return (
-    <Section id={workflow.id} background="dark" padding="large" noReveal>
-      <div className={styles.wrapper} ref={sectionRef}>
-        {/* Section header */}
+    <Section id={workflow.id} ref={pinRef} background="dark" className={styles.section}>
+      <div className={styles.inner}>
         <div className={styles.header}>
+          <span className={styles.eyebrow}>{workflow.label}</span>
           <h2 className={styles.title}>{workflow.title}</h2>
           <p className={styles.subtitle}>{workflow.subtitle}</p>
         </div>
 
-        {/* Reload icon top-right */}
-        <button
-          className={styles.reloadBtn}
-          aria-label={workflow.replayAnimationAria}
-          onClick={() => runAnimations()}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="23 4 23 10 17 10" />
-            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
-          </svg>
-        </button>
-
-        {/* Click hint */}
-        <p className={styles.clickHint}>{workflow.clickHint}</p>
-
-        {/* Diagram area (lines + grid) */}
-        <div className={styles.diagram} ref={diagramRef}>
-          <svg
-            className={styles.lines}
-            viewBox={`0 0 ${diagramSize.width} ${diagramSize.height}`}
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            {/* Glow filter for orbs */}
-            <defs>
-              <filter id="orb-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Input lines: each input → engine center */}
-            {diagramPaths.input.map((d, i) => (
-              <path
-                key={`path-in-${i}`}
-                id={`path-in-${i}`}
-                data-workflow-line
-                d={d}
-                strokeDasharray="500"
-              />
-            ))}
-
-            {/* Output lines: engine center → each output */}
-            {diagramPaths.output.map((d, i) => (
-              <path
-                key={`path-out-${i}`}
-                id={`path-out-${i}`}
-                data-workflow-line
-                d={d}
-                strokeDasharray="500"
-              />
-            ))}
-
-            {/* Junction dot at engine */}
-            {diagramPaths.engineDot && (
-              <circle
-                data-workflow-dot
-                cx={diagramPaths.engineDot.x}
-                cy={diagramPaths.engineDot.y}
-                r="4"
-              />
-            )}
-
-            {/* Endpoint dots (inputs) */}
-            {diagramPaths.inputDots.map((point, i) => (
-              <circle key={`input-dot-${i}`} data-workflow-dot cx={point.x} cy={point.y} r="3.5" />
-            ))}
-
-            {/* Endpoint dots (outputs) */}
-            {diagramPaths.outputDots.map((point, i) => (
-              <circle key={`output-dot-${i}`} data-workflow-dot cx={point.x} cy={point.y} r="3.5" />
-            ))}
-
-            {/* Traveling orbs — input paths (node → engine) */}
-            {diagramPaths.input.map((_, i) => (
-              <circle
-                key={`orb-in-${i}`}
-                r="5"
-                fill="rgba(255, 82, 27, 0.8)"
-                filter="url(#orb-glow)"
-              >
-                <animateMotion
-                  dur={`${2.5 + i * 0.4}s`}
-                  repeatCount="indefinite"
-                  keyPoints="0;1"
-                  keyTimes="0;1"
-                >
-                  <mpath href={`#path-in-${i}`} />
-                </animateMotion>
-              </circle>
-            ))}
-
-            {/* Traveling orbs — output paths (engine → node) */}
-            {diagramPaths.output.map((_, i) => (
-              <circle
-                key={`orb-out-${i}`}
-                r="5"
-                fill="rgba(255, 82, 27, 0.8)"
-                filter="url(#orb-glow)"
-              >
-                <animateMotion
-                  dur={`${2.5 + i * 0.4}s`}
-                  repeatCount="indefinite"
-                  keyPoints="0;1"
-                  keyTimes="0;1"
-                >
-                  <mpath href={`#path-out-${i}`} />
-                </animateMotion>
-              </circle>
-            ))}
-          </svg>
-
-          {/* Node grid */}
-          <div className={styles.grid}>
-            {/* Input column */}
-            <div className={styles.column}>
-              {workflow.inputs.map((node, i) => (
-                <div
-                  key={i}
-                  className={styles.nodeCard}
-                  data-workflow-node
-                  data-node={`input-${i}`}
-                  onClick={() => setActiveNode(node)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveNode(node);
-                    }
-                  }}
-                  aria-label={`${node.title} ${workflow.nodeDetailsSuffix}`}
-                >
-                  <span className={styles.nodeIcon}>
-                    <NodeIcon type={node.icon} />
-                  </span>
-                  <div className={styles.nodeText}>
-                    <span className={styles.nodeTitle}>{node.title}</span>
-                    <span className={styles.nodeSubtitle}>{node.subtitle}</span>
-                  </div>
-                  <span className={styles.infoHint}>ⓘ</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Center engine */}
-            <div className={styles.center}>
-              <div
-                className={styles.engineWrapper}
-                data-workflow-node
-                data-node="engine"
-                onClick={() => setActiveNode(workflow.engine)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setActiveNode(workflow.engine);
-                  }
-                }}
-                aria-label={`${workflow.engine.title} ${workflow.nodeDetailsSuffix}`}
-              >
-                <div className={styles.engineFront}>
-                  <div className={styles.engineGlow} data-engine-glow />
-                  <span className={styles.engineIcon}>
-                    <NodeIcon type={workflow.engine.icon} />
-                  </span>
-                  <span className={styles.engineTitle}>{workflow.engine.title}</span>
-                  <span className={styles.engineSubtitle}>{workflow.engine.subtitle}</span>
-                  <span className={styles.infoHint}>ⓘ</span>
+        <div className={styles.trackWrap}>
+          <div className={styles.scrollTrack} ref={trackRef}>
+            {allNodes.map((node, i) => (
+              <div key={i} className={styles.card}>
+                <span className={styles.cardIcon}>
+                  <NodeIcon type={node.icon} />
+                </span>
+                <div className={styles.cardBody}>
+                  <span className={styles.cardTitle}>{node.title}</span>
+                  <span className={styles.cardSubtitle}>{node.subtitle}</span>
+                  {node.backInfo && <p className={styles.cardDesc}>{node.backInfo}</p>}
                 </div>
               </div>
-            </div>
-
-            {/* Output column */}
-            <div className={styles.column}>
-              {workflow.outputs.map((node, i) => (
-                <div
-                  key={i}
-                  className={styles.nodeCard}
-                  data-workflow-node
-                  data-node={`output-${i}`}
-                  onClick={() => setActiveNode(node)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveNode(node);
-                    }
-                  }}
-                  aria-label={`${node.title} ${workflow.nodeDetailsSuffix}`}
-                >
-                  <span className={styles.nodeIcon}>
-                    <NodeIcon type={node.icon} />
-                  </span>
-                  <div className={styles.nodeText}>
-                    <span className={styles.nodeTitle}>{node.title}</span>
-                    <span className={styles.nodeSubtitle}>{node.subtitle}</span>
-                  </div>
-                  <span className={styles.infoHint}>ⓘ</span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-
-        {/* Detail modal */}
-        {activeNode && (
-          <div
-            className={styles.modalBackdrop}
-            onClick={() => setActiveNode(null)}
-            role="presentation"
-          >
-            <div
-              className={styles.modal}
-              onClick={(e) => e.stopPropagation()}
-              role="dialog"
-              aria-label={activeNode.title}
-            >
-              <button
-                className={styles.modalClose}
-                onClick={() => setActiveNode(null)}
-                aria-label={workflow.closeAria}
-              >
-                ✕
-              </button>
-
-              {/* Prev arrow */}
-              <button
-                className={styles.modalNav}
-                data-dir="prev"
-                onClick={goPrev}
-                aria-label={workflow.previousNodeAria}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-
-              {/* Next arrow */}
-              <button
-                className={styles.modalNav}
-                data-dir="next"
-                onClick={goNext}
-                aria-label={workflow.nextNodeAria}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="9 6 15 12 9 18" />
-                </svg>
-              </button>
-
-              <span className={styles.modalIcon}>
-                <NodeIcon type={activeNode.icon} />
-              </span>
-              <h3 className={styles.modalTitle}>{activeNode.title}</h3>
-              <span className={styles.modalSubtitle}>{activeNode.subtitle}</span>
-              <p className={styles.modalText}>{activeNode.backInfo}</p>
-
-              <span className={styles.modalCounter}>
-                {activeIndex + 1} / {allNodes.length}
-              </span>
-            </div>
-          </div>
-        )}
       </div>
     </Section>
   );

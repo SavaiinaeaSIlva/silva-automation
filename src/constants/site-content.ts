@@ -12,16 +12,17 @@ export const siteContent: SiteContent = {
     skipToMainContent: 'Skip to main content',
     logoAlt: 'Silva Automation',
     backToTopAria: 'Back to top',
+    backToTopIcon: '↑',
     mainNavAria: 'Main navigation',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     mobileNavAria: 'Mobile navigation',
     navLinks: [
+      { href: '#integrations', label: 'Integrations' },
       { href: '#workflow', label: 'Solutions' },
       { href: '#calculator', label: 'Calculator' },
       { href: '#pricing', label: 'Investment' },
       { href: '#faq', label: 'FAQ' },
-      { href: '#contact', label: 'Contact Us' },
     ],
     bookingCta: {
       text: 'Book Strategy Call',
@@ -44,8 +45,9 @@ export const siteContent: SiteContent = {
       'Time',
     ],
     subtitle:
-      'Workflow automation for Hawaii service businesses. One fixed project fee. Client-owned infrastructure. No recurring software subscriptions.',
+      'Workflow automation for Hawaii service businesses.',
     cta: 'Calculate Your Savings',
+    opensInNewWindow: '(opens in new window)',
     bookingCta: {
       text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',
@@ -54,10 +56,10 @@ export const siteContent: SiteContent = {
 
   workflow: {
     id: 'workflow',
-    label: 'Workflow',
+    label: 'Solution',
     title: "Built for Hawaii's Service Firms",
     subtitle:
-      'Silva Automation designs and delivers custom workflows for established Hawaii businesses. Professional services, real estate, and healthcare. Each solution is implemented directly in your cloud environment using platforms such as n8n and Oracle Cloud, so your team retains full control and ownership of every asset.',
+      'Custom workflows for established Hawaii service businesses — built in your cloud, owned by your team, no recurring fees.',
     clickHint: 'Click any node to learn more',
     replayAnimationAria: 'Replay animation',
     closeAria: 'Close',
@@ -119,56 +121,93 @@ export const siteContent: SiteContent = {
     ],
   },
 
+  integrations: {
+    id: 'integrations',
+    label: 'Integrations',
+    title: 'Seamless Integrations',
+    subtitle:
+      'We connect the tools your team already uses — no rip-and-replace required. Every integration is configured inside your own cloud environment.',
+    tools: [
+      { name: 'Google Workspace', icon: 'mail', category: 'Productivity' },
+      { name: 'Microsoft 365', icon: 'file-text', category: 'Productivity' },
+      { name: 'Slack', icon: 'message-square', category: 'Communication' },
+      { name: 'QuickBooks', icon: 'credit-card', category: 'Finance' },
+      { name: 'Stripe', icon: 'credit-card', category: 'Payments' },
+      { name: 'Salesforce', icon: 'users', category: 'CRM' },
+      { name: 'HubSpot', icon: 'trending-up', category: 'CRM' },
+      { name: 'Zapier', icon: 'zap', category: 'Automation' },
+      { name: 'n8n', icon: 'cpu', category: 'Automation' },
+      { name: 'Oracle Cloud', icon: 'cloud', category: 'Infrastructure' },
+      { name: 'AWS', icon: 'server', category: 'Infrastructure' },
+      { name: 'Calendly', icon: 'calendar', category: 'Scheduling' },
+      { name: 'Twilio', icon: 'phone', category: 'Communication' },
+      { name: 'Notion', icon: 'clipboard', category: 'Productivity' },
+      { name: 'Airtable', icon: 'database', category: 'Data' },
+      { name: 'Shopify', icon: 'shopping-cart', category: 'E-Commerce' },
+    ],
+  },
+
   calculator: {
     id: 'calculator',
     label: 'Calculator',
-    title: 'Quantify Your Administrative Load',
-    subtitle: 'Estimate the annual cost of manual, repetitive work inside your firm.',
-    inputsTitle: 'Your Numbers',
-    resultsTitle: 'Cost of Manual Work',
-    fields: [
-      {
-        label: 'Total Administrative Headcount',
-        placeholder: 'e.g., 10',
-        srDescription: 'Number of administrative staff (1-50)',
-        min: 1,
-        max: 50,
+    eyebrow: 'ROI Calculator',
+    title: 'See What Manual Work Is Costing You',
+    subtitle: 'Plug in your numbers and see your ROI from automating repetitive tasks.',
+    currencySymbol: '$',
+    percentSymbol: '%',
+    roiInputs: {
+      hoursPerWeek: {
+        label: 'Hours Per Week on Manual Tasks',
+        defaultValue: 0,
       },
-      {
-        label: 'Average Weekly Admin Hours (Per Person)',
-        placeholder: 'e.g., 15',
-        srDescription: 'Average weekly admin hours per person (1-40)',
-        min: 1,
-        max: 40,
+      numEmployees: {
+        label: 'Employees Dedicated to Tasks',
+        defaultValue: 0,
       },
-      {
-        label: 'Hourly Labor Rate',
-        placeholder: 'e.g., 45',
-        srDescription: 'Average hourly labor rate ($20-$200)',
-        min: 20,
-        max: 200,
+      hourlyWage: {
+        label: 'Employee Hourly Pay ($)',
+        defaultValue: 0,
       },
-      {
-        label: 'Estimated Automation Project Price',
-        placeholder: 'e.g., 6000',
-        srDescription: 'Estimated automation project price',
-        min: 0,
-        max: undefined,
+      setupFee: {
+        label: 'One-Time Setup Fee ($)',
+        defaultValue: 0,
       },
-    ],
-    resetButton: 'Reset',
-    copyButton: 'Copy',
-    copiedButton: 'Copied!',
-    copyAriaLabel: 'Copy results',
-    monthsUnit: 'months',
-    percentUnit: '%',
-    resultLabels: {
-      monthlyAdminCost: 'Monthly cost',
-      yearlyRevenueLeak: 'Yearly cost',
-      yearlyHoursSaved: 'Hours saved',
-      paybackPeriod: 'Pays back in',
-      firstYearRoi: 'First year ROI',
-      yearlySavings: 'Saved yearly',
+      monthlyRetainer: {
+        label: 'Monthly Retainer / Software ($)',
+        defaultValue: 0,
+      },
+    },
+    statLabels: {
+      hoursSaved: 'Hours Saved Monthly',
+      annualSavings: 'Net Annual Savings',
+      firstYearRoi: 'First Year ROI',
+    },
+    units: {
+      hours: 'hrs',
+    },
+    chartTitle: '12-Month Cumulative Cost Comparison',
+    monthPrefix: 'Mo',
+    chartKeys: {
+      manualCost: 'Manual Cost',
+      automationCost: 'Automation Cost',
+    },
+    downloadButton: 'Save as .txt',
+    downloadFilename: 'ROI_Report.txt',
+    emailButton: 'Email Report',
+    emailSubject: 'Your Silva Automation ROI Report',
+    summaryTitle: 'Silva Automation ROI Summary',
+    summaryCurrentProcess: 'Current Manual Process',
+    summaryPricing: 'Automation Pricing',
+    summaryResults: 'Results',
+    summaryLabels: {
+      hoursPerWeek: 'Hours Per Week (Manual)',
+      numEmployees: 'Number of Employees',
+      hourlyWage: 'Employee Hourly Pay',
+      setupFee: 'One-Time Setup Fee',
+      monthlyRetainer: 'Monthly Retainer/Software',
+      hoursSaved: 'Hours Saved Monthly',
+      annualSavings: 'Net Annual Savings',
+      firstYearRoi: 'First Year ROI',
     },
   },
 
@@ -177,9 +216,10 @@ export const siteContent: SiteContent = {
     label: 'Investment',
     header: 'Fixed-Fee Projects. No Retainers.',
     intro:
-      'Silva Automation operates on a project-based model. Each engagement is scoped and priced as a one-time fixed fee, with no ongoing retainers required for the automation to continue running.',
+      'Every engagement is scoped and priced as a one-time fixed fee — no retainers, no recurring software costs.',
 
     bestForLabel: 'Best for:',
+    checkIcon: '✓',
 
     foundingOffer: {
       show: false,
@@ -266,44 +306,27 @@ export const siteContent: SiteContent = {
     },
   },
 
-  contact: {
-    id: 'contact',
-    label: 'Contact',
-    title: 'Contact Us',
+  ctaSection: {
+    title: 'Ready to Automate Your Business?',
     subtitle:
-      'Have a question? Want to see if automation is a fit for your business? Get in touch.',
-    cta: {
-      text: 'Schedule a Consultation',
+      "Book a free strategy call and we'll map out exactly which workflows will save your team the most time and money.",
+    primaryCta: {
+      text: 'Book Strategy Call',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
-
-    form: {
-      title: 'Get in Touch',
-      subtitle: 'Call or Text (808) 726-6422',
-      nameLabel: 'Full Name',
-      namePlaceholder: 'Your full name',
-      nameSr: 'Enter your full name',
-      emailLabel: 'Corporate Email',
-      emailPlaceholder: 'you@company.com',
-      emailSr: 'Enter your corporate email',
-      messageLabel: 'Inquiry',
-      messagePlaceholder: 'Message or question',
-      submit: 'Send',
-      submitting: 'Sending...',
-      success: 'All inquiries receive a response within one business day.',
-      error: 'Failed. Call us instead.',
-      validation: {
-        required: 'Name and email required',
-        emailInvalid: 'Valid email required',
-      },
+    secondaryCta: {
+      text: 'Calculate Your Savings',
+      href: '#calculator',
     },
   },
 
   faq: {
     id: 'faq',
     label: 'FAQ',
-    title: 'Questions',
+    title: 'Common Questions',
     intro: '',
+    expandIcon: '+',
+    collapseIcon: '−',
     categories: {
       process: [
         {
@@ -340,13 +363,16 @@ export const siteContent: SiteContent = {
     quickLinksTitle: 'Quick Links',
     legalTitle: 'Legal',
     getInTouchTitle: 'Contact',
+    contactIntro: 'If you still have questions or concerns, email us or give us a call.',
     companyName: 'Silva Automation',
     tagline:
       'Workflow automation for Hawaii service businesses. One fixed project fee. No recurring subscriptions.',
     quickLinks: [
+      { label: 'Integrations', href: '#integrations' },
       { label: 'Solutions', href: '#workflow' },
+      { label: 'Calculator', href: '#calculator' },
       { label: 'Investment', href: '#pricing' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'FAQ', href: '#faq' },
     ],
     legalLinks: [
       { label: 'Terms', href: '/terms' },
@@ -365,7 +391,7 @@ export const siteContent: SiteContent = {
   cookieBanner: {
     ariaLabel: 'Cookie consent',
     message: 'We use cookies to remember your preferences. By continuing, you agree to our',
-    cookiePolicyLinkText: 'Cookie Policy',
+    cookiePolicyLinkText: 'Cookie Policy.',
     learnMore: 'Learn more',
     accept: 'Accept',
   },

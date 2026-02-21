@@ -1,0 +1,65 @@
+.ctaSection {
+  background: var(--color-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 480px;
+  height: 480px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.inner {
+  text-align: left;
+  max-width: 60%;
+}
+
+.title {
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-extrabold);
+  margin: 0 0 var(--space-4) 0;
+  color: var(--color-text-on-dark);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 var(--space-10) 0;
+  line-height: 1.7;
+}
+
+/* -- Inverted button (white on blue bg) -- */
+.invertedBtn {
+  background: var(--color-text-on-dark);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-text-on-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+.invertedBtn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* -- Actions -- */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
