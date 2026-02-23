@@ -1,5 +1,5 @@
 .header {
-  text-align: left;
+  text-align: center;
   margin-bottom: var(--space-12);
 }
 
@@ -21,7 +21,7 @@
 }
 
 .intro {
-  margin: 0;
+  margin: 0 auto;
   color: var(--color-text-on-dark-muted);
   font-size: var(--text-base);
   max-width: 620px;
@@ -30,11 +30,12 @@
 
 /* Accordion list */
 .list {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  max-width: 800px;
 }
 
 .item {

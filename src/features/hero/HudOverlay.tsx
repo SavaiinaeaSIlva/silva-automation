@@ -1,7 +1,11 @@
+import { siteContent } from '@/constants';
 import styles from './HudOverlay.module.css';
 
 /** Purely decorative HUD / fake-UI overlay — thin lines, markers & labels */
-export const HudOverlay = () => (
+export const HudOverlay = () => {
+  const { hudLabels } = siteContent.hero;
+
+  return (
   <div className={styles.overlay} aria-hidden="true">
     {/* Horizontal scan lines */}
     <span className={`${styles.lineH} ${styles.lineH1}`} />
@@ -24,9 +28,9 @@ export const HudOverlay = () => (
     <span className={`${styles.dot} ${styles.dot4}`} />
 
     {/* Technical labels */}
-    <span className={`${styles.label} ${styles.labelTop}`}>SYS.RUN — 01</span>
-    <span className={`${styles.label} ${styles.labelMid}`}>NODE.ACTIVE</span>
-    <span className={`${styles.label} ${styles.labelBottom}`}>SILVA.AUTO // 2026</span>
+    <span className={`${styles.label} ${styles.labelTop}`}>{hudLabels.sysRun}</span>
+    <span className={`${styles.label} ${styles.labelMid}`}>{hudLabels.nodeActive}</span>
+    <span className={`${styles.label} ${styles.labelBottom}`}>{hudLabels.brand}</span>
 
     {/* Corner brackets */}
     <span className={`${styles.corner} ${styles.cornerTL}`} />
@@ -39,4 +43,5 @@ export const HudOverlay = () => (
     <span className={`${styles.tick} ${styles.tick1}`} />
     <span className={`${styles.tick} ${styles.tick2}`} />
   </div>
-);
+  );
+};

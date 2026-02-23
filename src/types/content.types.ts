@@ -45,6 +45,12 @@ export interface HeaderContent {
 // Hero Section
 // ============================================================================
 
+export interface HudOverlayLabels {
+  sysRun: string;
+  nodeActive: string;
+  brand: string;
+}
+
 export interface HeroContent {
   titlePrefix: string;
   rollingWords: string[];
@@ -52,6 +58,7 @@ export interface HeroContent {
   cta: string;
   opensInNewWindow: string;
   bookingCta: BookingCTA;
+  hudLabels: HudOverlayLabels;
 }
 
 // ============================================================================

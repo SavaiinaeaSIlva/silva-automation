@@ -52,6 +52,11 @@ export const siteContent: SiteContent = {
       text: 'Schedule a Consultation',
       url: 'https://calendly.com/silvaautomation/consultation',
     },
+    hudLabels: {
+      sysRun: 'SYS.RUN \u2014 01',
+      nodeActive: 'NODE.ACTIVE',
+      brand: 'SILVA.AUTO // 2026',
+    },
   },
 
   workflow: {

@@ -104,6 +104,11 @@
     background var(--transition-slow);
 }
 
+.tier:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
 /* Featured tier: full width across both columns */
 .tierFeatured {
   grid-column: 1 / -1;

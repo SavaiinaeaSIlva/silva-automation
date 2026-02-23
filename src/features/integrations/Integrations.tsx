@@ -161,7 +161,7 @@ export const Integrations = () => {
   const { integrations } = siteContent;
   const trackRef = useRef<HTMLDivElement>(null);
   const marqueeTweenRef = useRef<gsap.core.Tween | null>(null);
-  const loopedTools = [...integrations.tools, ...integrations.tools];
+  const loopedTools = [...integrations.tools, ...integrations.tools, ...integrations.tools];
 
   useEffect(() => {
     const track = trackRef.current;
@@ -192,7 +192,12 @@ export const Integrations = () => {
       marqueeTweenRef.current?.kill();
       gsap.set(track, { x: 0 });
 
-      const loopDistance = track.scrollWidth / 2;
+      // Measure exact width of one complete set of cards
+      const setSize = integrations.tools.length;
+      const children = Array.from(track.children) as HTMLElement[];
+      if (children.length < setSize * 2) return;
+      const loopDistance =
+        children[setSize].getBoundingClientRect().left - children[0].getBoundingClientRect().left;
       if (!loopDistance) return;
 
       const wrapX = gsap.utils.wrap(-loopDistance, 0);
@@ -233,22 +238,24 @@ export const Integrations = () => {
       className={styles.integrationsSection}
     >
       <Container>
-        <div className={styles.header}>
-          <span className={styles.eyebrow}>{integrations.label}</span>
-          <h2 className={styles.title}>{integrations.title}</h2>
-          <p className={styles.subtitle}>{integrations.subtitle}</p>
-        </div>
+        <div className={styles.grid}>
+          <div className={styles.carousel}>
+            <div className={styles.track} ref={trackRef}>
+              {loopedTools.map((tool, i) => (
+                <div key={`${tool.name}-${i}`} className={styles.tool} data-tool>
+                  <span className={styles.toolIcon}>
+                    <IconSvg type={tool.icon} />
+                  </span>
+                  <span className={styles.toolName}>{tool.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className={styles.carousel}>
-          <div className={styles.track} ref={trackRef}>
-            {loopedTools.map((tool, i) => (
-              <div key={`${tool.name}-${i}`} className={styles.tool} data-tool>
-                <span className={styles.toolIcon}>
-                  <IconSvg type={tool.icon} />
-                </span>
-                <span className={styles.toolName}>{tool.name}</span>
-              </div>
-            ))}
+          <div className={styles.header}>
+            <span className={styles.eyebrow}>{integrations.label}</span>
+            <h2 className={styles.title}>{integrations.title}</h2>
+            <p className={styles.subtitle}>{integrations.subtitle}</p>
           </div>
         </div>
       </Container>
