@@ -1,3 +1,5 @@
+import logo from '@/assets/logo.svg';
+
 export const App = () => {
   return (
     <div
@@ -14,7 +16,7 @@ export const App = () => {
         padding: '2rem',
       }}
     >
-      <div style={{ marginBottom: '2rem', fontSize: '3rem' }}>🚧</div>
+      <img src={logo} alt="Silva Automation" style={{ height: '80px', marginBottom: '2rem' }} />
       <h1 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
         Under Construction
       </h1>
