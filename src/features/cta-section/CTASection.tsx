@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteContent } from '@/constants';
 import { Container, Section } from '@/components/layout';
-import buttonStyles from '@/components/ui/Button.module.css';
+import { ButtonLink } from '@/components/ui';
 import styles from './CTASection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -45,14 +45,15 @@ export const CTASection = () => {
           <h2 className={styles.title}>{ctaSection.title}</h2>
           <p className={styles.subtitle}>{ctaSection.subtitle}</p>
           <div className={styles.actions}>
-            <a
+            <ButtonLink
               href={ctaSection.primaryCta.url}
-              className={`${buttonStyles.button} ${buttonStyles.large} ${styles.invertedBtn}`}
+              size="large"
+              className={styles.invertedBtn}
               target="_blank"
               rel="noopener noreferrer"
             >
               {ctaSection.primaryCta.text}
-            </a>
+            </ButtonLink>
           </div>
         </div>
       </Container>

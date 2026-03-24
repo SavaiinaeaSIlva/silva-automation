@@ -50,7 +50,7 @@
 .title {
   font-family: var(--font-heading);
   font-size: var(--heading-display);
-  font-weight: var(--font-weight-extrabold);
+  font-weight: var(--font-weight-semibold);
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0;
@@ -64,6 +64,18 @@
 
 .bottom {
   padding-bottom: var(--space-4);
+}
+
+.titleLine {
+  display: block;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.highlight {
+  color: var(--color-primary);
 }
 
 .subtitle {

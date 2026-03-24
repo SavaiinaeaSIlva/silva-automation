@@ -3,7 +3,14 @@ import type { CalculatorInputs, CalculatorResults, CalculatorMonthlyPoint } from
 
 const WEEKS_PER_MONTH = 52 / 12;
 
-export const useCalculator = (initialInputs: CalculatorInputs) => {
+interface UseCalculatorReturn {
+  inputs: CalculatorInputs;
+  updateInput: (field: keyof CalculatorInputs, value: number) => void;
+  results: CalculatorResults;
+  monthlyData: CalculatorMonthlyPoint[];
+}
+
+export const useCalculator = (initialInputs: CalculatorInputs): UseCalculatorReturn => {
   const [inputs, setInputs] = useState<CalculatorInputs>(initialInputs);
 
   const updateInput = (field: keyof CalculatorInputs, value: number) => {
@@ -16,6 +23,7 @@ export const useCalculator = (initialInputs: CalculatorInputs) => {
   const manualHoursPerMonth = hoursPerWeek * WEEKS_PER_MONTH * numEmployees;
   const currentMonthlyCost = manualHoursPerMonth * hourlyWage;
   const monthlySavings = currentMonthlyCost - monthlyRetainer;
+
   const annualNetSavings = monthlySavings * 12 - setupFee;
   const firstYearInvestment = setupFee + monthlyRetainer * 12;
   const roiPercentage =

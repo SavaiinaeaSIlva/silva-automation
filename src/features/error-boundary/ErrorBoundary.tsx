@@ -1,30 +1,33 @@
 import { Component } from 'react';
-import type { ReactNode, ErrorInfo } from 'react';
+import type { ReactNode } from 'react';
 import { siteContent } from '@/constants';
 import { Button } from '@/components/ui';
 import styles from './ErrorBoundary.module.css';
 
-interface Props {
+export interface GlobalErrorBoundaryProps {
   children: ReactNode;
 }
 
-interface State {
+interface GlobalErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class GlobalErrorBoundary extends Component<
+  GlobalErrorBoundaryProps,
+  GlobalErrorBoundaryState
+> {
+  constructor(props: GlobalErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): GlobalErrorBoundaryState {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(error: Error) {
+    console.error('[GlobalErrorBoundary]', error);
   }
 
   handleRefresh = () => {

@@ -1,5 +1,5 @@
 .footer {
-  background: var(--color-bg-dark);
+  background-color: var(--color-bg-dark);
   color: var(--color-text-on-dark);
   padding: var(--space-16) 0 var(--space-5) 0;
 }
@@ -106,5 +106,5 @@
 .copyright {
   margin: 0;
   opacity: 0.7;
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
 }

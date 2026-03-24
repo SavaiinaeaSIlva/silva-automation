@@ -1,39 +1,52 @@
-import logo from '@/assets/logo.svg';
+import { GlobalErrorBoundary as ErrorBoundary } from '@/features/error-boundary';
+import { Header } from '@/features/header';
+import { Hero } from '@/features/hero';
+import { HowItWorks } from '@/features/how-it-works';
+import { Calculator } from '@/features/calculator';
+import { Pricing } from '@/features/pricing';
+import { CTASection } from '@/features/cta-section';
+import { FAQ } from '@/features/faq';
+import { Footer } from '@/features/footer';
+import { CookieBanner } from '@/features/cookie-banner';
+import { BackToTop } from '@/components/ui';
+
+import { Terms, Privacy, Cookies, Refunds } from '@/pages';
 
 export const App = () => {
-  return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        background: '#0a0a0a',
-        color: '#ffffff',
-        fontFamily: 'system-ui, sans-serif',
-      }}
-    >
-      <header style={{ padding: '1.5rem 2rem' }}>
-        <img src={logo} alt="Silva Automation" style={{ height: '36px' }} />
-      </header>
+  const rawPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const path = rawPath === '/' ? rawPath : rawPath.replace(/\/$/, '');
+  const isLegal = ['/terms', '/privacy', '/cookies', '/refunds'].includes(path);
 
-      <main
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '2rem',
-        }}
-      >
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
-          Under Construction
-        </h1>
-        <p style={{ fontSize: '1.125rem', color: '#888', maxWidth: '400px', lineHeight: 1.6 }}>
-          We're working on something great. Check back soon.
-        </p>
+  return (
+    <ErrorBoundary>
+      {!isLegal && <Header />}
+
+      <main id="main">
+        {isLegal ? (
+          path === '/terms' ? (
+            <Terms />
+          ) : path === '/privacy' ? (
+            <Privacy />
+          ) : path === '/cookies' ? (
+            <Cookies />
+          ) : (
+            <Refunds />
+          )
+        ) : (
+          <>
+            <Hero />
+            <HowItWorks />
+            <Calculator />
+            <Pricing />
+            <CTASection />
+            <FAQ />
+          </>
+        )}
       </main>
-    </div>
+
+      {!isLegal && <Footer />}
+      {!isLegal && <BackToTop />}
+      <CookieBanner />
+    </ErrorBoundary>
   );
 };

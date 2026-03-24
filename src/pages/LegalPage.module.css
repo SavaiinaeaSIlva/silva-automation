@@ -1,8 +1,6 @@
-/* Shared styles for all legal pages (Terms, Privacy, Cookies, Refunds) */
-
 .page {
   padding: 72px 0 88px;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-dark);
 }
 
 .top {
@@ -22,9 +20,9 @@
 .legalLink {
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-primary);
-  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+  background: transparent;
+  color: var(--color-text-on-dark-muted);
   text-decoration: none;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
@@ -32,8 +30,8 @@
 }
 
 .legalLink:hover {
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-on-dark);
 }
 
 .legalLinkActive {
@@ -49,9 +47,9 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-light);
+  background: transparent;
+  color: var(--color-text-on-dark);
   text-decoration: none;
   font-weight: var(--font-weight-semibold);
   font-size: var(--text-sm);
@@ -59,12 +57,12 @@
 }
 
 .back:hover {
-  background: var(--color-bg-secondary);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .card {
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
   box-shadow: var(--shadow-lg);
@@ -73,44 +71,43 @@
 .pageTitle {
   font-size: var(--heading-1);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
   margin: 0 0 var(--space-6) 0;
   padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .content {
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark-muted);
   line-height: 1.8;
 }
 
-/* Typography hierarchy for legal content */
 .content h1 {
   font-size: var(--heading-1);
   font-weight: var(--font-weight-bold);
   margin: 0 0 var(--space-6) 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
 }
 
 .content h2 {
   font-size: var(--heading-2);
   font-weight: var(--font-weight-semibold);
   margin: var(--space-8) 0 var(--space-4) 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
 }
 
 .content h3 {
   font-size: var(--heading-3);
   font-weight: var(--font-weight-semibold);
   margin: var(--space-6) 0 var(--space-3) 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
 }
 
 .content h4 {
   font-size: var(--text-base);
   font-weight: var(--font-weight-semibold);
   margin: var(--space-4) 0 var(--space-2) 0;
-  color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
 }
 
 .content p {

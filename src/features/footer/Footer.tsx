@@ -19,8 +19,8 @@ export const Footer = () => {
           <div className={styles.section}>
             <h4 className={styles.sectionTitle}>{footer.quickLinksTitle}</h4>
             <ul className={styles.links}>
-              {footer.quickLinks.map((link, index) => (
-                <li key={index}>
+              {footer.quickLinks.map((link) => (
+                <li key={link.href}>
                   <a href={link.href} className={styles.link}>
                     {link.label}
                   </a>
@@ -32,8 +32,8 @@ export const Footer = () => {
           <div className={styles.section}>
             <h4 className={styles.sectionTitle}>{footer.legalTitle}</h4>
             <ul className={styles.links}>
-              {footer.legalLinks.map((link, i) => (
-                <li key={i}>
+              {footer.legalLinks.map((link) => (
+                <li key={link.href}>
                   <a href={link.href} className={styles.link}>
                     {link.label}
                   </a>

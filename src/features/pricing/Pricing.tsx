@@ -6,14 +6,12 @@ import { Container, Section } from '@/components/layout';
 import { Card } from '@/components/ui';
 import styles from './Pricing.module.css';
 
-// Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 export const Pricing = () => {
   const { pricing } = siteContent;
   const tiersRef = useRef<HTMLDivElement>(null);
 
-  // Staggered pricing tier reveal animation
   useEffect(() => {
     const tiers = tiersRef.current;
     if (!tiers) return;
@@ -57,7 +55,7 @@ export const Pricing = () => {
             const isFeatured = index === 1;
             return (
               <Card
-                key={index}
+                key={tier.name}
                 variant="elevated"
                 padding="medium"
                 className={`${styles.tier} ${isFeatured ? styles.tierFeatured : styles.tierSide}`}
@@ -72,7 +70,6 @@ export const Pricing = () => {
                   )}
                 </div>
                 <p className={styles.description}>{tier.description}</p>
-
                 <ul className={styles.included}>
                   {tier.included.map((item, i) => (
                     <li key={i}>
@@ -92,7 +89,6 @@ export const Pricing = () => {
           })}
         </div>
 
-        {/* Founding offer footnote (moved to bottom of Pricing section) */}
         {pricing.foundingOffer.show && (
           <div className={styles.foundingFootnote}>
             <span className={styles.foundingBadge}>{pricing.foundingOffer.badge}</span>

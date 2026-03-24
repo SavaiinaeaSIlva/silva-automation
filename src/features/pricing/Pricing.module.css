@@ -1,5 +1,5 @@
 ﻿.pricingSection {
-  background: var(--color-bg-dark);
+  overflow: hidden;
 }
 
 /* -- Header: left-aligned, rule-of-thirds positioning -- */
@@ -80,7 +80,7 @@
   gap: var(--space-6);
   margin-bottom: var(--space-10);
   max-width: 1060px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .tier {

@@ -1,37 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
 import { siteContent } from '@/constants';
 import logo from '@/assets/logo.svg';
+import { useActiveSection } from './useActiveSection';
 import styles from './Header.module.css';
 
 export const Header = () => {
   const { header } = siteContent;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeId, setActiveId] = useState<string>('');
   const [isScrolled, setIsScrolled] = useState(false);
-  const observerLocked = useRef(false);
-  const observerUnlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
+  const { activeId, updateActiveId, lockObserver } = useActiveSection(header.navLinks);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  const updateActiveId = (nextId: string) => {
-    setActiveId((current) => (current === nextId ? current : nextId));
-  };
-
-  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href?: string) => {
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href?: string) => {
     setIsMenuOpen(false);
     if (!href) return;
 
     if (href.startsWith('#')) {
       event.preventDefault();
-      observerLocked.current = true;
-      if (observerUnlockTimer.current) {
-        clearTimeout(observerUnlockTimer.current);
-      }
-      observerUnlockTimer.current = setTimeout(() => {
-        observerLocked.current = false;
-        observerUnlockTimer.current = null;
-      }, 700);
+      lockObserver();
       updateActiveId(href);
 
       const targetId = href.replace('#', '');
@@ -45,38 +34,9 @@ export const Header = () => {
         window.scrollTo({ top: targetTop, behavior: 'smooth' });
         window.history.pushState(null, '', href);
       }
-      return;
     }
   };
 
-  useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const ids = header.navLinks.map((l) => l.href.replace('#', ''));
-    const elements = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (observerLocked.current) return;
-
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) updateActiveId(`#${visible.target.id}`);
-      },
-      { root: null, rootMargin: '-40% 0px -40% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => {
-      observer.disconnect();
-      if (observerUnlockTimer.current) {
-        clearTimeout(observerUnlockTimer.current);
-      }
-    };
-  }, [header.navLinks]);
-
-  // Scroll detection for island background transition
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 50);
     onScroll();
@@ -101,7 +61,6 @@ export const Header = () => {
 
         <span className={styles.divider} />
 
-        {/* Desktop Navigation */}
         <ul className={styles.navLinks}>
           {header.navLinks.map((link) => {
             const isActive = activeId === link.href;
@@ -120,7 +79,6 @@ export const Header = () => {
           })}
         </ul>
 
-        {/* Mobile Menu Button */}
         <button
           className={styles.menuButton}
           onClick={toggleMenu}
@@ -131,7 +89,6 @@ export const Header = () => {
         </button>
       </nav>
 
-      {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className={styles.mobileNav} aria-label={header.mobileNavAria}>
           <ul className={styles.mobileNavLinks}>

@@ -1,16 +1,11 @@
 .section {
   position: relative;
   overflow: hidden;
-  background: var(--color-bg-dark);
 }
 
 .content {
   position: relative;
   z-index: 1;
-}
-
-.calculatorCard {
-  /* unused — kept for compatibility */
 }
 
 /* Shared card style for each panel */
@@ -36,7 +31,7 @@
 /* ── Header ── */
 .header {
   text-align: left;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-10);
   max-width: 60%;
 }
 
@@ -62,7 +57,7 @@
   color: var(--color-text-on-dark-muted);
   max-width: 480px;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* ── Widget shell ──
@@ -91,15 +86,26 @@
   }
 }
 
+/* ── Chart panel — full width top row ── */
+.chartPanel {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 /* ── Input panel — bottom left ── */
 .inputPanel {
   flex-shrink: 0;
 }
 
-@media (min-width: 769px) {
-  .inputPanel {
-    /* no border needed — each card has its own */
-  }
+/* ── Results panel — bottom right ── */
+.resultsPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
 
 .fields {
@@ -117,159 +123,4 @@
 .divider {
   padding-top: var(--space-4);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.label {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-on-dark);
-}
-
-.input {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-3);
-  color: var(--color-text-on-dark);
-  font-size: var(--text-base);
-  font-family: inherit;
-  transition:
-    border-color var(--transition-base),
-    background var(--transition-base);
-}
-
-.input:hover:not(:focus) {
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* ── Chart panel — full width top row ── */
-.chartPanel {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-/* ── Results panel — bottom right ── */
-.resultsPanel {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-}
-
-@media (max-width: 768px) {
-  .resultsPanel {
-    /* stacks naturally */
-  }
-}
-
-/* ── Stat list (vertical stack in right column) ── */
-.statsList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.statCard {
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0;
-  padding: var(--space-3) 0;
-}
-
-.statCard:last-child {
-  border-bottom: 0;
-}
-
-.statLabel {
-  font-size: var(--text-sm);
-  color: var(--color-text-on-dark-muted);
-  margin: 0 0 var(--space-1) 0;
-}
-
-.statValue {
-  font-size: var(--heading-3);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-on-dark);
-  margin: 0;
-  line-height: 1.2;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ── Chart ── */
-.chartTitle {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-on-dark-muted);
-  margin: 0 0 var(--space-2) 0;
-}
-
-.chartArea {
-  height: 300px;
-  min-width: 0;
-  min-height: 200px;
-}
-
-.chartArea :global(.recharts-default-tooltip) {
-  background: var(--color-bg-dark) !important;
-  border-color: var(--color-border-light) !important;
-  color: var(--color-text-on-dark) !important;
-}
-
-.chartArea :global(.recharts-tooltip-item) {
-  color: var(--color-text-on-dark-muted) !important;
-}
-
-/* ── Chart element colours ── */
-.chartArea :global(.recharts-cartesian-grid) line {
-  stroke: var(--color-border-light);
-}
-
-.chartArea :global(.recharts-xAxis) line,
-.chartArea :global(.recharts-yAxis) line {
-  stroke: rgba(255, 255, 255, 0.2);
-}
-
-.chartArea :global(.recharts-xAxis) :global(.recharts-cartesian-axis-tick) text,
-.chartArea :global(.recharts-yAxis) :global(.recharts-cartesian-axis-tick) text {
-  fill: var(--color-text-on-dark-muted);
-}
-
-.lineManual {
-  stroke: var(--color-text-on-dark);
-}
-
-.lineAutomation {
-  stroke: var(--color-primary);
-}
-
-.chartArea :global(.recharts-default-legend) {
-  padding-top: 20px !important;
-}
-
-/* ── Actions ── */
-.actions {
-  display: flex;
-  flex-direction: row;
-  gap: var(--space-3);
-  margin-top: auto;
-}
-
-@media (max-width: 768px) {
-  .actions {
-    flex-direction: column;
-    gap: var(--space-2);
-  }
 }

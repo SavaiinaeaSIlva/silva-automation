@@ -1,0 +1,1 @@
+export { PaymentPortal } from './PaymentPortal';

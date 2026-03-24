@@ -1,14 +1,3 @@
-/**
- * Site Content Type Definitions
- *
- * All type definitions for the site content structure.
- * Ensures type safety across the application.
- */
-
-// ============================================================================
-// Common Types
-// ============================================================================
-
 export interface NavLink {
   href: string;
   label: string;
@@ -18,10 +7,6 @@ export interface LinkItem {
   label: string;
   href: string;
 }
-
-// ============================================================================
-// Header Section
-// ============================================================================
 
 export interface BookingCTA {
   text: string;
@@ -41,29 +26,26 @@ export interface HeaderContent {
   bookingCta: BookingCTA;
 }
 
-// ============================================================================
-// Hero Section
-// ============================================================================
-
 export interface HudOverlayLabels {
   sysRun: string;
   nodeActive: string;
   brand: string;
 }
 
+export interface HeroTitleLine {
+  prefix: string;
+  highlight?: string;
+  italic?: string;
+}
+
 export interface HeroContent {
-  titlePrefix: string;
-  rollingWords: string[];
+  titleLines: HeroTitleLine[];
   subtitle: string;
   cta: string;
   opensInNewWindow: string;
   bookingCta: BookingCTA;
   hudLabels: HudOverlayLabels;
 }
-
-// ============================================================================
-// Calculator Section
-// ============================================================================
 
 export interface CalculatorRoiInput {
   label: string;
@@ -119,10 +101,6 @@ export interface CalculatorContent {
   };
 }
 
-// ============================================================================
-// Pricing Section
-// ============================================================================
-
 export interface FoundingOffer {
   show: boolean;
   badge: string;
@@ -168,10 +146,6 @@ export interface PricingContent {
   afterSupport: AfterSupport;
 }
 
-// ============================================================================
-// FAQ Section
-// ============================================================================
-
 export interface FAQItem {
   q: string;
   a: string;
@@ -192,10 +166,6 @@ export interface FAQContent {
   categories: FAQCategories;
 }
 
-// ============================================================================
-// Footer Section
-// ============================================================================
-
 export interface FooterContent {
   quickLinksTitle: string;
   legalTitle: string;
@@ -213,10 +183,6 @@ export interface FooterContent {
   copyright: string;
 }
 
-// ============================================================================
-// Cookie Banner
-// ============================================================================
-
 export interface CookieBannerContent {
   ariaLabel: string;
   message: string;
@@ -224,10 +190,6 @@ export interface CookieBannerContent {
   learnMore: string;
   accept: string;
 }
-
-// ============================================================================
-// Error Boundary
-// ============================================================================
 
 export interface ErrorBoundaryContent {
   title: string;
@@ -237,10 +199,6 @@ export interface ErrorBoundaryContent {
   errorDetailsLabel: string;
 }
 
-// ============================================================================
-// Legal Layout
-// ============================================================================
-
 export interface LegalLayoutContent {
   backToHome: string;
   logoAlt: string;
@@ -248,10 +206,6 @@ export interface LegalLayoutContent {
   footerText: string;
   legalPagesNavAria: string;
 }
-
-// ============================================================================
-// Legal Pages
-// ============================================================================
 
 export interface ContactLabels {
   email: string;
@@ -280,37 +234,6 @@ export interface LegalContent {
   pages: LegalPages;
 }
 
-// ============================================================================
-// Workflow Section
-// ============================================================================
-
-export interface WorkflowNode {
-  icon: string;
-  title: string;
-  subtitle: string;
-  backInfo?: string;
-}
-
-export interface WorkflowContent {
-  id: string;
-  label: string;
-  title: string;
-  subtitle: string;
-  clickHint: string;
-  replayAnimationAria: string;
-  closeAria: string;
-  previousNodeAria: string;
-  nextNodeAria: string;
-  nodeDetailsSuffix: string;
-  inputs: WorkflowNode[];
-  engine: WorkflowNode;
-  outputs: WorkflowNode[];
-}
-
-// ============================================================================
-// Calculator Hook Types
-// ============================================================================
-
 export interface CalculatorInputs {
   hoursPerWeek: number;
   numEmployees: number;
@@ -330,27 +253,20 @@ export interface CalculatorMonthlyPoint {
   automationCost: number;
 }
 
-// ============================================================================
-// Integrations Section
-// ============================================================================
-
-export interface IntegrationTool {
-  name: string;
-  icon: string;
-  category: string;
+export interface HowItWorksStep {
+  number: string;
+  title: string;
+  body: string;
 }
 
-export interface IntegrationsContent {
+export interface HowItWorksContent {
   id: string;
   label: string;
+  eyebrow: string;
   title: string;
   subtitle: string;
-  tools: IntegrationTool[];
+  steps: HowItWorksStep[];
 }
-
-// ============================================================================
-// CTA Section
-// ============================================================================
 
 export interface CTASectionContent {
   title: string;
@@ -365,15 +281,10 @@ export interface CTASectionContent {
   };
 }
 
-// ============================================================================
-// Main Site Content Interface
-// ============================================================================
-
 export interface SiteContent {
   header: HeaderContent;
   hero: HeroContent;
-  workflow: WorkflowContent;
-  integrations: IntegrationsContent;
+  howItWorks: HowItWorksContent;
   calculator: CalculatorContent;
   pricing: PricingContent;
   ctaSection: CTASectionContent;

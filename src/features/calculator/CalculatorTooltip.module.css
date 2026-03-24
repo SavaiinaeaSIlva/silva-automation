@@ -1,0 +1,26 @@
+.tooltip {
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+}
+
+.label {
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.item {
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+.itemManual {
+  color: var(--color-text-on-dark);
+}
+
+.itemAutomation {
+  color: var(--color-primary);
+}
